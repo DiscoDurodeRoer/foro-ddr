@@ -1,14 +1,19 @@
 <?php
 
 class Control{
-    protected $controller = "TopicController";
+    protected $controller = "CategoryController";
     protected $method="display";
     protected $params;
 
     function __construct()
     {   
         
-        $url = explode("/", $_GET['url']);
+        $url = "";
+        if(isset($_GET['url'])){
+            $url = explode("/", $_GET['url']);
+        }
+
+       
         
         if(!empty($url) && file_exists("../app/controllers/".ucwords($url[0]).".php")){
             $this->controller = ucwords($url[0]);
