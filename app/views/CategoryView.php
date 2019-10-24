@@ -33,8 +33,23 @@ include_once 'header.php';
                             echo "<tr>";
                             ?>
                         <td>
-                            <a href="index.php?url=CategoryController/display/<?php echo $child['id'] ?>">
-                                <?php echo $child['name'] ?></a>
+                            <?php
+                            if($child['num_topics'] == 0){
+                                ?>
+                                <a href="index.php?url=CategoryController/display/<?php echo $child['id'] ?>">
+                                    <?php echo $child['name'] ?>
+                                </a>
+                                <?php
+                            }else{
+                                ?>
+                                <a href="index.php?url=TopicController/display/<?php echo $child['id'] ?>">
+                                    <?php echo $child['name'] ?>
+                                </a>
+                                <?php
+                            }
+                            
+                            ?>
+                           
                         </td>
                 <?php
                         echo "</tr>";

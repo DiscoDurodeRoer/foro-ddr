@@ -9,14 +9,16 @@ class TopicController extends Controller {
         $this->model = $this->model("Topic");
     }
 
-    function display(){
+    function display($params=null){
         
-        $datos = $this->model->getTopics();
+        if(isset($params[0])){
+            $datos = $this->model->getTopics($params[0]);
       
-        $this->view("TopicView", $datos);
+            $this->view("TopicView", $datos);
+        }
+
+        
 
     }
 
 }
-
-?>

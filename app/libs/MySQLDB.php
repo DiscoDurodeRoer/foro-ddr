@@ -37,6 +37,15 @@ class MySQLDB {
         return $data;
     }
 
+    function getDataSingle($sql){
+        
+        $result = mysqli_query($this->connection, $sql);
+        if(mysqli_num_rows($result) > 0){
+            return mysqli_fetch_assoc($result);
+        }
+        return null;
+    }
+
     function close(){
         mysqli_close($this->connection);
     }

@@ -6,30 +6,47 @@ include_once 'header.php';
 <div class="row">
     <div class="col-12">
 
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">Topic</th>
-                    <th scope="col">Vistas</th>
-                    <!-- <th scope="col">Mensajes</th> -->
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="row">
+            <div class="col-12">
+                <h1><?php echo $datos['name_category']  ?></h1>
+            </div>
+        </div>
 
-                <?php
-                foreach ($datos as $key => $value) {
-                    echo "<tr>";
-                    echo "<td>".$value['name']."</td>";
-                    echo "<td>".$value['views']."</td>";
-                    echo "<td>".$value['creator_user']."</td>";
-                    echo "</tr>";
-                }
-                
-                ?>
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Topic</th>
+                            <th scope="col">Vistas</th>
+                            <!-- <th scope="col">Mensajes</th> -->
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-            </tbody>
-        </table>
+                        <?php
+
+                        if (isset($datos['topics'])) {
+                            foreach ($datos['topics'] as $key => $value) {
+                                echo "<tr>";
+                                echo "<td>" . $value['title'] . "</td>";
+                                echo "<td>" . $value['views'] . "</td>";
+                                echo "<td>" . $value['nickname'] . "</td>";
+                                echo "</tr>";
+                            }
+                        }
+
+
+
+                        ?>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
 
 
 
@@ -40,12 +57,6 @@ include_once 'header.php';
 
 
 <?php
-
-
-
-
-
-print_r($datos);
 
 include_once 'footer.php';
 
