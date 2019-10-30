@@ -20,6 +20,8 @@ class MySQLDB {
             $this->db
         );
 
+        $this->connection->set_charset("utf8");
+
         if(mysqli_connect_errno()){
             print("error al conectarse");
         }

@@ -30,7 +30,13 @@ include_once 'header.php';
                         if (isset($datos['topics'])) {
                             foreach ($datos['topics'] as $key => $value) {
                                 echo "<tr>";
-                                echo "<td>" . $value['title'] . "</td>";
+                                ?>
+                                <td>
+                                    <a href="index.php?url=MessageController/display/<?php echo $value['id'] ?>">
+                                        <?php echo  $value['title']; ?>
+                                    </a>
+                                </td>
+                                <?php
                                 echo "<td>" . $value['views'] . "</td>";
                                 echo "<td>" . $value['nickname'] . "</td>";
                                 echo "</tr>";
