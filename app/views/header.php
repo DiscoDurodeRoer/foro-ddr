@@ -46,7 +46,12 @@
                                 </li>
                             </ul>
                             <div>
-                                <a class="btn btn-primary btn-icon" href=""><i class="fa fa-sign-in" aria-hidden="true"></i>Registrarse</a> <a class="btn btn-success btn-icon" href=""><i class="fa fa-user" aria-hidden="true"></i>Iniciar sesión</a>
+                                <a class="btn btn-primary btn-icon" href="index.php?url=UserController/display/">
+                                    <i class="fa fa-sign-in" aria-hidden="true"></i>Registrarse
+                                </a> 
+                                <a class="btn btn-success btn-icon" href="index.php?url=LoginController/display/">
+                                    <i class="fa fa-user" aria-hidden="true"></i>Iniciar sesión
+                                </a>
                             </div>
                         </div>
                     </nav>

@@ -48,6 +48,10 @@ class MySQLDB {
         return null;
     }
 
+    function insertData($sql){
+        return mysqli_query($this->connection, $sql);
+    }
+
     function close(){
         mysqli_close($this->connection);
     }

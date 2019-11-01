@@ -17,8 +17,6 @@ class MessageController extends Controller {
             $this->view("MessageView", $datos);
         }
 
-        
-
     }
 
 }
