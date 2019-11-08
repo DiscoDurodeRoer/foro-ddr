@@ -11,12 +11,7 @@ class User
 
         $errors = array();
 
-        $pass = $_POST['pass'];
-        $confirm_pass = $_POST['confirm-pass'];
-
-        if ($pass !== $confirm_pass) {
-            array_push($errors, "Las contraseña no coinciden.");
-        }
+        $this->checkPass($errors);
 
         $sql = "SELECT count(*) as num_usuarios ";
         $sql .= "FROM users ";
@@ -49,6 +44,32 @@ class User
         return $errors;
     }
 
+    function checkPass(&$errors)
+    {
+        $pass = $_POST['pass'];
+        $confirm_pass = $_POST['confirm-pass'];
+
+        if ($pass !== $confirm_pass) {
+            array_push($errors, "Las contraseña no coinciden.");
+        }
+    }
+
+    function getAllInfoUser($idUser)
+    {
+
+        $sql = "SELECT * ";
+        $sql .= "FROM users ";
+        $sql .= "WHERE id = " . $idUser;
+
+        $db = new MySQLDB();
+
+        $data = $db->getDataSingle($sql);
+
+        $db->close();
+
+        return $data;
+    }
+
     function registry()
     {
 
@@ -60,9 +81,9 @@ class User
         $sql .= "'" . $_POST['email'] . "', ";
         $sql .= "'" . hash_hmac("sha512", $_POST['pass'], "discoduroderoer") . "', ";
         $sql .= "'" . date("Y-m-d") . "', ";
-        if(empty($_POST['avatar'])){
+        if (empty($_POST['avatar'])) {
             $sql .= "'" . $_POST['avatar'] . "', ";
-        }else{
+        } else {
             $sql .= "null, ";
         }
         $sql .= "2, ";
@@ -72,11 +93,45 @@ class User
 
         $db = new MySQLDB();
 
-        $success = $db->insertData($sql);
+        $success = $db->executeInstruction($sql);
+
+        $datos = array();
+
+        $datos['success'] = $success;
+
+        if ($success) {
+
+            $idUser = $db->getLastId();
+            $nick = $_POST['nickname'];
+
+            $datos['user'] = array('id' => $idUser, 'nickname' => $nick);
+        }
 
         $db->close();
 
-        return $success;
+        return $datos;
+    }
 
+    function change_password()
+    {
+
+        $session = new Session();
+        $idUser = $session->getIdUser();
+
+        $sql = "UPDATE users ";
+        $sql .= "SET pass = '" . hash_hmac("sha512", $_POST['pass'], "discoduroderoer") . "' ";
+        $sql .= "WHERE id = " . $idUser;
+
+        $db = new MySQLDB();
+
+        $success = $db->executeInstruction($sql);
+
+        $db->close();
+
+        $datos = array();
+
+        $datos['success'] = $success;
+
+        return $datos;
     }
 }

@@ -21,23 +21,24 @@ class Category {
         $datadb = $db->getData($sql);
 
         $data = array();
+        $data['categories'] = array();
 
         if(isset($idParent)){
             foreach ($datadb  as $key => $value) {
                 if($value['id'] === $idParent){
-                    array_push($data, $value);
+                    array_push($data['categories'], $value);
                 }
             }
         }else{
             foreach ($datadb  as $key => $value) {
                 if($value['id'] === $value['parent_cat']){
-                    array_push($data, $value);
+                    array_push($data['categories'], $value);
                 }
             }
         }
 
 
-        foreach ($data as $key => $value) {
+        foreach ($data['categories'] as $key => $value) {
 
             $idParent = $value['id'];
 
@@ -45,7 +46,7 @@ class Category {
                 return $element['parent_cat'] === $idParent && $element['id'] != $element['parent_cat'];
             });
 
-            $data[$key]['child'] = $child;
+            $data['categories'][$key]['child'] = $child;
 
         }
 

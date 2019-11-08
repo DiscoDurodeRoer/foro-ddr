@@ -12,6 +12,9 @@ class Controller{
     
     public function view($view, $datos=[]){
         if(file_exists("../app/views/".$view.".php")){
+            $session = new Session();
+            $datos['login']= $session->getLogin();
+            $datos['nickname']=$session->getNickname();
             require_once("../app/views/".$view.".php");
         }else{
             die("No existe la vista");

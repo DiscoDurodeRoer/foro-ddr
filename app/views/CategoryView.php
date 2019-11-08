@@ -9,7 +9,7 @@ include_once 'header.php';
     <div class="col-12">
 
         <?php
-        foreach ($datos as $key => $value) {
+        foreach ($datos['categories'] as $key => $value) {
 
             ?>
             <h1><?php echo $value['name']; ?></h1>

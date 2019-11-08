@@ -1,8 +1,7 @@
-<?php 
-   // header('Content-Type: text/html; charset=ISO-8859-1');
-?>
+
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,12 +45,38 @@
                                 </li>
                             </ul>
                             <div>
-                                <a class="btn btn-primary btn-icon" href="index.php?url=UserController/display/">
-                                    <i class="fa fa-sign-in" aria-hidden="true"></i>Registrarse
-                                </a> 
-                                <a class="btn btn-success btn-icon" href="index.php?url=LoginController/display/">
-                                    <i class="fa fa-user" aria-hidden="true"></i>Iniciar sesión
-                                </a>
+                                <?php
+                             
+                                if ($datos['login']) {
+                                    
+                                    $nickname = $datos['nickname'];
+                                    
+                                    ?>
+                                    
+                                    <p>Hola, <?php echo $nickname ?></p>
+
+
+                                    <a class="btn btn-info btn-icon" href="index.php?url=UserController/display_profile/">
+                                    <i class="fa fa-user" aria-hidden="true"></i>Ver perfil
+                                    </a>
+                                    
+                                    <a class="btn btn-danger btn-icon" href="index.php?url=UserController/logout/">
+                                        <i class="fa fa-power-off" aria-hidden="true"></i>Logout
+                                    </a>
+
+                                <?php
+                                } else {
+                                    ?>
+                                    <a class="btn btn-primary btn-icon" href="index.php?url=UserController/display/">
+                                        <i class="fa fa-sign-in" aria-hidden="true"></i>Registrarse
+                                    </a>
+                                    <a class="btn btn-success btn-icon" href="index.php?url=LoginController/display/">
+                                        <i class="fa fa-user" aria-hidden="true"></i>Iniciar sesión
+                                    </a>
+                                <?php
+                                }
+                                ?>
+
                             </div>
                         </div>
                     </nav>

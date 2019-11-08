@@ -23,11 +23,11 @@ class LoginController extends Controller
 
             $datos = array();
 
-            $success = $this->model->checkLogin();
+            $datos = $this->model->checkLogin();
 
-            $datos['success'] = $success;
-
-            if($success){
+            if($datos['success']){
+                $session = new Session();
+                $session->login($datos['user']);
                 header("Location: /foro-ddr/");
             }else{
                 $datos['error'] = "Usuario/email o contraseña incorrectos";

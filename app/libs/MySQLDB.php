@@ -39,6 +39,11 @@ class MySQLDB {
         return $data;
     }
 
+    function numRows($sql){
+        $result = mysqli_query($this->connection, $sql);
+        return mysqli_num_rows($result);
+    }
+
     function getDataSingle($sql){
         
         $result = mysqli_query($this->connection, $sql);
@@ -48,12 +53,16 @@ class MySQLDB {
         return null;
     }
 
-    function insertData($sql){
+    function executeInstruction($sql){
         return mysqli_query($this->connection, $sql);
     }
 
     function close(){
         mysqli_close($this->connection);
+    }
+
+    function getLastId(){
+        return mysqli_insert_id($this->connection);
     }
 
 }
