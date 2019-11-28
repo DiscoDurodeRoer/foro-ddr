@@ -74,7 +74,6 @@ class UserController extends Controller
                     $datos['message'] = "Su registro se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
                 } else {
                     $datos['message'] = "Su registro no se ha realizado con éxito. Contacte con discoduroderoer desde este <a href='https://www.discoduroderoer.es/contactanos/'>formulario</a>.";
-                    
                 }
 
                 $this->view("UserView", $datos);
@@ -120,5 +119,28 @@ class UserController extends Controller
         $session = new Session();
         $session->logout();
         header("Location: /foro-ddr/");
+    }
+
+    function display_unsubscribe()
+    {
+        $datos = array();
+        $datos['display_unsubscribe'] = true;
+        $this->view("UserView", $datos);
+    }
+
+    function unsubscribe(){
+
+        $datos = $this->model->unsubscribe();
+        print_r($datos);
+        if($datos['success']){
+            $session = new Session();
+            $session->logout();
+            header("Location: /foro-ddr/");
+        }
+
+    }
+
+    function no_unsubscribe(){
+        header("Location: index.php?url=UserController/display_profile/");
     }
 }

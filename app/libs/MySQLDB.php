@@ -1,6 +1,5 @@
 <?php
 
-
 class MySQLDB {
 
     private $host = "localhost";

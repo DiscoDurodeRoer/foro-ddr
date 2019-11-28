@@ -10,7 +10,7 @@ class Message{
 
         
         $sql = "select m.text, DATE_FORMAT(m.date_creation, '%d/%m/%Y %T') as 'date_creation', u.nickname, m.show_message, ";
-        $sql .= "u.avatar, DATE_FORMAT(u.last_connection, '%d/%m/%Y %T') as last_connection,  DATE_FORMAT(u.registry_date, '%d/%m/%Y %T') as registry_date ";
+        $sql .= "u.avatar, DATE_FORMAT(u.last_connection, '%d/%m/%Y %T') as last_connection,  DATE_FORMAT(u.registry_date, '%d/%m/%Y') as registry_date ";
         $sql .= "from messages m, messages_public mp, users u ";
         $sql .= "where m.id = mp.id_message and ";
         $sql .= "u.id = m.user_origin and ";
@@ -31,6 +31,7 @@ class Message{
             $data['title_topic'] = $title_topic['title'];
         }
 
+        $data['id_topic'] = $id_topic;
 
         $db->close();
 
@@ -38,7 +39,41 @@ class Message{
 
     }
 
+    function reply_topic(){
+
+        $session = new Session();
+
+        $db = new MySQLDB();
+
+        $sql = "INSERT INTO messages VALUES (";
+        $sql .= "null, ";
+        $sql .= "'".$_POST['text']."', "; 
+        $sql .= "'" . (new DateTime())->format('Y-m-d H:i') . "' , ";
+        $sql .= $session->getIdUser() . ", ";
+        $sql .=  "1 ";
+        $sql .= ")";
+
+        $success = $db->executeInstruction($sql);
+
+        if($success){
+            
+            $idMessage = $db->getLastId();
+            
+            $sql = "INSERT INTO messages_public VALUES (";
+            $sql .= $idMessage . ", ";
+            $sql .= $_POST['id_topic'];
+            $sql .= ")";
+
+            $success = $db->executeInstruction($sql);
+
+        }
+
+        $datos['success'] = $success;
+
+        $db->close();
+
+
+        return $datos;
+    }
+
 }
-
-
-?>

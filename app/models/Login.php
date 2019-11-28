@@ -15,8 +15,7 @@ class Login
         $sql .= "FROM users ";
         $sql .= "WHERE (nickname = '" . strtolower($_POST['nick_email']) . "' or ";
         $sql .= "email = '" . strtolower($_POST['nick_email']) . "') and ";
-        $sql .= "pass = '" . hash_hmac("sha512", $_POST['pass'], "discoduroderoer") . "'";
-        print $sql;
+        $sql .= "pass = '" . hash_hmac("sha512", $_POST['pass'], "discoduroderoer") . "' and borrado <> 1";
         
         $db = new MySQLDB();
 

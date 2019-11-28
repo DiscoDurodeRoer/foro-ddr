@@ -173,6 +173,16 @@ include_once 'header.php';
                                     <a class="btn btn-success btn-icon" href="index.php?url=UserController/edit_password/">
                                         <i class="fa fa-key" aria-hidden="true"></i></i> Cambiar contraseña
                                     </a>
+                                    <?php
+                                        if ($datos['info_user']['rol'] != 1) {
+                                            ?>
+                                        <a class="btn btn-danger btn-icon" href="index.php?url=UserController/display_unsubscribe/">
+                                            <i class="fa fa-user-times" aria-hidden="true"></i> Darse de baja
+                                        </a>
+                                    <?php
+                                        }
+                                        ?>
+
                                 </div>
                             </div>
 
@@ -214,6 +224,37 @@ include_once 'header.php';
 
         <?php
 
+        } else if (isset($datos['display_unsubscribe'])) {
+            ?>
+
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>¿Estas seguro de que darte de baja? Ya no podras loguearte de nuevo con este usuario.</h4>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <a class="btn btn-success btn-icon" href="index.php?url=UserController/unsubscribe/">
+                                <i class="fa fa-check" aria-hidden="true"></i> Si
+                            </a>
+                            <a class="btn btn-danger btn-icon" href="index.php?url=UserController/no_unsubscribe/">
+                                <i class="fa fa-times" aria-hidden="true"></i> No
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+        <?php
         }
         ?>
 

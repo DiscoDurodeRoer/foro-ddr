@@ -134,4 +134,28 @@ class User
 
         return $datos;
     }
+
+    function unsubscribe(){
+
+        $session = new Session();
+        $id_user = $session->getIdUser();
+
+        $sql = "UPDATE users SET ";
+        $sql .=" borrado = 1 ";
+        $sql .=" WHERE id = " . $id_user;
+
+
+        $db = new MySQLDB();
+
+        $success = $db->executeInstruction($sql);
+
+        $db->close();
+
+        $datos = array();
+
+        $datos['success'] = $success;
+
+        return $datos;
+
+    }
 }

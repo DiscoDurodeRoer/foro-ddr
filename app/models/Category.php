@@ -50,7 +50,6 @@ class Category {
 
         }
 
-
         $db->close();
 
         return $data;
