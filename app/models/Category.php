@@ -3,17 +3,15 @@
 class Category {
 
     function __construct()
-    {
-        
-    }
+    { }
 
-    function getCategories($idParent = null){
+    function getCategories($id_parent = null){
 
         $sql = "SELECT * ";
         $sql .= "FROM categories ";
 
-        if(isset($idParent)){
-            $sql .= "WHERE id = " .$idParent. " or parent_cat = " .$idParent;
+        if(isset($id_parent)){
+            $sql .= "WHERE id = " .$id_parent. " or parent_cat = " .$id_parent;
         }
 
         $db = new MySQLDB();
@@ -23,9 +21,9 @@ class Category {
         $data = array();
         $data['categories'] = array();
 
-        if(isset($idParent)){
+        if(isset($id_parent)){
             foreach ($datadb  as $key => $value) {
-                if($value['id'] === $idParent){
+                if($value['id'] === $id_parent){
                     array_push($data['categories'], $value);
                 }
             }
@@ -40,10 +38,11 @@ class Category {
 
         foreach ($data['categories'] as $key => $value) {
 
-            $idParent = $value['id'];
+            $id_parent_child = $value['id'];
 
-            $child = array_filter($datadb, function($element) use ($idParent){
-                return $element['parent_cat'] === $idParent && $element['id'] != $element['parent_cat'];
+            $child = array_filter($datadb, function($element) use ($id_parent_child){
+                return $element['parent_cat'] === $id_parent_child 
+                        && $element['id'] != $element['parent_cat'];
             });
 
             $data['categories'][$key]['child'] = $child;
@@ -53,8 +52,6 @@ class Category {
         $db->close();
 
         return $data;
-
-
 
     }
 

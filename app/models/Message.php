@@ -6,7 +6,7 @@ class Message{
     function __construct(){ }
 
 
-    function getMessagesByTopic($id_topic){
+    function getMessagesByTopic($id_topic, $page){
 
         
         $sql = "select m.text, DATE_FORMAT(m.date_creation, '%d/%m/%Y %T') as 'date_creation', u.nickname, m.show_message, ";
@@ -16,22 +16,40 @@ class Message{
         $sql .= "u.id = m.user_origin and ";
         $sql .= "mp.id_topic = " . filter_var($id_topic, FILTER_SANITIZE_NUMBER_INT). " ";
         $sql .= "order by m.date_creation ";
+        $sql .= "LIMIT " . ($page - 1) * NUM_ITEMS_PAG . "," . NUM_ITEMS_PAG;
 
         $db = new MySQLDB();
 
         $data['messages'] = $db->getData($sql);
+        
+        $data["pag"] = $page;
+        $data['id_topic'] = $id_topic;
 
         $sql = "SELECT title ";
         $sql .= "FROM topics ";
         $sql .= "WHERE id = ". $id_topic;
 
-        $title_topic = $db->getDataSingle($sql);
+        $data_single = $db->getDataSingle($sql);
 
-        if($title_topic){
-            $data['title_topic'] = $title_topic['title'];
+        if($data_single){
+            $data['title_topic'] = $data_single['title'];
         }
 
-        $data['id_topic'] = $id_topic;
+        $sql = "select count(*) as num_messages ";
+        $sql .= "from messages m, messages_public mp, users u ";
+        $sql .= "where m.id = mp.id_message and ";
+        $sql .= "u.id = m.user_origin and ";
+        $sql .= "mp.id_topic = " . $id_topic . " ";
+        
+        $data_single = $db->getDataSingle($sql);
+
+        if($data_single){
+            $data['num_messages'] = $data_single['num_messages'];
+        }
+
+        $data['last_page'] = ceil($data['num_messages'] / NUM_ITEMS_PAG);
+
+        $data['url_base'] = "MessageController/display/" . $data['id_topic'];
 
         $db->close();
 
@@ -39,17 +57,15 @@ class Message{
 
     }
 
-    function reply_topic(){
-
-        $session = new Session();
+    function reply_topic($id_user, $text, $id_topic){
 
         $db = new MySQLDB();
 
         $sql = "INSERT INTO messages VALUES (";
         $sql .= "null, ";
-        $sql .= "'".$_POST['text']."', "; 
-        $sql .= "'" . (new DateTime())->format('Y-m-d H:i') . "' , ";
-        $sql .= $session->getIdUser() . ", ";
+        $sql .= "'".$text."', "; 
+        $sql .= "'" . today() . "' , ";
+        $sql .= $id_user . ", ";
         $sql .=  "1 ";
         $sql .= ")";
 
@@ -57,23 +73,23 @@ class Message{
 
         if($success){
             
-            $idMessage = $db->getLastId();
+            $id_message = $db->getLastId();
             
             $sql = "INSERT INTO messages_public VALUES (";
-            $sql .= $idMessage . ", ";
-            $sql .= $_POST['id_topic'];
+            $sql .= $id_message . ", ";
+            $sql .= $id_topic;
             $sql .= ")";
 
             $success = $db->executeInstruction($sql);
 
         }
 
-        $datos['success'] = $success;
+        $data['success'] = $success;
 
         $db->close();
 
 
-        return $datos;
+        return $data;
     }
 
 }

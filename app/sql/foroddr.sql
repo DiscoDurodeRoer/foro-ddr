@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `foroddr`
+-- Base de data: `foroddr`
 --
 
 -- --------------------------------------------------------
@@ -38,7 +38,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `categories`
+-- Volcado de data para la tabla `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`, `description`, `parent_cat`, `icon`, `num_topics`) VALUES
@@ -100,7 +100,7 @@ CREATE TABLE `topics` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `topics`
+-- Volcado de data para la tabla `topics`
 --
 
 INSERT INTO `topics` (`id`, `title`, `date_creation`, `creator_user`, `open`, `views`, `id_cat`) VALUES
@@ -185,7 +185,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `users`
+-- Volcado de data para la tabla `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `surname`, `nickname`, `email`, `pass`, `registry_date`, `avatar`, `rol`, `last_connection`, `baneado`, `borrado`) VALUES

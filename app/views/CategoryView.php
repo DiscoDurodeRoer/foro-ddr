@@ -11,7 +11,7 @@ include_once 'header.php';
     <div class="col-12">
 
         <?php
-        foreach ($datos['categories'] as $key => $value) {
+        foreach ($data['categories'] as $key => $value) {
 
             ?>
 
@@ -29,7 +29,7 @@ include_once 'header.php';
                             <h2><?php echo $value['description']; ?></h2>
                         </div>
                         <?php
-                            if ($datos['login'] && count($value['child']) === 0) {
+                            if ($data['login'] && count($value['child']) === 0) {
                                 ?>
                             <div class="col-3">
                                 <a class="btn btn-primary btn-block btn-icon" href="index.php?url=TopicController/display_create_topic/<?php echo $value['id']; ?>">

@@ -10,28 +10,31 @@ class MessageController extends Controller
         $this->model = $this->model("Message");
     }
 
-    function display($params = null)
+    function display($id_topic, $page = 1)
     {
 
-        if (isset($params)) {
-            $datos = $this->model->getMessagesByTopic($params);
+        if (isset($id_topic)) {
+            $data = $this->model->getMessagesByTopic(
+                filter_var($id_topic, FILTER_SANITIZE_NUMBER_INT), 
+                $page
+            );
 
-            $datos["display"] = true;
+            $data["display"] = true;
 
-            $this->view("MessageView", $datos);
+            $this->view("MessageView", $data);
         }
     }
 
-    function display_reply_topic($params = null)
+    function display_reply_topic($id_topic = null)
     {
 
-        if (isset($params)) {
+        if (isset($id_topic)) {
 
-            $datos["reply_message"] = true;
+            $data["reply_message"] = true;
 
-            $datos['id_topic'] = $params;
+            $data['id_topic'] = $id_topic;
 
-            $this->view("MessageView", $datos);
+            $this->view("MessageView", $data);
         }
     }
 
@@ -40,15 +43,19 @@ class MessageController extends Controller
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") { 
 
-            $datos = $this->model->reply_topic();
+            $session = new Session();
 
-            if($datos['success']){
+            $data = $this->model->reply_topic(
+                $session->getAttribute(SESSION_ID_USER),
+                $_POST['text'],
+                filter_var($_POST['id_topic'], FILTER_SANITIZE_NUMBER_INT)
+            );
+
+            if($data['success']){
                 header("Location: /foro-ddr/index.php?url=MessageController/display/".$_POST['id_topic']);
             }else{
-                $this->view("MessageView", $datos);
+                $this->view("MessageView", $data);
             }
-
-
 
         }
 

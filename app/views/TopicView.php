@@ -9,18 +9,18 @@ include_once 'header.php';
 
         <?php
 
-        if (isset($datos['display'])) {
+        if (isset($data['display'])) {
             ?>
 
             <div class="row">
                 <div class="col-9">
-                    <h1><?php echo $datos['name_category']  ?></h1>
+                    <h1><?php echo $data['name_category']  ?></h1>
                 </div>
                 <?php
-                    if ($datos['login']) {
+                    if ($data['login']) {
                         ?>
                     <div class="col-3">
-                        <a class="btn btn-primary btn-block btn-icon" href="index.php?url=TopicController/display_create_topic/<?php echo $datos['id_cat']; ?>">
+                        <a class="btn btn-primary btn-block btn-icon" href="index.php?url=TopicController/display_create_topic/<?php echo $data['id_cat']; ?>">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i> Crear topic
                         </a>
                     </div>
@@ -47,8 +47,8 @@ include_once 'header.php';
 
                             <?php
 
-                                if (isset($datos['topics'])) {
-                                    foreach ($datos['topics'] as $key => $value) {
+                                if (isset($data['topics'])) {
+                                    foreach ($data['topics'] as $key => $value) {
                                         echo "<tr>";
                                         ?>
                                     <td>
@@ -73,14 +73,14 @@ include_once 'header.php';
             </div>
 
         <?php
-        } else if (isset($datos['create'])) {
+        } else if (isset($data['create'])) {
             ?>
             <div class="row">
                 <div class="col-12">
 
                     <form action="index.php?url=TopicController/create_topic/" method="POST">
 
-                        <input type="hidden" name="id_cat" value="<?php echo $datos['id_cat'] ?>" />
+                        <input type="hidden" name="id_cat" value="<?php echo $data['id_cat'] ?>" />
 
                         <div class="row form-group">
                             <div class="col-12">
@@ -111,27 +111,13 @@ include_once 'header.php';
 
 
         <?php
-        }else if(isset($datos['success'])){
-            ?>
-            <div class="row">
-                <div class="col-12">
+        }else if(isset($data['success'])){
 
-                    <div class="alert <?php echo $datos['success'] ? 'alert-success' : 'alert-danger' ?> text-center" role="alert">
-                        <p><?php echo $datos['message']; ?></p>
-                    </div>
+            include_once "show-info-message.php";
 
-                </div>
-            </div>
-            <?php
         }
 
         ?>
-
-
-
-
-
-
 
     </div>
 </div>

@@ -19,19 +19,24 @@ class LoginController extends Controller
     function login()
     {
 
-        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
-            $datos = array();
+            $data = array();
 
-            $datos = $this->model->checkLogin();
+            $data = $this->model->checkLogin(
+                $_POST['nick_email'],
+                $_POST['pass']
+            );
 
-            if($datos['success']){
-                $session = new Session();
-                $session->login($datos['user']);
+            if($data['success']){
+                
+                if($data['user']){
+                    prepareDataLogin($data['user']);
+                }
                 header("Location: /foro-ddr/");
             }else{
-                $datos['error'] = "Usuario/email o contraseña incorrectos";
-                $this->view("LoginView", $datos);
+                $data['error'] = "Usuario/email o contraseña incorrectos";
+                $this->view("LoginView", $data);
             }
 
         }

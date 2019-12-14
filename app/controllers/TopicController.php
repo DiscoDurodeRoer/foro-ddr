@@ -9,29 +9,31 @@ class TopicController extends Controller {
         $this->model = $this->model("Topic");
     }
 
-    function display($params=null){
+    function display($id_cat=null){
         
-        if(isset($params[0])){
-            $datos = $this->model->getTopics($params[0]);
+        // Si existe la categoria, muestro los topic
+        if(isset($id_cat)){
+            $data = $this->model->getTopics($id_cat);
       
-            $datos['display'] = true;
+            // Indico que es para mostrar
+            $data['display'] = true;
 
-            $this->view("TopicView", $datos);
+            $this->view("TopicView", $data);
         }
 
     }
 
-    function display_create_topic($params=null){
+    function display_create_topic($id_cat=null){
 
-        $datos = array();
+        $data = array();
 
-        $datos['create'] = true;
-        if(isset($params[0])){
-            $datos['id_cat'] = $params[0];
+        $data['create'] = true;
+        
+        if(isset($id_cat)){
+            $data['id_cat'] = $id_cat;
         }
         
-
-        $this->view("TopicView", $datos);
+        $this->view("TopicView", $data);
 
     }
 
@@ -39,17 +41,24 @@ class TopicController extends Controller {
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
-            $datos = array();
+            $data = array();
 
-            $datos = $this->model->create_topic();
+            $session = new Session();
 
-            if($datos['success']){
-                $datos['message'] = "El topic se ha creado correctamente. Pulsa <a href='index.php?url=MessageController/display/" . $datos['id_topic'] . "'>aquí</a> para ir al topic.";
+            $data = $this->model->create_topic(
+                $session->getAttribute(SESSION_ID_USER),
+                $_POST['title'],
+                filter_var($_POST['id_cat'], FILTER_SANITIZE_NUMBER_INT),
+                $_POST['text'],
+            );
+
+            if($data['success']){
+                $data['message'] = "El topic se ha creado correctamente. Pulsa <a href='index.php?url=MessageController/display/" . $data['id_topic'] . "'>aquí</a> para ir al topic.";
             }else{
-                $datos['message'] = "El topic no se creo correctamente.";
+                $data['message'] = "El topic no se creo correctamente.";
             }
           
-            $this->view("TopicView", $datos);
+            $this->view("TopicView", $data);
 
         }
 

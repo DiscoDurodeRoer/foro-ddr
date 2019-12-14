@@ -12,6 +12,7 @@ class Topic{
         $sql .= "FROM topics t, users u ";
         $sql .= "WHERE t.creator_user = u.id and ";
         $sql .= "t.id_cat = ". $id_cat;
+        
         $db = new MySQLDB();
 
         $data_topics = $db->getData($sql);
@@ -22,10 +23,10 @@ class Topic{
         $sql .= "FROM categories ";
         $sql .= "WHERE id = ". $id_cat;
 
-        $name_category = $db->getDataSingle($sql);
+        $data_single = $db->getDataSingle($sql);
 
-        if($name_category){
-            $data['name_category'] = $name_category['name'];
+        if($data_single){
+            $data['name_category'] = $data_single['name'];
             $data['id_cat'] = $id_cat;
         }
         
@@ -36,47 +37,45 @@ class Topic{
     }
 
 
-    function create_topic(){
-
-        $session = new Session();
+    function create_topic($id_user, $title, $id_cat, $text){
 
         $sql = "INSERT INTO topics VALUES (";
         $sql .= "null, ";
-        $sql .= "'".$_POST['title']."', "; 
-        $sql .= "'" . (new DateTime())->format('Y-m-d H:i') . "' , ";
-        $sql .= $session->getIdUser() . ", ";
+        $sql .= "'".$title."', "; 
+        $sql .= "'" . today() . "' , ";
+        $sql .= $id_user . ", ";
         $sql .=  "1, ";
         $sql .=  "0, ";
-        $sql .= $_POST['id_cat'] ." ";
+        $sql .= $id_cat ." ";
         $sql .= ");";
 
         $db = new MySQLDB();
 
         $success = $db->executeInstruction($sql);
 
-        $datos = array();
+        $data = array();
 
         if ($success) {
-            $idTopic = $db->getLastId();
-            $datos['id_topic'] = $idTopic;
+            $id_topic = $db->getLastId();
+            $data['id_topic'] = $id_topic;
 
             $sql = "INSERT INTO messages VALUES (";
-            $sql .= "null, ";
-            $sql .= "'".$_POST['text']."', "; 
-            $sql .= "'" . (new DateTime())->format('Y-m-d H:i') . "' , ";
-            $sql .= $session->getIdUser() . ", ";
-            $sql .=  "1 ";
+            $sql .= "null, "; // id
+            $sql .= "'".$text."', "; // Texto 
+            $sql .= "'" . today() . "' , "; // Fecha
+            $sql .= $id_user . ", "; // fecha publicacion
+            $sql .=  "1 "; // abierto
             $sql .= ")";
     
             $success = $db->executeInstruction($sql);
     
             if($success){
                 
-                $idMessage = $db->getLastId();
+                $id_message = $db->getLastId();
                 
                 $sql = "INSERT INTO messages_public VALUES (";
-                $sql .= $idMessage . ", ";
-                $sql .= $idTopic;
+                $sql .= $id_message . ", ";
+                $sql .= $id_topic;
                 $sql .= ")";
     
                 $success = $db->executeInstruction($sql);
@@ -85,11 +84,11 @@ class Topic{
     
         }
 
-        $datos['success'] = $success;
+        $data['success'] = $success;
 
         $db->close();
 
-        return $datos;
+        return $data;
 
     }
 

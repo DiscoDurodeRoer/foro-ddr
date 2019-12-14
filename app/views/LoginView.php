@@ -9,14 +9,14 @@ include_once 'header.php';
     <div class="col-12">
 
         <?php
-        if (isset($datos['error'])) {
+        if (isset($data['error'])) {
             ?>
             <div class="row">
                 <div class="col-12">
                     <div class="alert alert-danger" role="alert">
                         <ul>
                             <li>
-                                <?php echo $datos['error'] ?>
+                                <?php echo $data['error'] ?>
                             </li>
                         </ul>
                     </div>

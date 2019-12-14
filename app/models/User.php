@@ -6,7 +6,7 @@ class User
     function __construct()
     { }
 
-    function checkErrors()
+    function checkErrors($nickname, $email)
     {
 
         $errors = array();
@@ -15,7 +15,7 @@ class User
 
         $sql = "SELECT count(*) as num_usuarios ";
         $sql .= "FROM users ";
-        $sql .= "WHERE trim(lower(nickname)) = '" . trim(strtolower($_POST['nickname'])) . "'";
+        $sql .= "WHERE trim(lower(nickname)) = '" . trim(strtolower($nickname)) . "'";
 
         $db = new MySQLDB();
 
@@ -29,7 +29,7 @@ class User
 
         $sql = "SELECT count(*) as num_usuarios ";
         $sql .= "FROM users ";
-        $sql .= "WHERE trim(lower(email)) = '" . trim(strtolower($_POST['email'])) . "'";
+        $sql .= "WHERE trim(lower(email)) = '" . trim(strtolower($email)) . "'";
 
         $data = $db->getDataSingle($sql);
 
@@ -54,12 +54,12 @@ class User
         }
     }
 
-    function getAllInfoUser($idUser)
+    function getAllInfoUser($id_user)
     {
 
         $sql = "SELECT * ";
         $sql .= "FROM users ";
-        $sql .= "WHERE id = " . $idUser;
+        $sql .= "WHERE id = " . $id_user;
 
         $db = new MySQLDB();
 
@@ -70,24 +70,24 @@ class User
         return $data;
     }
 
-    function registry()
+    function registry($username, $surname, $nickname, $email, $pass, $avatar)
     {
 
         $sql = "INSERT INTO users VALUES(";
         $sql .= "null,";
-        $sql .= "'" . $_POST['username'] . "', ";
-        $sql .= "'" . $_POST['surname'] . "', ";
-        $sql .= "'" . $_POST['nickname'] . "', ";
-        $sql .= "'" . $_POST['email'] . "', ";
-        $sql .= "'" . hash_hmac("sha512", $_POST['pass'], "discoduroderoer") . "', ";
+        $sql .= "'" . $username . "', ";
+        $sql .= "'" . $surname . "', ";
+        $sql .= "'" . $nickname . "', ";
+        $sql .= "'" . $email . "', ";
+        $sql .= "'" . hash_hmac("sha512", $pass, "discoduroderoer") . "', ";
         $sql .= "'" . date("Y-m-d") . "', ";
-        if (empty($_POST['avatar'])) {
-            $sql .= "'" . $_POST['avatar'] . "', ";
+        if (empty($avatar)) {
+            $sql .= "'" . $avatar . "', ";
         } else {
             $sql .= "null, ";
         }
         $sql .= "2, ";
-        $sql .= " '" . (new DateTime())->format('Y-m-d H:i') . "' , ";
+        $sql .= " '" . today() . "' , ";
         $sql .= "0, ";
         $sql .= "0);";
 
@@ -95,32 +95,32 @@ class User
 
         $success = $db->executeInstruction($sql);
 
-        $datos = array();
+        $data = array();
 
-        $datos['success'] = $success;
+        $data['success'] = $success;
 
         if ($success) {
 
-            $idUser = $db->getLastId();
-            $nick = $_POST['nickname'];
-
-            $datos['user'] = array('id' => $idUser, 'nickname' => $nick);
+            $id_user = $db->getLastId();
+           
+            $data['user'] = array('id' => $id_user, 'nickname' => $nickname);
         }
 
         $db->close();
 
-        return $datos;
+        return $data;
     }
 
-    function change_password()
+    function edit_profle(){
+        
+    }
+
+    function change_password($id_user, $pass)
     {
 
-        $session = new Session();
-        $idUser = $session->getIdUser();
-
         $sql = "UPDATE users ";
-        $sql .= "SET pass = '" . hash_hmac("sha512", $_POST['pass'], "discoduroderoer") . "' ";
-        $sql .= "WHERE id = " . $idUser;
+        $sql .= "SET pass = '" . hash_hmac("sha512", $pass, HASH_PASS_KEY) . "' ";
+        $sql .= "WHERE id = " . $id_user;
 
         $db = new MySQLDB();
 
@@ -128,34 +128,30 @@ class User
 
         $db->close();
 
-        $datos = array();
+        $data = array();
 
-        $datos['success'] = $success;
+        $data['success'] = $success;
 
-        return $datos;
+        return $data;
     }
 
-    function unsubscribe(){
-
-        $session = new Session();
-        $id_user = $session->getIdUser();
+    function unsubscribe($id_user){
 
         $sql = "UPDATE users SET ";
         $sql .=" borrado = 1 ";
         $sql .=" WHERE id = " . $id_user;
 
-
         $db = new MySQLDB();
 
         $success = $db->executeInstruction($sql);
 
         $db->close();
 
-        $datos = array();
+        $data = array();
 
-        $datos['success'] = $success;
+        $data['success'] = $success;
 
-        return $datos;
+        return $data;
 
     }
 }

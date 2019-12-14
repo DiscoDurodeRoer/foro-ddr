@@ -11,18 +11,18 @@ include_once 'header.php';
 
         <?php
 
-        if (isset($datos['errors'])) {
+        if (isset($data['errors'])) {
             ?>
             <div class="row">
                 <div class="col-12">
                     <div class="alert alert-danger" role="alert">
                         <ul>
                             <?php
-                                foreach ($datos['errors'] as $key => $datos['info_user']) {
+                                foreach ($data['errors'] as $key => $data['info_user']) {
                                     ?>
 
                                 <li>
-                                    <?php echo $datos['info_user'] ?>
+                                    <?php echo $data['info_user'] ?>
                                 </li>
                             <?php
                                 }
@@ -35,60 +35,59 @@ include_once 'header.php';
         }
 
 
-        if (isset($datos['success'])) { ?>
+        if (isset($data['success'])) { 
 
-            <div class="row">
-                <div class="col-12">
+            include_once "show-info-message.php";
 
-                    <div class="alert <?php echo $datos['success'] ? 'alert-success' : 'alert-danger' ?> text-center" role="alert">
-                        <p><?php echo $datos['message']; ?></p>
-                    </div>
-
-                </div>
-            </div>
-
-        <?php
-        } else if (isset($datos['registry']) || isset($datos['edit_profile'])) {
+        } else if (isset($data['registry']) || isset($data['edit_profile'])) {
 
             ?>
 
             <div class="row">
                 <div class="col-12">
 
-                    <form action="index.php?url=UserController/registrer/" method="POST">
+                    <form action="index.php?url=UserController/<?php echo isset($data['registry']) ? 'registrer' : 'edit'; ?>/" method="POST">
 
                         <div class="row form-group">
                             <div class="col-md-6 col-12">
                                 <label for="username">Nombre (*)</label>
-                                <input type="text" name="username" class="form-control" id="username" required maxlength="20" />
+                                <input type="text" name="username" class="form-control" id="username" required maxlength="20" value="<?php if (isset($data['name'])) { echo $data['name']; } ?>" />
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="surname">Apellidos</label>
-                                <input type="text" name="surname" class="form-control" id="surname" maxlength="30" />
+                                <input type="text" name="surname" class="form-control" id="surname" maxlength="30" value="<?php if (isset($data['surname'])) { echo $data['surname']; } ?>" />
                             </div>
                         </div>
 
                         <div class="row form-group">
                             <div class="col-md-6 col-12">
                                 <label for="nickname">Alias (*)</label>
-                                <input type="text" name="nickname" class="form-control" id="nickname" required maxlength="40" />
+                                <input type="text" name="nickname" class="form-control" id="nickname" required maxlength="40" value="<?php if (isset($data['nickname'])) { echo $data['nickname']; } ?>" />
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="email">Email (*)</label>
-                                <input type="email" name="email" class="form-control" id="email" required maxlength="40" />
+                                <input type="email" name="email" class="form-control" id="email" required maxlength="40" value="<?php if (isset($data['email'])) { echo $data['email']; } ?>"/>
                             </div>
                         </div>
 
-                        <div class="row form-group">
-                            <div class="col-md-6 col-12">
-                                <label for="pass">Contraseña (*)</label>
-                                <input type="password" name="pass" class="form-control" required maxlength="20" />
+                        <?php
+                        if(isset($data['registry'])){
+                            ?>
+                            <div class="row form-group">
+                                <div class="col-md-6 col-12">
+                                    <label for="pass">Contraseña (*)</label>
+                                    <input type="password" name="pass" class="form-control" required maxlength="20" />
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <label for="confirm-pass">Confirmar contraseña (*)</label>
+                                    <input type="password" name="confirm-pass" class="form-control" id="confirm-pass" required maxlength="20" />
+                                </div>
                             </div>
-                            <div class="col-md-6 col-12">
-                                <label for="confirm-pass">Confirmar contraseña (*)</label>
-                                <input type="password" name="confirm-pass" class="form-control" id="confirm-pass" required maxlength="20" />
-                            </div>
-                        </div>
+                            <?php
+                        }
+                        
+                        ?>
+                        
 
                         <div class="row form-group">
                             <div class="col-12">
@@ -99,7 +98,7 @@ include_once 'header.php';
 
                         <div class="row form-group">
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-block">Registro</button>
+                                <button type="submit" class="btn btn-primary btn-block"><?php echo isset($data['registry']) ? 'Registro' : 'Editar'; ?></button>
                             </div>
                         </div>
 
@@ -108,7 +107,7 @@ include_once 'header.php';
                 </div>
             </div>
         <?php
-        } else if (isset($datos['profile'])) {
+        } else if (isset($data['profile'])) {
             ?>
 
 
@@ -118,12 +117,12 @@ include_once 'header.php';
                     <div class="user-data-message text-center p-3 col-md-3">
                         <div class="row">
                             <div class="col-12">
-                                <img class="user-avatar" src="<?php echo $datos['info_user']['avatar'] ?>" alt="">
+                                <img class="user-avatar" src="<?php echo $data['info_user']['avatar'] ?>" alt="">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <span class="username"><?php echo $datos['info_user']['nickname'] ?></span>
+                                <span class="username"><?php echo $data['info_user']['nickname'] ?></span>
                             </div>
                         </div>
 
@@ -138,23 +137,23 @@ include_once 'header.php';
                                         <tbody>
                                             <tr>
                                                 <td>Nombre</td>
-                                                <td><?php echo $datos['info_user']['name'] ?></td>
+                                                <td><?php echo $data['info_user']['name'] ?></td>
                                             </tr>
                                             <tr>
                                                 <td>Apellidos</td>
-                                                <td><?php echo $datos['info_user']['surname'] ?></td>
+                                                <td><?php echo $data['info_user']['surname'] ?></td>
                                             </tr>
                                             <tr>
                                                 <td>Email</td>
-                                                <td><?php echo $datos['info_user']['email'] ?></td>
+                                                <td><?php echo $data['info_user']['email'] ?></td>
                                             </tr>
                                             <tr>
                                                 <td>Registrado</td>
-                                                <td><?php echo $datos['info_user']['registry_date'] ?></td>
+                                                <td><?php echo $data['info_user']['registry_date'] ?></td>
                                             </tr>
                                             <tr>
                                                 <td>Última conexion</td>
-                                                <td><?php echo $datos['info_user']['last_connection'] ?></td>
+                                                <td><?php echo $data['info_user']['last_connection'] ?></td>
                                             </tr>
                                             <tr>
                                                 <td>Total posts</td>
@@ -167,14 +166,14 @@ include_once 'header.php';
 
                             <div class="row">
                                 <div class="col-12 text-right">
-                                    <a class="btn btn-success btn-icon" href="index.php?url=UserController/edit_profile/">
+                                    <a class="btn btn-success btn-icon" href="index.php?url=UserController/display_edit_profile/">
                                         <i class="fa fa-pencil" aria-hidden="true"></i> Editar perfil
                                     </a>
                                     <a class="btn btn-success btn-icon" href="index.php?url=UserController/edit_password/">
                                         <i class="fa fa-key" aria-hidden="true"></i></i> Cambiar contraseña
                                     </a>
                                     <?php
-                                        if ($datos['info_user']['rol'] != 1) {
+                                        if ($data['info_user']['rol'] != 1) {
                                             ?>
                                         <a class="btn btn-danger btn-icon" href="index.php?url=UserController/display_unsubscribe/">
                                             <i class="fa fa-user-times" aria-hidden="true"></i> Darse de baja
@@ -192,7 +191,7 @@ include_once 'header.php';
             </div>
 
         <?php
-        } else if (isset($datos['change_password'])) {
+        } else if (isset($data['change_password'])) {
 
             ?>
 
@@ -224,7 +223,7 @@ include_once 'header.php';
 
         <?php
 
-        } else if (isset($datos['display_unsubscribe'])) {
+        } else if (isset($data['display_unsubscribe'])) {
             ?>
 
             <div class="row">

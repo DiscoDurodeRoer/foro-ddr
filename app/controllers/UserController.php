@@ -12,75 +12,90 @@ class UserController extends Controller
 
     function display()
     {
-        $datos['registry'] = true;
+        $data['registry'] = true;
 
-        $this->view("UserView", $datos);
+        $this->view("UserView", $data);
     }
 
     function display_profile()
     {
 
-        $datos = array();
+        $data = array();
 
         $session = new Session();
 
-        $datos['info_user'] = $this->model->getAllInfoUser($session->getIdUser());
+        $data['info_user'] = $this->model->getAllInfoUser($session->getAttribute(SESSION_ID_USER));
 
-        $datos['profile'] = true;
+        $data['profile'] = true;
 
-        $this->view("UserView", $datos);
+        $this->view("UserView", $data);
     }
 
-    function edit_profile()
+    function display_edit_profile()
     {
 
-        $datos = array();
+        $data = array();
 
         $session = new Session();
 
-        $datos['info_user'] = $this->model->getAllInfoUser($session->getIdUser());
+        $data = $this->model->getAllInfoUser($session->getAttribute(SESSION_ID_USER));
 
-        $datos['edit_profile'] = true;
+        $data['edit_profile'] = true;
 
-        $this->view("UserView", $datos);
+        $this->view("UserView", $data);
+    }
+
+    function edit_profile(){
+
     }
 
     function edit_password()
     {
 
-        $datos = array();
+        $data = array();
 
-        $datos['change_password'] = true;
+        $data['change_password'] = true;
 
-        $this->view("UserView", $datos);
+        $this->view("UserView", $data);
     }
 
     function registrer()
     {
 
-        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
-            $datos = array();
+            $data = array();
 
-            $errors = $this->model->checkErrors();
+            $errors = $this->model->checkErrors(
+                $_POST['nickname'],
+                $_POST['email']
+            );
 
             if (count($errors) === 0) {
 
-                $datos = $this->model->registry();
+                $data = $this->model->registry(
+                    $_POST['username'],
+                    $_POST['surname'],
+                    $_POST['nickname'],
+                    $_POST['email'],
+                    $_POST['pass'],
+                    $_POST['avatar']
+                );
 
-                if ($datos['success']) {
-                    $session = new Session();
-                    $session->login($datos['user']);
-                    $datos['message'] = "Su registro se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
+                if ($data['success']) {
+                    if($data['user']){
+                        prepareDataLogin($data['user']);
+                    }
+                    $data['message'] = "Su registro se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
                 } else {
-                    $datos['message'] = "Su registro no se ha realizado con éxito. Contacte con discoduroderoer desde este <a href='https://www.discoduroderoer.es/contactanos/'>formulario</a>.";
+                    $data['message'] = "Su registro no se ha realizado con éxito. Contacte con discoduroderoer desde este <a href='https://www.discoduroderoer.es/contactanos/'>formulario</a>.";
                 }
 
-                $this->view("UserView", $datos);
+                $this->view("UserView", $data);
             } else {
-                $datos['errors'] = $errors;
-                $datos['registry'] = true;
-                $this->view("UserView", $datos);
+                $data['errors'] = $errors;
+                $data['registry'] = true;
+                $this->view("UserView", $data);
             }
         }
     }
@@ -88,28 +103,34 @@ class UserController extends Controller
     function change_password()
     {
 
-        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
-            $datos = array();
+            $data = array();
 
             $errors = array();
             $this->model->checkPass($errors);
 
+            // Si no hay errores, muestro el mensaje
             if (count($errors) === 0) {
 
-                $datos = $this->model->change_password();
+                $session = new Session();
 
-                if ($datos['success']) {
-                    $datos['message'] = "La contraseña ha sido cambiada";
+                $data = $this->model->change_password(
+                    $session->getAttribute(SESSION_ID_USER), 
+                    $_POST['pass']
+                );
+
+                if ($data['success']) {
+                    $data['message'] = "La contraseña ha sido cambiada";
                 } else {
-                    $datos['message'] = "Su contraseña no ha sido cambiada";
+                    $data['message'] = "Su contraseña no ha sido cambiada";
                 }
 
-                $this->view("UserView", $datos);
+                $this->view("UserView", $data);
             } else {
-                $datos['errors'] = $errors;
-                $datos['change_password'] = true;
-                $this->view("UserView", $datos);
+                $data['errors'] = $errors;
+                $data['change_password'] = true;
+                $this->view("UserView", $data);
             }
         }
     }
@@ -117,24 +138,27 @@ class UserController extends Controller
     function logout()
     {
         $session = new Session();
-        $session->logout();
+        $session->destroySession();
         header("Location: /foro-ddr/");
     }
 
     function display_unsubscribe()
     {
-        $datos = array();
-        $datos['display_unsubscribe'] = true;
-        $this->view("UserView", $datos);
+        $data = array();
+        $data['display_unsubscribe'] = true;
+        $this->view("UserView", $data);
     }
 
     function unsubscribe(){
 
-        $datos = $this->model->unsubscribe();
-        print_r($datos);
-        if($datos['success']){
-            $session = new Session();
-            $session->logout();
+        $session = new Session();
+        
+        $data = $this->model->unsubscribe(
+            $session->getAttribute(SESSION_ID_USER)
+        );
+        
+        if($data['success']){
+            $session->destroySession();
             header("Location: /foro-ddr/");
         }
 

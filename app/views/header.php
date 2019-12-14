@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./includes/bootstrap-4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="./includes/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./css/estilos.css">
+    <link rel="stylesheet" href="./css/styles.css">
     <script src="./includes/jquery-3.4.1/jquery-3.4.1.min.js"></script>
     <script src="./includes/bootstrap-4.1.3/js/bootstrap.min.js"></script>
     <title>Test</title>
@@ -47,9 +47,9 @@
                             <div>
                                 <?php
                              
-                                if ($datos['login']) {
+                                if ($data['login']) {
                                     
-                                    $nickname = $datos['nickname'];
+                                    $nickname = $data['nickname'];
                                     
                                     ?>
                                     
