@@ -12,7 +12,6 @@ class LoginController extends Controller
 
     function display()
     {
-
         $this->view("LoginView");
     }
 

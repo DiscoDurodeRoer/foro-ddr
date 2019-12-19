@@ -47,6 +47,42 @@ class UserController extends Controller
 
     function edit_profile(){
 
+        if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
+
+            $data = array();
+
+            $errors = $this->model->checkErrors(
+                $_POST['nickname'],
+                $_POST['email'],
+                $_POST['id']
+            );
+
+            if (count($errors) === 0) {
+
+                $data = $this->model->edit_profile(
+                    $_POST['id'],
+                    $_POST['username'],
+                    $_POST['surname'],
+                    $_POST['nickname'],
+                    $_POST['email'],
+                    $_POST['avatar']
+                );
+
+                if ($data['success']) {
+                    prepareDataLogin($data['user']);
+                    $data['message'] = "La edición se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
+                } else {
+                    $data['message'] = "La edición no se ha realizado con éxito. Contacte con discoduroderoer desde este <a href='https://www.discoduroderoer.es/contactanos/'>formulario</a>.";
+                }
+                $this->view("UserView", $data);
+            } else {
+                $data['errors'] = $errors;
+                $data['edit_profile'] = true;
+                $this->view("UserView", $data);
+            }
+
+        }
+
     }
 
     function edit_password()
@@ -83,9 +119,7 @@ class UserController extends Controller
                 );
 
                 if ($data['success']) {
-                    if($data['user']){
-                        prepareDataLogin($data['user']);
-                    }
+                    prepareDataLogin($data['user']);
                     $data['message'] = "Su registro se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
                 } else {
                     $data['message'] = "Su registro no se ha realizado con éxito. Contacte con discoduroderoer desde este <a href='https://www.discoduroderoer.es/contactanos/'>formulario</a>.";

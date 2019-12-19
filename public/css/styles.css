@@ -46,3 +46,13 @@ a:hover{
 #content div.card.card-message .username{
     font-size: 20px;
 }
+
+/* Ckeditor */
+
+.ck.ck-content {
+    height: 500px;
+}
+
+.reply-fast.ck.ck-content {
+    height: 200px;
+}

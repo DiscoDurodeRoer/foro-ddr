@@ -6,36 +6,44 @@ class User
     function __construct()
     { }
 
-    function checkErrors($nickname, $email)
+    function checkErrors($nickname, $email, $id_user)
     {
 
         $errors = array();
 
-        $this->checkPass($errors);
+        if (!isset($id_user)) {
+            $this->checkPass($errors);
+        }
 
         $sql = "SELECT count(*) as num_usuarios ";
         $sql .= "FROM users ";
-        $sql .= "WHERE trim(lower(nickname)) = '" . trim(strtolower($nickname)) . "'";
+        $sql .= "WHERE trim(lower(nickname)) = '" . trim(strtolower($nickname)) . "' ";
+        if (isset($id_user)) {
+            $sql .= "and id <> " . $id_user;
+        }
 
         $db = new MySQLDB();
 
         $data = $db->getDataSingle($sql);
 
-        $num_users = $data['num_usuarios'];
+        $data_single = $data['num_usuarios'];
 
-        if ($num_users > 0) {
+        if ($data_single > 0) {
             array_push($errors, "El nickname ya existe.");
         }
 
         $sql = "SELECT count(*) as num_usuarios ";
         $sql .= "FROM users ";
-        $sql .= "WHERE trim(lower(email)) = '" . trim(strtolower($email)) . "'";
+        $sql .= "WHERE trim(lower(email)) = '" . trim(strtolower($email)) . "' ";
+        if (isset($id_user)) {
+            $sql .= "and id <> " . $id_user;
+        }
 
         $data = $db->getDataSingle($sql);
 
-        $num_users = $data['num_usuarios'];
+        $data_single = $data['num_usuarios'];
 
-        if ($num_users > 0) {
+        if ($data_single > 0) {
             array_push($errors, "El email ya existe.");
         }
 
@@ -102,7 +110,7 @@ class User
         if ($success) {
 
             $id_user = $db->getLastId();
-           
+
             $data['user'] = array('id' => $id_user, 'nickname' => $nickname);
         }
 
@@ -111,8 +119,34 @@ class User
         return $data;
     }
 
-    function edit_profle(){
-        
+    function edit_profile($id_user, $username, $surname, $nickname, $email, $avatar)
+    {
+        $sql = "UPDATE users ";
+        $sql .= "SET name = '" . $username . "', ";
+        $sql .= "surname = '" . $surname . "', ";
+        $sql .= "nickname = '" . $nickname . "', ";
+        $sql .= "email = '" . $email . "', ";
+        $sql .= "avatar = '" . $avatar . "' ";
+        $sql .= "WHERE id = " . $id_user;
+
+        print $sql;
+    
+        $db = new MySQLDB();
+    
+        $data = array();
+
+        $success = $db->executeInstruction($sql);
+
+        $data['success'] = $success;
+
+        if($success){
+            $data['user'] = array('id' => $id_user, 'nickname' => $nickname);
+        }
+
+        $db->close();
+
+        return $data;
+    
     }
 
     function change_password($id_user, $pass)
@@ -135,11 +169,12 @@ class User
         return $data;
     }
 
-    function unsubscribe($id_user){
+    function unsubscribe($id_user)
+    {
 
         $sql = "UPDATE users SET ";
-        $sql .=" borrado = 1 ";
-        $sql .=" WHERE id = " . $id_user;
+        $sql .= " borrado = 1 ";
+        $sql .= " WHERE id = " . $id_user;
 
         $db = new MySQLDB();
 
@@ -152,6 +187,5 @@ class User
         $data['success'] = $success;
 
         return $data;
-
     }
 }

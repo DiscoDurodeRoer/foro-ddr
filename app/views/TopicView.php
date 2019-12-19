@@ -78,7 +78,7 @@ include_once 'header.php';
             <div class="row">
                 <div class="col-12">
 
-                    <form action="index.php?url=TopicController/create_topic/" method="POST">
+                    <form action="index.php?url=TopicController/create_topic/" method="POST" novalidate>
 
                         <input type="hidden" name="id_cat" value="<?php echo $data['id_cat'] ?>" />
 
@@ -91,8 +91,8 @@ include_once 'header.php';
 
                         <div class="row form-group">
                             <div class="col-12">
-                                <label for="texto">Texto</label>
-                                <textarea name="text" required class="form-control"  id="texto" cols="30" rows="10"></textarea>
+                                <label for="editor">Texto</label>
+                                <textarea name="text" required class="form-control"  id="editor" cols="30" rows="10"></textarea>
                             </div>
                         </div>
 

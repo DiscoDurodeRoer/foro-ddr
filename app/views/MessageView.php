@@ -94,13 +94,13 @@ if (isset($data['display'])) {
                         <div class="row">
                             <div class="col-12">
 
-                                <form action="index.php?url=MessageController/reply_topic" method="POST">
+                                <form class="reply-fast" action="index.php?url=MessageController/reply_topic" method="POST" novalidate>
 
                                     <input type="hidden" name="id_topic" value="<?php echo $data['id_topic']; ?>">
 
                                     <div class="row form-group">
                                         <div class="col-12">
-                                            <textarea required class="form-control" name="text" id="message" cols="30" rows="3"></textarea>
+                                            <textarea required class="form-control" name="text" id="editor" cols="30" rows="3"></textarea>
                                         </div>
                                     </div>
 
@@ -127,14 +127,14 @@ if (isset($data['display'])) {
 <?php
 } else if (isset($data['reply_message'])) {
     ?>
-    <form action="index.php?url=MessageController/reply_topic" method="POST">
+    <form action="index.php?url=MessageController/reply_topic" method="POST" novalidate>
 
         <input type="hidden" name="id_topic" value="<?php echo $data['id_topic']; ?>">
 
         <div class="row form-group">
             <div class="col-12">
-                <label for="message">Mensaje</label>
-                <textarea required class="form-control" name="text" id="message" cols="30" rows="10"></textarea>
+                <label for="editor">Mensaje</label>
+                <textarea required class="form-control" name="text" id="editor" cols="30" rows="10"></textarea>
             </div>
         </div>
 

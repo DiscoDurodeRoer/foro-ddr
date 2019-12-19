@@ -46,8 +46,16 @@ include_once 'header.php';
             <div class="row">
                 <div class="col-12">
 
-                    <form action="index.php?url=UserController/<?php echo isset($data['registry']) ? 'registrer' : 'edit'; ?>/" method="POST">
+                    <form action="index.php?url=UserController/<?php echo isset($data['registry']) ? 'registrer' : 'edit_profile'; ?>/" method="POST">
 
+                        <?php
+                            if(isset($data['edit_profile'])){
+                                ?>
+                                    <input type="hidden" name="id" value="<?php if (isset($data['id'])) { echo $data['id']; } ?>"/>
+                                <?php
+                            }
+                        ?>
+                        
                         <div class="row form-group">
                             <div class="col-md-6 col-12">
                                 <label for="username">Nombre (*)</label>
