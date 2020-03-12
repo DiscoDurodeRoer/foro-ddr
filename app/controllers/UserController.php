@@ -104,7 +104,8 @@ class UserController extends Controller
 
             $errors = $this->model->checkErrors(
                 $_POST['nickname'],
-                $_POST['email']
+                $_POST['email'],
+                null
             );
 
             if (count($errors) === 0) {

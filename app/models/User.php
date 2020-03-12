@@ -128,8 +128,6 @@ class User
         $sql .= "email = '" . $email . "', ";
         $sql .= "avatar = '" . $avatar . "' ";
         $sql .= "WHERE id = " . $id_user;
-
-        print $sql;
     
         $db = new MySQLDB();
     

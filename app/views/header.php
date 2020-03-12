@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -44,27 +43,37 @@
                             </ul>
                             <div>
                                 <?php
-                             
+
                                 if ($data['login']) {
-                                    
+
                                     $nickname = $data['nickname'];
-                                    
-                                    ?>
-                                    
+
+                                ?>
+
                                     <p>Hola, <?php echo $nickname ?></p>
 
+                                    <?php
+                                    if ($data['isAdmin']) {
+                                    ?>
+                                         <a class="btn btn-success btn-icon" href="index.php?url=AdminController/display">
+                                            <i class="fa fa-home" aria-hidden="true"></i>Admin
+                                         </a>
+                                     <?php
+                                    }
+
+                                    ?>
 
                                     <a class="btn btn-info btn-icon" href="index.php?url=UserController/display_profile/">
-                                    <i class="fa fa-user" aria-hidden="true"></i>Ver perfil
+                                        <i class="fa fa-user" aria-hidden="true"></i>Ver perfil
                                     </a>
-                                    
+
                                     <a class="btn btn-danger btn-icon" href="index.php?url=UserController/logout/">
                                         <i class="fa fa-power-off" aria-hidden="true"></i>Logout
                                     </a>
 
                                 <?php
                                 } else {
-                                    ?>
+                                ?>
                                     <a class="btn btn-primary btn-icon" href="index.php?url=UserController/display/">
                                         <i class="fa fa-sign-in" aria-hidden="true"></i>Registrarse
                                     </a>

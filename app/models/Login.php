@@ -11,7 +11,7 @@ class Login
 
         $data = array();
 
-        $sql = "SELECT id, nickname ";
+        $sql = "SELECT id, nickname, rol ";
         $sql .= "FROM users ";
         $sql .= "WHERE (nickname = '" . strtolower($nick_email) . "' or ";
         $sql .= "email = '" . strtolower($nick_email) . "') and ";
@@ -24,7 +24,7 @@ class Login
         $success = false;
         if ($db->numRows($sql) > 0) {
             $success = true;
-            $data['user'] = array('id' => $data['id'], 'nickname'=>$data['nickname']);
+            $data['user'] = array('id' => $data['id'], 'nickname'=>$data['nickname'], 'rol'=>$data['rol']);
         }
 
         $data['success'] = $success;

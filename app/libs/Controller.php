@@ -15,6 +15,7 @@ class Controller{
             $session = new Session();
             $data['login']= $session->getAttribute('login');
             $data['nickname']=$session->getAttribute('nickname');
+            $data['isAdmin']=$session->getAttribute('isAdmin');
             require_once("../app/views/".$view.".php");
         }else{
             die("No existe la vista");
