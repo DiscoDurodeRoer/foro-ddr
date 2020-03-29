@@ -8,6 +8,9 @@
             <a class="nav-link" href="index.php?url=AdminCategoryController/display">Categorias</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="index.php?url=AdminTopicController/display/">Topics</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="index.php?url=AdminController/back/">Volver al foro</a>
         </li>
         <li class="nav-item">

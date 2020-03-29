@@ -15,7 +15,7 @@ if (isset($data['display'])) {
                     <h1><?php echo $data['title_topic'] ?></h1>
                 </div>
                 <?php
-                    if ($data['login']) {
+                    if ($data['login'] && $data['open_topic']) {
                         ?>
                     <div class="col-2">
                         <a class="btn btn-primary btn-block btn-icon" href="index.php?url=MessageController/display_reply_topic/<?php echo $data['id_topic']; ?>">
@@ -79,7 +79,7 @@ if (isset($data['display'])) {
             ?>
 
             <?php
-                if ($data['login']) {
+                if ($data['login'] && $data['open_topic']) {
                     ?>
                 <!-- Quick reply -->
                 <div class="row">

@@ -15,7 +15,7 @@ class MessageController extends Controller
 
         if (isset($id_topic)) {
             $data = $this->model->getMessagesByTopic(
-                filter_var($id_topic, FILTER_SANITIZE_NUMBER_INT), 
+                filter_var($id_topic, FILTER_SANITIZE_NUMBER_INT),
                 $page
             );
 
@@ -30,18 +30,23 @@ class MessageController extends Controller
 
         if (isset($id_topic)) {
 
-            $data["reply_message"] = true;
+            if ($this->model->is_open_topic($id_topic)) {
+                
+                $data["reply_message"] = true;
 
-            $data['id_topic'] = $id_topic;
+                $data['id_topic'] = $id_topic;
 
-            $this->view("MessageView", $data);
+                $this->view("MessageView", $data);
+            } else {
+                header("Location: /foro-ddr");
+            }
         }
     }
 
     function reply_topic()
     {
 
-        if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") { 
+        if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
             $session = new Session();
 
@@ -51,13 +56,11 @@ class MessageController extends Controller
                 filter_var($_POST['id_topic'], FILTER_SANITIZE_NUMBER_INT)
             );
 
-            if($data['success']){
-                header("Location: /foro-ddr/index.php?url=MessageController/display/".$_POST['id_topic']);
-            }else{
+            if ($data['success']) {
+                header("Location: /foro-ddr/index.php?url=MessageController/display/" . $_POST['id_topic']);
+            } else {
                 $this->view("MessageView", $data);
             }
-
         }
-
     }
 }
