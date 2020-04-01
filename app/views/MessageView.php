@@ -10,14 +10,14 @@ if (isset($data['display'])) {
     <div class="row">
         <div class="col-12">
 
-            <div class="row">
-                <div class="col-10">
+            <div class="row mb-2">
+                <div class="col-md-10 col-12">
                     <h1><?php echo $data['title_topic'] ?></h1>
                 </div>
                 <?php
                     if ($data['login'] && $data['open_topic']) {
                         ?>
-                    <div class="col-2">
+                    <div class="col-md-2 col-5">
                         <a class="btn btn-primary btn-block btn-icon" href="index.php?url=MessageController/display_reply_topic/<?php echo $data['id_topic']; ?>">
                             <i class="fa fa-comment" aria-hidden="true"></i> Responder
                         </a>

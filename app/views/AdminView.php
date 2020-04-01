@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./includes/bootstrap-4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="./includes/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/styles.css">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <title>Admin Foro DDR</title>
 </head>
 

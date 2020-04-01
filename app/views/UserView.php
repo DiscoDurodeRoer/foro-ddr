@@ -88,7 +88,7 @@ include_once 'header.php';
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <label for="confirm-pass">Confirmar contraseña (*)</label>
-                                    <input type="password" name="confirm-pass" class="form-control" id="confirm-pass" required maxlength="20" />
+                                    <input type="password" name="confirm_pass" class="form-control" id="confirm_pass" required maxlength="20" />
                                 </div>
                             </div>
                             <?php

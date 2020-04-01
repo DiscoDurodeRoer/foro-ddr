@@ -4,7 +4,7 @@
                 </div>
                 <!-- Fin contenido -->
 
-                <div class="row" id="footer">
+                <div class="row-no-gutters" id="footer">
                     <div class="col-12">
                         <div class="container">
                             <div class="footer-start">

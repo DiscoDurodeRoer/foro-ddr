@@ -21,14 +21,19 @@ class AdminTopicController extends Controller
         $this->view("AdminTopicView", $data);
     }
 
-    function display_edit($idTopic)
+    function display_edit($id_topic)
     {
         isLogged();
 
-        $data = $this->model->getTopic($idTopic);
+        $data = $this->model->getTopic($id_topic);
 
         $data['display_edit'] = true;
-        $data['categories'] = $this->modelCategory->getCategories(ONLY_CHILDS)['categories'];
+
+        $params = array(
+            'mode' => ONLY_CHILDS
+        );
+
+        $data['categories'] = $this->modelCategory->getCategories($params)['categories'];
 
         $this->view("AdminTopicView", $data);
     }
@@ -41,28 +46,35 @@ class AdminTopicController extends Controller
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
             if (isset($_POST['action'])) {
-                $this->model->edit_topic();
+
+                $params = array(
+                    'title' => $_POST['title'],
+                    'category' => $_POST['category'],
+                    'id' => $_POST['id']
+                );
+
+                $this->model->edit_topic($params);
             }
             header("Location: index.php?url=AdminTopicController/display");
         }
     }
 
-    function open_topic($idTopic)
+    function open_topic($id_topic)
     {
       
         isLogged();
 
-        $this->model->open_topic($idTopic);
+        $this->model->open_topic($id_topic);
 
         header("Location: index.php?url=AdminTopicController/display");
     }
 
-    function close_topic($idTopic)
+    function close_topic($id_topic)
     {
       
         isLogged();
 
-        $this->model->close_topic($idTopic);
+        $this->model->close_topic($id_topic);
 
         header("Location: index.php?url=AdminTopicController/display");
     }

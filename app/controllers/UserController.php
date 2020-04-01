@@ -24,7 +24,11 @@ class UserController extends Controller
 
         $session = new Session();
 
-        $data['info_user'] = $this->model->getAllInfoUser($session->getAttribute(SESSION_ID_USER));
+        $params = array(
+            'id_user' => $session->getAttribute(SESSION_ID_USER)
+        );
+
+        $data['info_user'] = $this->model->getAllInfoUser($params);
 
         $data['profile'] = true;
 
@@ -38,35 +42,44 @@ class UserController extends Controller
 
         $session = new Session();
 
-        $data = $this->model->getAllInfoUser($session->getAttribute(SESSION_ID_USER));
+        $params = array(
+            'id_user' => $session->getAttribute(SESSION_ID_USER)
+        );
+
+        $data = $this->model->getAllInfoUser($params);
 
         $data['edit_profile'] = true;
 
         $this->view("UserView", $data);
     }
 
-    function edit_profile(){
+    function edit_profile()
+    {
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
             $data = array();
 
-            $errors = $this->model->checkErrors(
-                $_POST['nickname'],
-                $_POST['email'],
-                $_POST['id']
+            $params = array(
+                'nickname' => $_POST['nickname'],
+                'email' => $_POST['email'],
+                'id' => $_POST['id']
             );
+
+            $errors = $this->model->checkErrors($params);
 
             if (count($errors) === 0) {
 
-                $data = $this->model->edit_profile(
-                    $_POST['id'],
-                    $_POST['username'],
-                    $_POST['surname'],
-                    $_POST['nickname'],
-                    $_POST['email'],
-                    $_POST['avatar']
-                );
+                $params = array(
+                    'nickname' => $_POST['nickname'],
+                    'email' => $_POST['email'],
+                    'id' => $_POST['id'],
+                    'username' => $_POST['username'],
+                    'surname' => $_POST['surname'],
+                    'avatar' => $_POST['avatar']
+                );    
+
+                $data = $this->model->edit_profile($params);
 
                 if ($data['success']) {
                     prepareDataLogin($data['user']);
@@ -80,9 +93,7 @@ class UserController extends Controller
                 $data['edit_profile'] = true;
                 $this->view("UserView", $data);
             }
-
         }
-
     }
 
     function edit_password()
@@ -102,22 +113,28 @@ class UserController extends Controller
 
             $data = array();
 
-            $errors = $this->model->checkErrors(
-                $_POST['nickname'],
-                $_POST['email'],
-                null
+            $params = array(
+                'nickname' => $_POST['nickname'],
+                'email' => $_POST['email'],
+                'id' => null,
+                'pass' => $_POST['pass'],
+                'confirm_pass' => $_POST['confirm_pass']
             );
+
+            $errors = $this->model->checkErrors($params);
 
             if (count($errors) === 0) {
 
-                $data = $this->model->registry(
-                    $_POST['username'],
-                    $_POST['surname'],
-                    $_POST['nickname'],
-                    $_POST['email'],
-                    $_POST['pass'],
-                    $_POST['avatar']
+                $params = array(
+                    'username' => $_POST['username'],
+                    'surname' => $_POST['surname'],
+                    'nickname' => $_POST['nickname'],
+                    'email' => $_POST['email'],
+                    'pass' => $_POST['pass'],
+                    'avatar' => $_POST['avatar']
                 );
+
+                $data = $this->model->registry($params);
 
                 if ($data['success']) {
                     prepareDataLogin($data['user']);
@@ -142,18 +159,26 @@ class UserController extends Controller
 
             $data = array();
 
+            $params = array(
+                'pass' => $_POST['pass'],
+                'confirm-pass' => $_POST['confirm-pass']
+            );
+
             $errors = array();
-            $this->model->checkPass($errors);
+
+            $this->model->checkPass($params, $errors);
 
             // Si no hay errores, muestro el mensaje
             if (count($errors) === 0) {
 
                 $session = new Session();
 
-                $data = $this->model->change_password(
-                    $session->getAttribute(SESSION_ID_USER), 
-                    $_POST['pass']
+                $params = array(
+                    'id_user' => $session->getAttribute(SESSION_ID_USER),
+                    'pass' => $_POST['pass']
                 );
+
+                $data = $this->model->change_password($params);
 
                 if ($data['success']) {
                     $data['message'] = "La contraseña ha sido cambiada";
@@ -184,22 +209,25 @@ class UserController extends Controller
         $this->view("UserView", $data);
     }
 
-    function unsubscribe(){
+    function unsubscribe()
+    {
 
         $session = new Session();
-        
-        $data = $this->model->unsubscribe(
-            $session->getAttribute(SESSION_ID_USER)
+
+        $params = array(
+            'id_user' => $session->getAttribute(SESSION_ID_USER)
         );
-        
-        if($data['success']){
+
+        $data = $this->model->unsubscribe($params);
+
+        if ($data['success']) {
             $session->destroySession();
             header("Location: /foro-ddr/");
         }
-
     }
 
-    function no_unsubscribe(){
+    function no_unsubscribe()
+    {
         header("Location: index.php?url=UserController/display_profile/");
     }
 }

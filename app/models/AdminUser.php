@@ -26,12 +26,12 @@ class AdminUser
         return $data;
     }
 
-    function banUser($idUser)
+    function banUser($params)
     {
 
         $sql = "UPDATE users ";
         $sql .= "SET baneado = 1 ";
-        $sql .= "WHERE id = " . $idUser;
+        $sql .= "WHERE id = " . $params['id_user'];
 
         $db = new MySQLDB();
 
@@ -40,12 +40,12 @@ class AdminUser
         $db->close();
     }
 
-    function noBanUser($idUser)
+    function noBanUser($params)
     {
 
         $sql = "UPDATE users ";
         $sql .= "SET baneado = 0 ";
-        $sql .= "WHERE id = " . $idUser;
+        $sql .= "WHERE id = " . $params['id_user'];
 
         $db = new MySQLDB();
 
@@ -54,12 +54,12 @@ class AdminUser
         $db->close();
     }
 
-    function actUser($idUser)
+    function actUser($params)
     {
 
         $sql = "UPDATE users ";
         $sql .= "SET borrado = 1 ";
-        $sql .= "WHERE id = " . $idUser;
+        $sql .= "WHERE id = " . $params['id_user'];
 
         $db = new MySQLDB();
 
@@ -68,12 +68,12 @@ class AdminUser
         $db->close();
     }
 
-    function noActUser($idUser)
+    function noActUser($params)
     {
 
         $sql = "UPDATE users ";
         $sql .= "SET borrado = 0 ";
-        $sql .= "WHERE id = " . $idUser;
+        $sql .= "WHERE id = " . $params['id_user'];
 
         $db = new MySQLDB();
 

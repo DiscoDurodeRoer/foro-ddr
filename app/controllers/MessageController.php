@@ -14,10 +14,13 @@ class MessageController extends Controller
     {
 
         if (isset($id_topic)) {
-            $data = $this->model->getMessagesByTopic(
-                filter_var($id_topic, FILTER_SANITIZE_NUMBER_INT),
-                $page
+
+            $params = array(
+                'id_topic' => filter_var($id_topic, FILTER_SANITIZE_NUMBER_INT),
+                'page' => $page
             );
+
+            $data = $this->model->getMessagesByTopic($params);
 
             $data["display"] = true;
 
@@ -30,8 +33,12 @@ class MessageController extends Controller
 
         if (isset($id_topic)) {
 
-            if ($this->model->is_open_topic($id_topic)) {
-                
+            $params = array(
+                'id_topic' => $id_topic
+            );
+
+            if ($this->model->is_open_topic($params)) {
+
                 $data["reply_message"] = true;
 
                 $data['id_topic'] = $id_topic;
@@ -50,11 +57,21 @@ class MessageController extends Controller
 
             $session = new Session();
 
-            $data = $this->model->reply_topic(
-                $session->getAttribute(SESSION_ID_USER),
-                $_POST['text'],
-                filter_var($_POST['id_topic'], FILTER_SANITIZE_NUMBER_INT)
+            $params = array(
+                'id_user' => $session->getAttribute(SESSION_ID_USER),
+                'text' => $_POST['text'],
+                'id_topic' => filter_var($_POST['id_topic'], FILTER_SANITIZE_NUMBER_INT)
             );
+
+            $data = $this->model->reply_topic($params);
+
+            $params = array(
+                'id_user' => $session->getAttribute(SESSION_ID_USER),
+                'id_message' => $data['id_message'],
+                'id_topic' => filter_var($_POST['id_topic'], FILTER_SANITIZE_NUMBER_INT)
+            );
+
+            $data = $this->model->notifyNoReadMessages($params);
 
             if ($data['success']) {
                 header("Location: /foro-ddr/index.php?url=MessageController/display/" . $_POST['id_topic']);

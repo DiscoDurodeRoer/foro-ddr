@@ -19,38 +19,54 @@ class AdminUserController extends Controller
         $this->view("AdminUserView", $data);
     }
 
-    function banUser($idUser)
+    function banUser($id_user)
     {
         isLogged();
 
-        $this->model->banUser($idUser);
+        $params = array(
+            'id_user' => $id_user
+        );
+
+        $this->model->banUser($params);
 
         header("Location: index.php?url=AdminUserController/display");
     }
 
-    function noBanUser($idUser)
+    function noBanUser($id_user)
     {
         isLogged();
 
-        $this->model->noBanUser($idUser);
+        $params = array(
+            'id_user' => $id_user
+        );
+
+        $this->model->noBanUser($params);
 
         header("Location: index.php?url=AdminUserController/display");
     }
 
-    function noActUser($idUser)
+    function noActUser($id_user)
     {
         isLogged();
 
-        $this->model->noActUser($idUser);
+        $params = array(
+            'id_user' => $id_user
+        );
+
+        $this->model->noActUser($params);
 
         header("Location: index.php?url=AdminUserController/display");
     }
 
-    function actUser($idUser)
+    function actUser($id_user)
     {
         isLogged();
 
-        $this->model->actUser($idUser);
+        $params = array(
+            'id_user' => $id_user
+        );
+
+        $this->model->actUser($params);
 
         header("Location: index.php?url=AdminUserController/display");
     }

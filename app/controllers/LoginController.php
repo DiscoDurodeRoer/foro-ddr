@@ -22,10 +22,12 @@ class LoginController extends Controller
 
             $data = array();
 
-            $data = $this->model->checkLogin(
-                $_POST['nick_email'],
-                $_POST['pass']
+            $params = array(
+                'nick_email' => $_POST['nick_email'],
+                'pass' => $_POST['pass']
             );
+
+            $data = $this->model->checkLogin($params);
 
             if($data['success']){
                 

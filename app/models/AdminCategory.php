@@ -7,7 +7,7 @@ class AdminCategory
     {
     }
 
-    function getCategories($mode = ALL_CATEGORIES)
+    function getCategories($params)
     {
 
         $data = array();
@@ -17,9 +17,9 @@ class AdminCategory
         $sql .= "FROM categories cc, categories cp ";
         $sql .= "WHERE cc.parent_cat = cp.id ";
 
-        if ($mode == ONLY_PARENTS) {
+        if ($params['mode'] == ONLY_PARENTS) {
             $sql .= "and cc.num_topics = 0 ";
-        }else if ($mode == ONLY_CHILDS){
+        } else if ($params['mode'] == ONLY_CHILDS) {
             $sql .= "and (select count(*) from categories WHERE cc.id = parent_cat) = 0 ";
         }
 
@@ -34,15 +34,15 @@ class AdminCategory
         return $data;
     }
 
-    function create_category()
+    function create_category($params)
     {
 
         $sql = "INSERT INTO categories ";
         $sql .= "VALUES( ";
         $sql .= "null,";
-        $sql .= "'" . $_POST['name'] . "', ";
-        $sql .= "'" . $_POST['description'] . "', ";
-        $sql .= "'" . $_POST['parent_cat'] . "', ";
+        $sql .= "'" . $params['name'] . "', ";
+        $sql .= "'" . $params['description'] . "', ";
+        $sql .= "'" . $params['parent_cat'] . "', ";
         $sql .= "'',"; // icono
         $sql .= "0";
         $sql .= ");";
@@ -54,14 +54,14 @@ class AdminCategory
         $db->close();
     }
 
-    function getCategory($idCategory)
+    function getCategory($params)
     {
 
         $data = array();
 
         $sql = "SELECT * ";
         $sql .= "FROM categories ";
-        $sql .= "WHERE id = " . $idCategory;
+        $sql .= "WHERE id = " . $params['id_category'];
 
         $db = new MySQLDB();
 
@@ -72,14 +72,14 @@ class AdminCategory
         return $data;
     }
 
-    function edit_category()
+    function edit_category($params)
     {
 
         $sql = "UPDATE categories SET ";
-        $sql .= "name = '" . $_POST['name'] . "', ";
-        $sql .= "description = '" . $_POST['description'] . "', ";
-        $sql .= "parent_cat = '" . $_POST['parent_cat'] . "' ";
-        $sql .= "WHERE id = " . $_POST['id'];
+        $sql .= "name = '" . $params['name'] . "', ";
+        $sql .= "description = '" . $params['description'] . "', ";
+        $sql .= "parent_cat = '" . $params['parent_cat'] . "' ";
+        $sql .= "WHERE id = " . $params['id'];
 
         $db = new MySQLDB();
 
@@ -88,11 +88,11 @@ class AdminCategory
         $db->close();
     }
 
-    function delete_category($idCategory)
+    function delete_category($params)
     {
 
         $sql = "DELETE FROM categories ";
-        $sql .= "WHERE id = " . $idCategory;
+        $sql .= "WHERE id = " . $params['id_category'];
 
         $db = new MySQLDB();
 

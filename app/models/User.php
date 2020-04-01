@@ -6,20 +6,20 @@ class User
     function __construct()
     { }
 
-    function checkErrors($nickname, $email, $id_user)
+    function checkErrors($params)
     {
 
         $errors = array();
 
-        if (!isset($id_user)) {
-            $this->checkPass($errors);
+        if (!isset($params['id_user'])) {
+            $this->checkPass($params, $errors);
         }
 
         $sql = "SELECT count(*) as num_usuarios ";
         $sql .= "FROM users ";
-        $sql .= "WHERE trim(lower(nickname)) = '" . trim(strtolower($nickname)) . "' ";
+        $sql .= "WHERE trim(lower(nickname)) = '" . trim(strtolower($params['nickname'])) . "' ";
         if (isset($id_user)) {
-            $sql .= "and id <> " . $id_user;
+            $sql .= "and id <> " . $params['id_user'];
         }
 
         $db = new MySQLDB();
@@ -34,9 +34,9 @@ class User
 
         $sql = "SELECT count(*) as num_usuarios ";
         $sql .= "FROM users ";
-        $sql .= "WHERE trim(lower(email)) = '" . trim(strtolower($email)) . "' ";
-        if (isset($id_user)) {
-            $sql .= "and id <> " . $id_user;
+        $sql .= "WHERE trim(lower(email)) = '" . trim(strtolower($params['email'])) . "' ";
+        if (isset($params['id_user'])) {
+            $sql .= "and id <> " . $params['id_user'];
         }
 
         $data = $db->getDataSingle($sql);
@@ -52,22 +52,20 @@ class User
         return $errors;
     }
 
-    function checkPass(&$errors)
+    function checkPass($params, &$errors)
     {
-        $pass = $_POST['pass'];
-        $confirm_pass = $_POST['confirm-pass'];
 
-        if ($pass !== $confirm_pass) {
+        if ($params['pass'] !== $params['confirm_pass']) {
             array_push($errors, "Las contraseña no coinciden.");
         }
     }
 
-    function getAllInfoUser($id_user)
+    function getAllInfoUser($params)
     {
 
         $sql = "SELECT * ";
         $sql .= "FROM users ";
-        $sql .= "WHERE id = " . $id_user;
+        $sql .= "WHERE id = " . $params['id_user'];
 
         $db = new MySQLDB();
 
@@ -78,21 +76,21 @@ class User
         return $data;
     }
 
-    function registry($username, $surname, $nickname, $email, $pass, $avatar)
+    function registry($params)
     {
 
         $sql = "INSERT INTO users VALUES(";
         $sql .= "null,";
-        $sql .= "'" . $username . "', ";
-        $sql .= "'" . $surname . "', ";
-        $sql .= "'" . $nickname . "', ";
-        $sql .= "'" . $email . "', ";
-        $sql .= "'" . hash_hmac("sha512", $pass, "discoduroderoer") . "', ";
+        $sql .= "'" . $params['username'] . "', ";
+        $sql .= "'" . $params['surname'] . "', ";
+        $sql .= "'" . $params['nickname'] . "', ";
+        $sql .= "'" . $params['email'] . "', ";
+        $sql .= "'" . hash_hmac("sha512", $params['pass'], "discoduroderoer") . "', ";
         $sql .= "'" . date("Y-m-d") . "', ";
-        if (empty($avatar)) {
-            $sql .= "'" . $avatar . "', ";
+        if (!empty($params['avatar'])) {
+            $sql .= "'" . $params['avatar'] . "', ";
         } else {
-            $sql .= "null, ";
+            $sql .= "'" . PAGE_URL . "img/default-avatar.jpg', ";
         }
         $sql .= "2, ";
         $sql .= " '" . today() . "' , ";
@@ -111,7 +109,7 @@ class User
 
             $id_user = $db->getLastId();
 
-            $data['user'] = array('id' => $id_user, 'nickname' => $nickname);
+            $data['user'] = array('id' => $id_user, 'nickname' => $params['nickname']);
         }
 
         $db->close();
@@ -119,15 +117,19 @@ class User
         return $data;
     }
 
-    function edit_profile($id_user, $username, $surname, $nickname, $email, $avatar)
+    function edit_profile($params)
     {
         $sql = "UPDATE users ";
-        $sql .= "SET name = '" . $username . "', ";
-        $sql .= "surname = '" . $surname . "', ";
-        $sql .= "nickname = '" . $nickname . "', ";
-        $sql .= "email = '" . $email . "', ";
-        $sql .= "avatar = '" . $avatar . "' ";
-        $sql .= "WHERE id = " . $id_user;
+        $sql .= "SET name = '" . $params['username'] . "', ";
+        $sql .= "surname = '" . $params['surname'] . "', ";
+        $sql .= "nickname = '" . $params['nickname'] . "', ";
+        $sql .= "email = '" . $params['email'] . "', ";
+        if (!empty($params['avatar'])) {
+            $sql .= "avatar = '" . $params['avatar'] . "' ";
+        } else {
+            $sql .= "avatar = '" . PAGE_URL . "img/default-avatar.jpg' ";
+        }
+        $sql .= "WHERE id = " . $params['id_user'];
     
         $db = new MySQLDB();
     
@@ -138,7 +140,7 @@ class User
         $data['success'] = $success;
 
         if($success){
-            $data['user'] = array('id' => $id_user, 'nickname' => $nickname);
+            $data['user'] = array('id' => $params['id_user'], 'nickname' => $params['nickname']);
         }
 
         $db->close();
@@ -147,12 +149,12 @@ class User
     
     }
 
-    function change_password($id_user, $pass)
+    function change_password($params)
     {
 
         $sql = "UPDATE users ";
-        $sql .= "SET pass = '" . hash_hmac("sha512", $pass, HASH_PASS_KEY) . "' ";
-        $sql .= "WHERE id = " . $id_user;
+        $sql .= "SET pass = '" . hash_hmac("sha512", $params['pass'], HASH_PASS_KEY) . "' ";
+        $sql .= "WHERE id = " . $params['id_user'];
 
         $db = new MySQLDB();
 
@@ -167,12 +169,12 @@ class User
         return $data;
     }
 
-    function unsubscribe($id_user)
+    function unsubscribe($params)
     {
 
         $sql = "UPDATE users SET ";
         $sql .= " borrado = 1 ";
-        $sql .= " WHERE id = " . $id_user;
+        $sql .= " WHERE id = " . $params['id_user'];
 
         $db = new MySQLDB();
 

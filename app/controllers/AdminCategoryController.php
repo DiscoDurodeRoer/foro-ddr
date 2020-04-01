@@ -14,7 +14,11 @@ class AdminCategoryController extends Controller
     {
         isLogged();
 
-        $data = $this->model->getCategories();
+        $params = array(
+            'mode' => ALL_CATEGORIES
+        );
+
+        $data = $this->model->getCategories($params);
 
         $this->view("AdminCategoryView", $data);
     }
@@ -25,7 +29,11 @@ class AdminCategoryController extends Controller
 
         isLogged();
 
-        $data = $this->model->getCategories(ONLY_PARENTS);
+        $params = array(
+            'mode' => ONLY_PARENTS
+        );
+
+        $data = $this->model->getCategories($params);
 
         $data['display_create'] = true;
 
@@ -40,19 +48,35 @@ class AdminCategoryController extends Controller
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
             if (isset($_POST['action'])) {
-                $this->model->create_category();
+
+                $params = array(
+                    'name' => $_POST['name'],
+                    'description' => $_POST['description'],
+                    'parent_cat' => $_POST['parent_cat'],
+                );
+
+                $this->model->create_category($params);
             }
 
             header("Location: index.php?url=AdminCategoryController/display");
         }
     }
 
-    function display_edit($idCategory)
+    function display_edit($id_category)
     {
         isLogged();
 
-        $data = $this->model->getCategory($idCategory);
-        $data['categories'] = $this->model->getCategories(ONLY_PARENTS)['categories'];
+        $params = array(
+            'id_category' => $id_category
+        );
+
+        $data = $this->model->getCategory($params);
+
+        $params = array(
+            'mode' => ONLY_PARENTS
+        );
+
+        $data['categories'] = $this->model->getCategories($params)['categories'];
 
         $data['display_edit'] = true;
 
@@ -67,20 +91,31 @@ class AdminCategoryController extends Controller
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
             if (isset($_POST['action'])) {
-                $this->model->edit_category();
+
+                $params = array(
+                    'name' => $_POST['name'],
+                    'description' => $_POST['description'],
+                    'parent_cat' => $_POST['parent_cat'],
+                    'id' => $_POST['id']
+                );
+
+                $this->model->edit_category($params);
             }
             header("Location: index.php?url=AdminCategoryController/display");
         }
     }
 
-    function delete_category($idCategory)
+    function delete_category($id_category)
     {
 
         isLogged();
 
-        $this->model->delete_category($idCategory);
+        $params = array(
+            'id_category' => $id_category
+        );
+
+        $this->model->delete_category($params);
 
         header("Location: index.php?url=AdminCategoryController/display");
-    
     }
 }

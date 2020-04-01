@@ -6,16 +6,16 @@ class Login
     function __construct()
     { }
 
-    function checkLogin($nick_email, $pass)
+    function checkLogin($params)
     {
 
         $data = array();
 
         $sql = "SELECT id, nickname, rol ";
         $sql .= "FROM users ";
-        $sql .= "WHERE (nickname = '" . strtolower($nick_email) . "' or ";
-        $sql .= "email = '" . strtolower($nick_email) . "') and ";
-        $sql .= "pass = '" . hash_hmac("sha512", $pass, HASH_PASS_KEY) . "' and borrado <> 1";
+        $sql .= "WHERE (nickname = '" . strtolower($params['nick_email']) . "' or ";
+        $sql .= "email = '" . strtolower($params['nick_email']) . "') and ";
+        $sql .= "pass = '" . hash_hmac("sha512", $params['pass'], HASH_PASS_KEY) . "' and borrado <> 1";
         
         $db = new MySQLDB();
 

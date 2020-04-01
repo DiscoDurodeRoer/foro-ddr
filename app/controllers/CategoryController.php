@@ -13,7 +13,11 @@ class CategoryController extends Controller
     function display($id_cat_parent=null)
     {
 
-        $data = $this->model->getCategories($id_cat_parent);
+        $params = array(
+            'id_cat_parent' => $id_cat_parent
+        );
+
+        $data = $this->model->getCategories($params);
         
         $this->view("CategoryView", $data);
     }
