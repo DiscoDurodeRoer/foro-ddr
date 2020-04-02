@@ -13,7 +13,7 @@ class Message
     {
 
         $sql = "select m.text, DATE_FORMAT(m.date_creation, '%d/%m/%Y %T') as 'date_creation', u.nickname, m.show_message, ";
-        $sql .= "u.avatar, DATE_FORMAT(u.last_connection, '%d/%m/%Y %T') as last_connection,  DATE_FORMAT(u.registry_date, '%d/%m/%Y') as registry_date ";
+        $sql .= "u.avatar, DATE_FORMAT(u.last_connection, '%d/%m/%Y %T') as last_connection,  DATE_FORMAT(u.registry_date, '%d/%m/%Y') as registry_date, mp.message_index ";
         $sql .= "from messages m, messages_public mp, users u ";
         $sql .= "where m.id = mp.id_message and ";
         $sql .= "u.id = m.user_origin and ";
@@ -79,9 +79,16 @@ class Message
 
             $id_message = $db->getLastId();
 
+            $sql = "SELECT (count(*) + 1) as num_index ";
+            $sql .= "FROM messages_public ";
+            $sql .= "WHERE id_topic = " . $params['id_topic'];
+
+            $num_index = $db->getDataSingle($sql)['num_index'];
+
             $sql = "INSERT INTO messages_public VALUES (";
             $sql .= $id_message . ", ";
-            $sql .= $params['id_topic'];
+            $sql .= $params['id_topic'] . ", ";
+            $sql .= $num_index;
             $sql .= ")";
 
             $success = $db->executeInstruction($sql);

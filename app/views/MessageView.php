@@ -33,7 +33,7 @@ if (isset($data['display'])) {
                         foreach ($data['messages'] as $key => $value) {
                             ?>
 
-                        <div class="card card-message mb-3">
+                        <div id="<?php echo $value['message_index']; ?>" class="card card-message mb-3">
                             <span class="card-header"><?php echo $value['date_creation'] ?></span>
                             <div class="row no-gutters">
                                 <div class="user-data-message text-center p-3 col-md-3">

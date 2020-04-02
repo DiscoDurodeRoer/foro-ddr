@@ -75,7 +75,8 @@ class Topic{
                 
                 $sql = "INSERT INTO messages_public VALUES (";
                 $sql .= $id_message . ", ";
-                $sql .= $id_topic;
+                $sql .= $id_topic . ", ";
+                $sql .= "1 ";
                 $sql .= ")";
     
                 $success = $db->executeInstruction($sql);
