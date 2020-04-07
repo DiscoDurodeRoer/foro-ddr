@@ -17,13 +17,17 @@ class TopicController extends Controller
         if (isset($id_cat)) {
 
             $params = array(
-                'id_cat' => $id_cat
+                'id_cat' => filter_var($id_cat, FILTER_SANITIZE_NUMBER_INT)
             );
 
-            $data = $this->model->getTopics($params);
+            $data = $this->model->get_topics($params);
 
             // Indico que es para mostrar
             $data['display'] = true;
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "TopicController/display", json_encode($data));
+            }
 
             $this->view("TopicView", $data);
         }
@@ -38,6 +42,10 @@ class TopicController extends Controller
 
         if (isset($id_cat)) {
             $data['id_cat'] = $id_cat;
+        }
+
+        if (isModeDebug()) {
+            writeLog(INFO_LOG, "TopicController/display_create_topic", json_encode($data));
         }
 
         $this->view("TopicView", $data);
@@ -61,10 +69,8 @@ class TopicController extends Controller
 
             $data = $this->model->create_topic($params);
 
-            if ($data['success']) {
-                $data['message'] = "El topic se ha creado correctamente. Pulsa <a href='index.php?url=MessageController/display/" . $data['id_topic'] . "'>aquí</a> para ir al topic.";
-            } else {
-                $data['message'] = "El topic no se creo correctamente.";
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "TopicController/create_topic", json_encode($data));
             }
 
             $this->view("TopicView", $data);

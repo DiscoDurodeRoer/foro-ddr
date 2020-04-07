@@ -1,96 +1,136 @@
 <?php
 
 
-class Topic{
+class Topic
+{
 
-    function __construct(){ }
-
-
-    function getTopics($params){
-
-        $sql = "SELECT t.id, t.title, u.nickname, t.open, t.views ";
-        $sql .= "FROM topics t, users u ";
-        $sql .= "WHERE t.creator_user = u.id and ";
-        $sql .= "t.id_cat = ". $params['id_cat'];
-        
-        $db = new MySQLDB();
-
-        $data_topics = $db->getData($sql);
-        
-        $data['topics'] = $data_topics;
-
-        $sql = "SELECT name ";
-        $sql .= "FROM categories ";
-        $sql .= "WHERE id = ". $params['id_cat'];
-
-        $data_single = $db->getDataSingle($sql);
-
-        if($data_single){
-            $data['name_category'] = $data_single['name'];
-            $data['id_cat'] = $params['id_cat'];
-        }
-        
-        $db->close();
-
-        return $data;
-
+    function __construct()
+    {
     }
 
 
-    function create_topic($params){
+    function get_topics($params)
+    {
 
-        $sql = "INSERT INTO topics VALUES (";
-        $sql .= "null, ";
-        $sql .= "'".$params['title_topic']."', "; 
-        $sql .= "'" . today() . "' , ";
-        $sql .= $params['id_user'] . ", ";
-        $sql .=  "1, ";
-        $sql .=  "0, ";
-        $sql .= $params['id_cat'] ." ";
-        $sql .= ");";
-
-        $db = new MySQLDB();
-
-        $success = $db->executeInstruction($sql);
-
+        $db = new PDODB();
         $data = array();
 
-        if ($success) {
-            $id_topic = $db->getLastId();
-            $data['id_topic'] = $id_topic;
+        try {
 
-            $sql = "INSERT INTO messages VALUES (";
-            $sql .= "null, "; // id
-            $sql .= "'".$params['text']."', "; // Texto 
-            $sql .= "'" . today() . "' , "; // Fecha
-            $sql .= $params['id_user'] . ", "; // fecha publicacion
-            $sql .=  "1 "; // abierto
-            $sql .= ")";
-    
-            $success = $db->executeInstruction($sql);
-    
-            if($success){
-                
-                $id_message = $db->getLastId();
-                
-                $sql = "INSERT INTO messages_public VALUES (";
-                $sql .= $id_message . ", ";
-                $sql .= $id_topic . ", ";
-                $sql .= "1 ";
-                $sql .= ")";
-    
-                $success = $db->executeInstruction($sql);
-    
+            $sql = "SELECT t.id, t.title, u.nickname, t.open, t.views ";
+            $sql .= "FROM topics t, users u ";
+            $sql .= "WHERE t.creator_user = u.id and ";
+            $sql .= "t.id_cat = " . $params['id_cat'];
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "Topic/get_topics", $sql);
             }
-    
+
+            $data_topics = $db->getData($sql);
+
+            $data['topics'] = $data_topics;
+
+            $sql = "SELECT name ";
+            $sql .= "FROM categories ";
+            $sql .= "WHERE id = " . $params['id_cat'];
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "Topic/get_topics", $sql);
+            }
+
+            $data['id_cat'] = $params['id_cat'];
+            $data['name_category'] = $db->getDataSingleProp($sql, "name");
+
+            $data['success'] = true;
+        } catch (Exception $e) {
+            $data['show_message_info'] = true;
+            $data['success'] = false;
+            $data['message'] = ERROR_GENERAL;
+            writeLog(ERROR_LOG, "Topic/get_topics", $e->getMessage());
         }
 
-        $data['success'] = $success;
+        $db->close();
+        return $data;
+    }
+
+
+    function create_topic($params)
+    {
+
+        $db = new PDODB();
+        $data = array();
+
+        $data['show_message_info'] = true;
+
+        try {
+
+            $sql = "INSERT INTO topics VALUES (";
+            $sql .= "null, ";
+            $sql .= "'" . $params['title_topic'] . "', ";
+            $sql .= "'" . today() . "' , ";
+            $sql .= $params['id_user'] . ", ";
+            $sql .=  "1, ";
+            $sql .=  "0, ";
+            $sql .= $params['id_cat'] . " ";
+            $sql .= ");";
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "Topic/create_topic", $sql);
+            }
+
+            $success = $db->executeInstruction($sql);
+
+            if ($success) {
+                $id_topic = $db->getLastId();
+                $data['id_topic'] = $id_topic;
+
+                $sql = "INSERT INTO messages VALUES (";
+                $sql .= "null, "; // id
+                $sql .= "'" . $params['text'] . "', "; // Texto 
+                $sql .= "'" . today() . "' , "; // Fecha
+                $sql .= $params['id_user'] . ", "; // fecha publicacion
+                $sql .=  "1 "; // abierto
+                $sql .= ")";
+
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "Topic/create_topic", $sql);
+                }
+
+                $success = $db->executeInstruction($sql);
+
+                if ($success) {
+
+                    $id_message = $db->getLastId();
+
+                    $sql = "INSERT INTO messages_public VALUES (";
+                    $sql .= $id_message . ", ";
+                    $sql .= $id_topic . ", ";
+                    $sql .= "1 ";
+                    $sql .= ")";
+
+                    if (isModeDebug()) {
+                        writeLog(INFO_LOG, "Topic/create_topic", $sql);
+                    }
+
+                    $success = $db->executeInstruction($sql);
+                }
+            }
+
+            $data['success'] = $success;
+
+            if ($data['success']) {
+                $data['message'] = "El topic se ha creado correctamente. Pulsa <a href='index.php?url=MessageController/display/" . $data['id_topic'] . "'>aquí</a> para ir al topic.";
+            } else {
+                $data['message'] = "El topic no se creo correctamente.";
+            }
+        } catch (Exception $e) {
+            $data['success'] = false;
+            $data['message'] = ERROR_GENERAL;
+            writeLog(ERROR_LOG, "Topic/get_topics", $e->getMessage());
+        }
 
         $db->close();
 
         return $data;
-
     }
-
 }

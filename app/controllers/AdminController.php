@@ -14,10 +14,11 @@ class AdminController extends Controller
     {
         isLogged();
 
-        $this->view("AdminView");
+        header("Location: index.php?url=AdminCategoryController/display/");
     }
 
-    function back(){
+    function back()
+    {
         header("Location: /foro-ddr");
     }
 }

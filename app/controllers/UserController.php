@@ -28,9 +28,13 @@ class UserController extends Controller
             'id_user' => $session->getAttribute(SESSION_ID_USER)
         );
 
-        $data['info_user'] = $this->model->getAllInfoUser($params);
+        $data = $this->model->get_all_info_user($params);
 
         $data['profile'] = true;
+
+        if (isModeDebug()) {
+            writeLog(INFO_LOG, "UserController/display_profile", json_encode($data));
+        }
 
         $this->view("UserView", $data);
     }
@@ -46,9 +50,13 @@ class UserController extends Controller
             'id_user' => $session->getAttribute(SESSION_ID_USER)
         );
 
-        $data = $this->model->getAllInfoUser($params);
+        $data = $this->model->get_all_info_user($params);
 
         $data['edit_profile'] = true;
+
+        if (isModeDebug()) {
+            writeLog(INFO_LOG, "UserController/display_edit_profile", json_encode($data));
+        }
 
         $this->view("UserView", $data);
     }
@@ -63,7 +71,7 @@ class UserController extends Controller
             $params = array(
                 'nickname' => $_POST['nickname'],
                 'email' => $_POST['email'],
-                'id' => $_POST['id']
+                'id' => filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT)
             );
 
             $errors = $this->model->checkErrors($params);
@@ -77,22 +85,19 @@ class UserController extends Controller
                     'username' => $_POST['username'],
                     'surname' => $_POST['surname'],
                     'avatar' => $_POST['avatar']
-                );    
+                );
 
                 $data = $this->model->edit_profile($params);
-
-                if ($data['success']) {
-                    prepareDataLogin($data['user']);
-                    $data['message'] = "La edición se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
-                } else {
-                    $data['message'] = "La edición no se ha realizado con éxito. Contacte con discoduroderoer desde este <a href='https://www.discoduroderoer.es/contactanos/'>formulario</a>.";
-                }
-                $this->view("UserView", $data);
             } else {
                 $data['errors'] = $errors;
                 $data['edit_profile'] = true;
-                $this->view("UserView", $data);
             }
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "UserController/edit_profile", json_encode($data));
+            }
+
+            $this->view("UserView", $data);
         }
     }
 
@@ -135,20 +140,18 @@ class UserController extends Controller
                 );
 
                 $data = $this->model->registry($params);
-
-                if ($data['success']) {
-                    prepareDataLogin($data['user']);
-                    $data['message'] = "Su registro se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
-                } else {
-                    $data['message'] = "Su registro no se ha realizado con éxito. Contacte con discoduroderoer desde este <a href='https://www.discoduroderoer.es/contactanos/'>formulario</a>.";
-                }
-
-                $this->view("UserView", $data);
             } else {
-                $data['errors'] = $errors;
+                $data['show_message_info'] = true;
+                $data['success'] = false;
+                $data['message'] = $errors;
                 $data['registry'] = true;
-                $this->view("UserView", $data);
             }
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "UserController/registrer", json_encode($data));
+            }
+
+            $this->view("UserView", $data);
         }
     }
 
@@ -179,19 +182,18 @@ class UserController extends Controller
                 );
 
                 $data = $this->model->change_password($params);
-
-                if ($data['success']) {
-                    $data['message'] = "La contraseña ha sido cambiada";
-                } else {
-                    $data['message'] = "Su contraseña no ha sido cambiada";
-                }
-
-                $this->view("UserView", $data);
             } else {
-                $data['errors'] = $errors;
+                $data['show_message_info'] = true;
+                $data['success'] = false;
+                $data['message'] = $errors;
                 $data['change_password'] = true;
-                $this->view("UserView", $data);
             }
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "UserController/change_password", json_encode($data));
+            }
+
+            $this->view("UserView", $data);
         }
     }
 
@@ -199,7 +201,7 @@ class UserController extends Controller
     {
         $session = new Session();
         $session->destroySession();
-        header("Location: /foro-ddr/");
+        redirect_to_url(BASE_URL);
     }
 
     function display_unsubscribe()
@@ -220,9 +222,13 @@ class UserController extends Controller
 
         $data = $this->model->unsubscribe($params);
 
+        if (isModeDebug()) {
+            writeLog(INFO_LOG, "UserController/unsubscribe", json_encode($data));
+        }
+
         if ($data['success']) {
             $session->destroySession();
-            header("Location: /foro-ddr/");
+            redirect_to_url(BASE_URL);
         }
     }
 

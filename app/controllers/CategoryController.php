@@ -10,15 +10,20 @@ class CategoryController extends Controller
         $this->model = $this->model("Category");
     }
 
-    function display($id_cat_parent=null)
+    function display($id_cat_parent = null)
     {
+        $params = array();
 
-        $params = array(
-            'id_cat_parent' => $id_cat_parent
-        );
+        if ($id_cat_parent) {
+            $params['id_cat_parent'] = filter_var($id_cat_parent, FILTER_SANITIZE_NUMBER_INT);
+        }
 
-        $data = $this->model->getCategories($params);
-        
+        $data = $this->model->get_categories($params);
+
+        if(isModeDebug()){
+            writeLog(INFO_LOG, "CategoryController/display", json_encode($data));
+        }
+
         $this->view("CategoryView", $data);
     }
 }

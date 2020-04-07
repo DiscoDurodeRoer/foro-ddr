@@ -54,7 +54,7 @@
                             <a class="btn btn-info btn-icon" href="index.php?url=NoReadMessagesPublicController/display/">
                                 <i class="fa fa-envelope-o" aria-hidden="true"></i>Mensajes no leidos
                             </a>
-                            
+
                             <a class="btn btn-info btn-icon" href="index.php?url=UserController/display_profile/">
                                 <i class="fa fa-user" aria-hidden="true"></i>Ver perfil
                             </a>
@@ -91,3 +91,7 @@
         <div class="col-12">
             <div class="container">
                 <div class="content-start">
+
+                    <?php
+                    include_once "show-info-message.php";
+                    ?>

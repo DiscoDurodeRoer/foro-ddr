@@ -97,6 +97,12 @@ require_once 'AdminView.php'
 
         <div class="row">
             <div class="col-12">
+                <?php include_once 'show-info-message.php'; ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
                 <a class="btn btn-primary btn-icon" href="index.php?url=AdminCategoryController/display_create">
                     <i class="fa fa-plus" aria-hidden="true"></i>Crear Categoria
                 </a>

@@ -1,7 +1,9 @@
 <?php
 
-class Admin {
+class Admin
+{
 
     function __construct()
-    { }
+    {
+    }
 }

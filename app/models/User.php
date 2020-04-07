@@ -4,10 +4,13 @@ class User
 {
 
     function __construct()
-    { }
+    {
+    }
 
     function checkErrors($params)
     {
+
+        $db = new PDODB();
 
         $errors = array();
 
@@ -22,13 +25,13 @@ class User
             $sql .= "and id <> " . $params['id_user'];
         }
 
-        $db = new MySQLDB();
+        if (isModeDebug()) {
+            writeLog(INFO_LOG, "User/checkErrors", $sql);
+        }
 
-        $data = $db->getDataSingle($sql);
+        $num_usuarios = $db->getDataSingleProp($sql, "num_usuarios");
 
-        $data_single = $data['num_usuarios'];
-
-        if ($data_single > 0) {
+        if ($num_usuarios > 0) {
             array_push($errors, "El nickname ya existe.");
         }
 
@@ -39,11 +42,13 @@ class User
             $sql .= "and id <> " . $params['id_user'];
         }
 
-        $data = $db->getDataSingle($sql);
+        if (isModeDebug()) {
+            writeLog(INFO_LOG, "User/checkErrors", $sql);
+        }
 
-        $data_single = $data['num_usuarios'];
+        $num_usuarios = $db->getDataSingleProp($sql, "num_usuarios");
 
-        if ($data_single > 0) {
+        if ($num_usuarios > 0) {
             array_push($errors, "El email ya existe.");
         }
 
@@ -60,16 +65,29 @@ class User
         }
     }
 
-    function getAllInfoUser($params)
+    function get_all_info_user($params)
     {
 
-        $sql = "SELECT * ";
-        $sql .= "FROM users ";
-        $sql .= "WHERE id = " . $params['id_user'];
+        $db = new PDODB();
+        $data = array();
 
-        $db = new MySQLDB();
+        try {
 
-        $data = $db->getDataSingle($sql);
+            $sql = "SELECT * ";
+            $sql .= "FROM users ";
+            $sql .= "WHERE id = " . $params['id_user'];
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "User/get_all_info_user", $sql);
+            }
+
+            $data['info_user'] = $db->getDataSingle($sql);
+        } catch (Exception $e) {
+            $data['show_message_info'] = true;
+            $data['success'] = false;
+            $data['message'] = ERROR_GENERAL;
+            writeLog(ERROR_LOG, "User/get_all_info_user", $e->getMessage());
+        }
 
         $db->close();
 
@@ -79,38 +97,54 @@ class User
     function registry($params)
     {
 
-        $sql = "INSERT INTO users VALUES(";
-        $sql .= "null,";
-        $sql .= "'" . $params['username'] . "', ";
-        $sql .= "'" . $params['surname'] . "', ";
-        $sql .= "'" . $params['nickname'] . "', ";
-        $sql .= "'" . $params['email'] . "', ";
-        $sql .= "'" . hash_hmac("sha512", $params['pass'], "discoduroderoer") . "', ";
-        $sql .= "'" . date("Y-m-d") . "', ";
-        if (!empty($params['avatar'])) {
-            $sql .= "'" . $params['avatar'] . "', ";
-        } else {
-            $sql .= "'" . PAGE_URL . "img/default-avatar.jpg', ";
-        }
-        $sql .= "2, ";
-        $sql .= " '" . today() . "' , ";
-        $sql .= "0, ";
-        $sql .= "0);";
 
-        $db = new MySQLDB();
-
-        $success = $db->executeInstruction($sql);
-
+        $db = new PDODB();
         $data = array();
+        $data['show_message_info'] = true;
 
-        $data['success'] = $success;
+        try {
 
-        if ($success) {
+            $sql = "INSERT INTO users VALUES(";
+            $sql .= "null,";
+            $sql .= "'" . $params['username'] . "', ";
+            $sql .= "'" . $params['surname'] . "', ";
+            $sql .= "'" . $params['nickname'] . "', ";
+            $sql .= "'" . $params['email'] . "', ";
+            $sql .= "'" . hash_hmac("sha512", $params['pass'], "discoduroderoer") . "', ";
+            $sql .= "'" . date("Y-m-d") . "', ";
+            if (!empty($params['avatar'])) {
+                $sql .= "'" . $params['avatar'] . "', ";
+            } else {
+                $sql .= "'" . PAGE_URL . "img/default-avatar.jpg', ";
+            }
+            $sql .= "2, ";
+            $sql .= " '" . today() . "' , ";
+            $sql .= "0, ";
+            $sql .= "0);";
 
-            $id_user = $db->getLastId();
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "User/registry", $sql);
+            }
 
-            $data['user'] = array('id' => $id_user, 'nickname' => $params['nickname']);
+            $success = $db->executeInstruction($sql);
+
+            $data['success'] = $success;
+
+            if ($success) {
+                $data['message'] = "Su registro se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
+
+                $id_user = $db->getLastId();
+                $data['user'] = array('id' => $id_user, 'nickname' => $params['nickname']);
+                prepareDataLogin($data['user']);
+            } else {
+                $data['message'] = "Su registro no se ha realizado con éxito. Contacte con discoduroderoer desde este <a href='https://www.discoduroderoer.es/contactanos/'>formulario</a>.";
+            }
+        } catch (Exception $e) {
+            $data['success'] = false;
+            $data['message'] = ERROR_GENERAL;
+            writeLog(ERROR_LOG, "User/registry", $e->getMessage());
         }
+
 
         $db->close();
 
@@ -119,52 +153,80 @@ class User
 
     function edit_profile($params)
     {
-        $sql = "UPDATE users ";
-        $sql .= "SET name = '" . $params['username'] . "', ";
-        $sql .= "surname = '" . $params['surname'] . "', ";
-        $sql .= "nickname = '" . $params['nickname'] . "', ";
-        $sql .= "email = '" . $params['email'] . "', ";
-        if (!empty($params['avatar'])) {
-            $sql .= "avatar = '" . $params['avatar'] . "' ";
-        } else {
-            $sql .= "avatar = '" . PAGE_URL . "img/default-avatar.jpg' ";
-        }
-        $sql .= "WHERE id = " . $params['id_user'];
-    
-        $db = new MySQLDB();
-    
+
+        $db = new PDODB();
         $data = array();
+        $data['show_message_info'] = true;
 
-        $success = $db->executeInstruction($sql);
+        try {
 
-        $data['success'] = $success;
+            $sql = "UPDATE users ";
+            $sql .= "SET name = '" . $params['username'] . "', ";
+            $sql .= "surname = '" . $params['surname'] . "', ";
+            $sql .= "nickname = '" . $params['nickname'] . "', ";
+            $sql .= "email = '" . $params['email'] . "', ";
+            if (!empty($params['avatar'])) {
+                $sql .= "avatar = '" . $params['avatar'] . "' ";
+            } else {
+                $sql .= "avatar = '" . PAGE_URL . "img/default-avatar.jpg' ";
+            }
+            $sql .= "WHERE id = " . $params['id_user'];
 
-        if($success){
-            $data['user'] = array('id' => $params['id_user'], 'nickname' => $params['nickname']);
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "User/edit_profile", $sql);
+            }
+
+            $data['success'] = $db->executeInstruction($sql);
+
+            if ($data['success']) {
+                $data['message'] = "La edición se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
+
+                $data['user'] = array('id' => $params['id_user'], 'nickname' => $params['nickname']);
+                prepareDataLogin($data['user']);
+            } else {
+                $data['message'] = "La edición no se ha realizado con éxito. Contacte con discoduroderoer desde este <a href='https://www.discoduroderoer.es/contactanos/'>formulario</a>.";
+            }
+        } catch (Exception $e) {
+            $data['success'] = false;
+            $data['message'] = ERROR_GENERAL;
+            writeLog(ERROR_LOG, "User/registry", $e->getMessage());
         }
 
         $db->close();
 
         return $data;
-    
     }
 
     function change_password($params)
     {
 
-        $sql = "UPDATE users ";
-        $sql .= "SET pass = '" . hash_hmac("sha512", $params['pass'], HASH_PASS_KEY) . "' ";
-        $sql .= "WHERE id = " . $params['id_user'];
+        $db = new PDODB();
+        $data = array();
+        $data['show_message_info'] = true;
 
-        $db = new MySQLDB();
+        try {
+            $sql = "UPDATE users ";
+            $sql .= "SET pass = '" . hash_hmac("sha512", $params['pass'], HASH_PASS_KEY) . "' ";
+            $sql .= "WHERE id = " . $params['id_user'];
 
-        $success = $db->executeInstruction($sql);
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "User/change_password", $sql);
+            }
+
+            $data['success'] = $db->executeInstruction($sql);
+
+            if ($data['success']) {
+                $data['message'] = "La contraseña ha sido cambiada";
+            } else {
+                $data['message'] = "Su contraseña no ha sido cambiada";
+            }
+        } catch (Exception $e) {
+            $data['success'] = false;
+            $data['message'] = ERROR_GENERAL;
+            writeLog(ERROR_LOG, "User/change_password", $e->getMessage());
+        }
 
         $db->close();
-
-        $data = array();
-
-        $data['success'] = $success;
 
         return $data;
     }
@@ -172,19 +234,28 @@ class User
     function unsubscribe($params)
     {
 
-        $sql = "UPDATE users SET ";
-        $sql .= " borrado = 1 ";
-        $sql .= " WHERE id = " . $params['id_user'];
-
-        $db = new MySQLDB();
-
-        $success = $db->executeInstruction($sql);
-
-        $db->close();
-
+        $db = new PDODB();
         $data = array();
 
-        $data['success'] = $success;
+        try {
+
+            $sql = "UPDATE users SET ";
+            $sql .= " borrado = 1 ";
+            $sql .= " WHERE id = " . $params['id_user'];
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "User/unsubscribe", $sql);
+            }
+
+            $data['success'] = $db->executeInstruction($sql);
+        } catch (Exception $e) {
+            $data['show_message_info'] = true;
+            $data['success'] = false;
+            $data['message'] = ERROR_GENERAL;
+            writeLog(ERROR_LOG, "User/v", $e->getMessage());
+        }
+
+        $db->close();
 
         return $data;
     }

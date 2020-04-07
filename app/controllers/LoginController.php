@@ -29,17 +29,18 @@ class LoginController extends Controller
 
             $data = $this->model->checkLogin($params);
 
-            if($data['success']){
-                
-                if($data['user']){
-                    prepareDataLogin($data['user']);
-                }
-                header("Location: /foro-ddr/");
-            }else{
-                $data['error'] = "Usuario/email o contraseña incorrectos";
-                $this->view("LoginView", $data);
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "Login/login", json_encode($data));
             }
 
+            if ($data['success']) {
+                if ($data['user']) {
+                    prepareDataLogin($data['user']);
+                }
+               redirect_to_url(BASE_URL);
+            } else {
+                $this->view("LoginView", $data);
+            }
         }
     }
 }

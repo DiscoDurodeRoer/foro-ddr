@@ -9,6 +9,12 @@ require_once 'AdminView.php'
             <h1>Usuarios</h1>
         </div>
     </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <?php include_once 'show-info-message.php'; ?>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-12">
@@ -36,13 +42,13 @@ require_once 'AdminView.php'
                                 if ($value['baneado'] === TRUE) {
                             ?>
 
-                                    <a class="btn btn-success btn-icon" title="Desbanear usuario" href="index.php?url=AdminUserController/noBanUser/<?php echo $value['id']; ?>">
+                                    <a class="btn btn-success btn-icon" title="Desbanear usuario" href="index.php?url=AdminUserController/no_ban_user/<?php echo $value['id']; ?>">
                                         <i class="fa fa-check" aria-hidden="true"></i>
                                     </a>
                                 <?php
                                 } else {
                                 ?>
-                                    <a class="btn btn-danger btn-icon" title="Banear usuario" href="index.php?url=AdminUserController/banUser/<?php echo $value['id']; ?>">
+                                    <a class="btn btn-danger btn-icon" title="Banear usuario" href="index.php?url=AdminUserController/ban_user/<?php echo $value['id']; ?>">
                                         <i class="fa fa-ban"></i>
                                     </a>
 
@@ -56,13 +62,13 @@ require_once 'AdminView.php'
                                 if ($value['borrado'] === TRUE) {
                             ?>
 
-                                    <a class="btn btn-success btn-icon" title="Activar usuario" href="index.php?url=AdminUserController/noActUser/<?php echo $value['id']; ?>">
+                                    <a class="btn btn-success btn-icon" title="Activar usuario" href="index.php?url=AdminUserController/no_act_user/<?php echo $value['id']; ?>">
                                         <i class="fa fa-check" aria-hidden="true"></i>
                                     </a>
                                 <?php
                                 } else {
                                 ?>
-                                    <a class="btn btn-danger btn-icon" title="Desactivar usuario" href="index.php?url=AdminUserController/actUser/<?php echo $value['id']; ?>">
+                                    <a class="btn btn-danger btn-icon" title="Desactivar usuario" href="index.php?url=AdminUserController/act_user/<?php echo $value['id']; ?>">
                                         <i class="fa fa-ban"></i>
                                     </a>
 

@@ -17,12 +17,15 @@ class MessageController extends Controller
 
             $params = array(
                 'id_topic' => filter_var($id_topic, FILTER_SANITIZE_NUMBER_INT),
-                'page' => $page
+                'page' => filter_var($page, FILTER_SANITIZE_NUMBER_INT)
             );
 
-            $data = $this->model->getMessagesByTopic($params);
-
+            $data = $this->model->get_messages_by_topic($params);
             $data["display"] = true;
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "MessageController/display", json_encode($data));
+            }
 
             $this->view("MessageView", $data);
         }
@@ -34,7 +37,7 @@ class MessageController extends Controller
         if (isset($id_topic)) {
 
             $params = array(
-                'id_topic' => $id_topic
+                'id_topic' => filter_var($id_topic, FILTER_SANITIZE_NUMBER_INT)
             );
 
             if ($this->model->is_open_topic($params)) {
@@ -42,6 +45,10 @@ class MessageController extends Controller
                 $data["reply_message"] = true;
 
                 $data['id_topic'] = $id_topic;
+
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "MessageController/display_reply_topic", json_encode($data));
+                }
 
                 $this->view("MessageView", $data);
             } else {
@@ -65,21 +72,31 @@ class MessageController extends Controller
 
             $data = $this->model->reply_topic($params);
 
-            $params = array(
-                'id_user' => $session->getAttribute(SESSION_ID_USER),
-                'id_message' => $data['id_message'],
-                'id_topic' => filter_var($_POST['id_topic'], FILTER_SANITIZE_NUMBER_INT)
-            );
-
-            $data = $this->model->notifyNoReadMessages($params);
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "MessageController/reply_topic", json_encode($data));
+            }
 
             if ($data['success']) {
-                header("Location: /foro-ddr/index.php?url=MessageController/display/" . $_POST['id_topic']);
+                $params = array(
+                    'id_user' => $session->getAttribute(SESSION_ID_USER),
+                    'id_message' => filter_var($data['id_message'], FILTER_SANITIZE_NUMBER_INT),
+                    'id_topic' => filter_var($_POST['id_topic'], FILTER_SANITIZE_NUMBER_INT)
+                );
+
+                $data = $this->model->notify_no_read_messages($params);
+
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "MessageController/reply_topic", json_encode($data));
+                }
+
+                if ($data['success']) {
+                    redirect_to_url("/foro-ddr/index.php?url=MessageController/display/" . $params['id_topic']);
+                } else {
+                    $this->view("MessageView", $data);
+                }
             } else {
                 $this->view("MessageView", $data);
             }
         }
     }
-
- 
 }

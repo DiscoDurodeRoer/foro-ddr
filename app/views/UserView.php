@@ -8,112 +8,77 @@ include_once 'header.php';
 <div class="row">
     <div class="col-12">
 
-
         <?php
+        if (isset($data['registry']) || isset($data['edit_profile'])) {
 
-        if (isset($data['errors'])) {
             ?>
-            <div class="row">
-                <div class="col-12">
-                    <div class="alert alert-danger" role="alert">
-                        <ul>
-                            <?php
-                                foreach ($data['errors'] as $key => $data['info_user']) {
-                                    ?>
 
-                                <li>
-                                    <?php echo $data['info_user'] ?>
-                                </li>
-                            <?php
-                                }
-                                ?>
-                        </ul>
+            <form action="index.php?url=UserController/<?php echo isset($data['registry']) ? 'registrer' : 'edit_profile'; ?>/" method="POST">
+
+                <?php
+                    if(isset($data['edit_profile'])){
+                        ?>
+                            <input type="hidden" name="id" value="<?php if (isset($data['id'])) { echo $data['id']; } ?>"/>
+                        <?php
+                    }
+                ?>
+                
+                <div class="row form-group">
+                    <div class="col-md-6 col-12">
+                        <label for="username">Nombre (*)</label>
+                        <input type="text" name="username" class="form-control" id="username" required maxlength="20" value="<?php if (isset($data['name'])) { echo $data['name']; } ?>" />
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <label for="surname">Apellidos</label>
+                        <input type="text" name="surname" class="form-control" id="surname" maxlength="30" value="<?php if (isset($data['surname'])) { echo $data['surname']; } ?>" />
                     </div>
                 </div>
-            </div>
-        <?php
-        }
 
-
-        if (isset($data['success'])) { 
-
-            include_once "show-info-message.php";
-
-        } else if (isset($data['registry']) || isset($data['edit_profile'])) {
-
-            ?>
-
-            <div class="row">
-                <div class="col-12">
-
-                    <form action="index.php?url=UserController/<?php echo isset($data['registry']) ? 'registrer' : 'edit_profile'; ?>/" method="POST">
-
-                        <?php
-                            if(isset($data['edit_profile'])){
-                                ?>
-                                    <input type="hidden" name="id" value="<?php if (isset($data['id'])) { echo $data['id']; } ?>"/>
-                                <?php
-                            }
-                        ?>
-                        
-                        <div class="row form-group">
-                            <div class="col-md-6 col-12">
-                                <label for="username">Nombre (*)</label>
-                                <input type="text" name="username" class="form-control" id="username" required maxlength="20" value="<?php if (isset($data['name'])) { echo $data['name']; } ?>" />
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <label for="surname">Apellidos</label>
-                                <input type="text" name="surname" class="form-control" id="surname" maxlength="30" value="<?php if (isset($data['surname'])) { echo $data['surname']; } ?>" />
-                            </div>
-                        </div>
-
-                        <div class="row form-group">
-                            <div class="col-md-6 col-12">
-                                <label for="nickname">Alias (*)</label>
-                                <input type="text" name="nickname" class="form-control" id="nickname" required maxlength="40" value="<?php if (isset($data['nickname'])) { echo $data['nickname']; } ?>" />
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <label for="email">Email (*)</label>
-                                <input type="email" name="email" class="form-control" id="email" required maxlength="40" value="<?php if (isset($data['email'])) { echo $data['email']; } ?>"/>
-                            </div>
-                        </div>
-
-                        <?php
-                        if(isset($data['registry'])){
-                            ?>
-                            <div class="row form-group">
-                                <div class="col-md-6 col-12">
-                                    <label for="pass">Contraseña (*)</label>
-                                    <input type="password" name="pass" class="form-control" required maxlength="20" />
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <label for="confirm-pass">Confirmar contraseña (*)</label>
-                                    <input type="password" name="confirm_pass" class="form-control" id="confirm_pass" required maxlength="20" />
-                                </div>
-                            </div>
-                            <?php
-                        }
-                        
-                        ?>
-                        
-
-                        <div class="row form-group">
-                            <div class="col-12">
-                                <label for="avatar">Avatar</label>
-                                <input type="text" class="form-control" name="avatar" maxlength="300" />
-                            </div>
-                        </div>
-
-                        <div class="row form-group">
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-block"><?php echo isset($data['registry']) ? 'Registro' : 'Editar'; ?></button>
-                            </div>
-                        </div>
-
-                    </form>
-
+                <div class="row form-group">
+                    <div class="col-md-6 col-12">
+                        <label for="nickname">Alias (*)</label>
+                        <input type="text" name="nickname" class="form-control" id="nickname" required maxlength="40" value="<?php if (isset($data['nickname'])) { echo $data['nickname']; } ?>" />
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <label for="email">Email (*)</label>
+                        <input type="email" name="email" class="form-control" id="email" required maxlength="40" value="<?php if (isset($data['email'])) { echo $data['email']; } ?>"/>
+                    </div>
                 </div>
-            </div>
+
+                <?php
+                if(isset($data['registry'])){
+                    ?>
+                    <div class="row form-group">
+                        <div class="col-md-6 col-12">
+                            <label for="pass">Contraseña (*)</label>
+                            <input type="password" name="pass" class="form-control" required maxlength="20" />
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <label for="confirm-pass">Confirmar contraseña (*)</label>
+                            <input type="password" name="confirm_pass" class="form-control" id="confirm_pass" required maxlength="20" />
+                        </div>
+                    </div>
+                    <?php
+                }
+                
+                ?>
+                
+
+                <div class="row form-group">
+                    <div class="col-12">
+                        <label for="avatar">Avatar</label>
+                        <input type="text" class="form-control" name="avatar" maxlength="300" />
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block"><?php echo isset($data['registry']) ? 'Registro' : 'Editar'; ?></button>
+                    </div>
+                </div>
+
+            </form>
+
         <?php
         } else if (isset($data['profile'])) {
             ?>

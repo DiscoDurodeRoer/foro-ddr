@@ -14,60 +14,96 @@ class AdminUserController extends Controller
     {
         isLogged();
 
-        $data = $this->model->getAllUsers();
+        $data = $this->model->get_all_users();
+
+        if (isModeDebug()) {
+            writeLog(INFO_LOG, "AdminUserController/display", json_encode($data));
+        }
 
         $this->view("AdminUserView", $data);
     }
 
-    function banUser($id_user)
+    function ban_user($id_user)
     {
         isLogged();
 
         $params = array(
-            'id_user' => $id_user
+            'id_user' => filter_var($id_user, FILTER_SANITIZE_NUMBER_INT)
         );
 
-        $this->model->banUser($params);
+        $data = $this->model->ban_user($params);
 
-        header("Location: index.php?url=AdminUserController/display");
+        $users = $this->model->get_all_users();
+
+        $data['users'] = $users['users'];
+
+        if (isModeDebug()) {
+            writeLog(INFO_LOG, "AdminUserController/ban_user", json_encode($data));
+        }
+
+        $this->view("AdminUserView", $data);
     }
 
-    function noBanUser($id_user)
+    function no_ban_user($id_user)
     {
         isLogged();
 
         $params = array(
-            'id_user' => $id_user
+            'id_user' => filter_var($id_user, FILTER_SANITIZE_NUMBER_INT)
         );
 
-        $this->model->noBanUser($params);
+        $data = $this->model->no_ban_user($params);
 
-        header("Location: index.php?url=AdminUserController/display");
+        $users = $this->model->get_all_users();
+
+        $data['users'] = $users['users'];
+
+        if (isModeDebug()) {
+            writeLog(INFO_LOG, "AdminUserController/no_ban_user", json_encode($data));
+        }
+
+        $this->view("AdminUserView", $data);
     }
 
-    function noActUser($id_user)
+    function no_act_user($id_user)
     {
         isLogged();
 
         $params = array(
-            'id_user' => $id_user
+            'id_user' => filter_var($id_user, FILTER_SANITIZE_NUMBER_INT)
         );
 
-        $this->model->noActUser($params);
+        $data = $this->model->no_act_user($params);
 
-        header("Location: index.php?url=AdminUserController/display");
+        $users = $this->model->get_all_users();
+
+        $data['users'] = $users['users'];
+
+        if (isModeDebug()) {
+            writeLog(INFO_LOG, "AdminUserController/no_act_user", json_encode($data));
+        }
+
+        $this->view("AdminUserView", $data);
     }
 
-    function actUser($id_user)
+    function act_user($id_user)
     {
         isLogged();
 
         $params = array(
-            'id_user' => $id_user
+            'id_user' => filter_var($id_user, FILTER_SANITIZE_NUMBER_INT)
         );
 
-        $this->model->actUser($params);
+        $data = $this->model->act_user($params);
 
-        header("Location: index.php?url=AdminUserController/display");
+        $users = $this->model->get_all_users();
+
+        $data['users'] = $users['users'];
+
+        if (isModeDebug()) {
+            writeLog(INFO_LOG, "AdminUserController/act_user", json_encode($data));
+        }
+
+        $this->view("AdminUserView", $data);
     }
 }

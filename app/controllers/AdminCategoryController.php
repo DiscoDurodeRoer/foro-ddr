@@ -18,7 +18,11 @@ class AdminCategoryController extends Controller
             'mode' => ALL_CATEGORIES
         );
 
-        $data = $this->model->getCategories($params);
+        $data = $this->model->get_categories($params);
+
+        if(isModeDebug()){
+            writeLog(INFO_LOG, "AdminCategoryController/display", json_encode($data));
+        }
 
         $this->view("AdminCategoryView", $data);
     }
@@ -33,9 +37,13 @@ class AdminCategoryController extends Controller
             'mode' => ONLY_PARENTS
         );
 
-        $data = $this->model->getCategories($params);
+        $data = $this->model->get_categories($params);
 
         $data['display_create'] = true;
+
+        if(isModeDebug()){
+            writeLog(INFO_LOG, "AdminCategoryController/display_create", json_encode($data));
+        }
 
         $this->view("AdminCategoryView", $data);
     }
@@ -52,13 +60,27 @@ class AdminCategoryController extends Controller
                 $params = array(
                     'name' => $_POST['name'],
                     'description' => $_POST['description'],
-                    'parent_cat' => $_POST['parent_cat'],
+                    'parent_cat' => filter_var($_POST['parent_cat'], FILTER_SANITIZE_NUMBER_INT)
                 );
 
-                $this->model->create_category($params);
-            }
+                $data = $this->model->create_category($params);
 
-            header("Location: index.php?url=AdminCategoryController/display");
+                $params = array(
+                    'mode' => ALL_CATEGORIES
+                );
+
+                $categories = $this->model->get_categories($params);
+
+                $data['categories'] = $categories['categories'];
+
+                if(isModeDebug()){
+                    writeLog(INFO_LOG, "AdminCategoryController/create_category", json_encode($data));
+                }
+
+                $this->view("AdminCategoryView", $data);
+            } else {
+                header("Location: index.php?url=AdminCategoryController/display");
+            }
         }
     }
 
@@ -70,15 +92,19 @@ class AdminCategoryController extends Controller
             'id_category' => $id_category
         );
 
-        $data = $this->model->getCategory($params);
+        $data = $this->model->get_category($params);
 
         $params = array(
             'mode' => ONLY_PARENTS
         );
 
-        $data['categories'] = $this->model->getCategories($params)['categories'];
+        $data['categories'] = $this->model->get_categories($params)['categories'];
 
         $data['display_edit'] = true;
+
+        if(isModeDebug()){
+            writeLog(INFO_LOG, "AdminCategoryController/display_edit", json_encode($data));
+        }
 
         $this->view("AdminCategoryView", $data);
     }
@@ -95,13 +121,28 @@ class AdminCategoryController extends Controller
                 $params = array(
                     'name' => $_POST['name'],
                     'description' => $_POST['description'],
-                    'parent_cat' => $_POST['parent_cat'],
-                    'id' => $_POST['id']
+                    'parent_cat' => filter_var($_POST['parent_cat'], FILTER_SANITIZE_NUMBER_INT),
+                    'id' => filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT)
                 );
 
-                $this->model->edit_category($params);
+                $data = $this->model->edit_category($params);
+
+                $params = array(
+                    'mode' => ALL_CATEGORIES
+                );
+
+                $categories = $this->model->get_categories($params);
+
+                $data['categories'] = $categories['categories'];
+
+                if(isModeDebug()){
+                    writeLog(INFO_LOG, "AdminCategoryController/edit_category", json_encode($data));
+                }
+
+                $this->view("AdminCategoryView", $data);
+            } else {
+                header("Location: index.php?url=AdminCategoryController/display");
             }
-            header("Location: index.php?url=AdminCategoryController/display");
         }
     }
 
@@ -111,11 +152,23 @@ class AdminCategoryController extends Controller
         isLogged();
 
         $params = array(
-            'id_category' => $id_category
+            'id_category' => filter_var($id_category, FILTER_SANITIZE_NUMBER_INT)
         );
 
-        $this->model->delete_category($params);
+        $data = $this->model->delete_category($params);
 
-        header("Location: index.php?url=AdminCategoryController/display");
+        $params = array(
+            'mode' => ALL_CATEGORIES
+        );
+
+        $categories = $this->model->get_categories($params);
+
+        $data['categories'] = $categories['categories'];
+
+        if(isModeDebug()){
+            writeLog(INFO_LOG, "AdminCategoryController/delete_category", json_encode($data));
+        }
+
+        $this->view("AdminCategoryView", $data);
     }
 }

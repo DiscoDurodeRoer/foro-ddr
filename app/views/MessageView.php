@@ -4,7 +4,6 @@
 include_once 'header.php';
 
 
-
 if (isset($data['display'])) {
     ?>
     <div class="row">

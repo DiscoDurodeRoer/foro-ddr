@@ -19,9 +19,13 @@ class NoReadMessagesPublicController extends Controller
             'id_user' => $session->getAttribute(SESSION_ID_USER)
         );
 
-        $data = $this->model->getNoReadMessagesPublic($params);
+        $data = $this->model->get_no_read_messages_public($params);
 
         $data["display"] = true;
+
+        if (isModeDebug()) {
+            writeLog(INFO_LOG, "NoReadMessagesPublicController/display", json_encode($data));
+        }
 
         $this->view("NoReadMessagesPublicView", $data);
     }
@@ -33,14 +37,14 @@ class NoReadMessagesPublicController extends Controller
 
         $params = array(
             'id_user' => $session->getAttribute(SESSION_ID_USER),
-            'id_topic' => $id_topic
+            'id_topic' => filter_var($id_topic, FILTER_SANITIZE_NUMBER_INT)
         );
 
-        $this->model->deleteNoReadMessages($params);
+        $this->model->delete_no_read_messages($params);
 
         $url = "/foro-ddr/index.php?url=MessageController/display/" . $id_topic . "/" . $page . "#" . $message_index;
 
-        header("Location: " . $url);
+        redirect_to_url($url);
 
     }
 }
