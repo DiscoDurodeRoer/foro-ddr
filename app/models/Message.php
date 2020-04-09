@@ -26,13 +26,16 @@ class Message
             $sql .= "order by m.date_creation ";
             $sql .= "LIMIT " . ($params['page'] - 1) * NUM_ITEMS_PAG . "," . NUM_ITEMS_PAG;
 
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "Message/get_messages_by_topic", $sql);
+            }
 
             $data['messages'] = $db->getData($sql);
 
             $data["pag"] = $params['page'];
             $data['id_topic'] = $params['id_topic'];
 
-            $sql = "SELECT title, open ";
+            $sql = "SELECT title, open, id_cat ";
             $sql .= "FROM topics ";
             $sql .= "WHERE id = " . $params['id_topic'];
 
@@ -41,6 +44,7 @@ class Message
             if ($data_single) {
                 $data['title_topic'] = $data_single['title'];
                 $data['open_topic'] = $data_single['open'];
+                $id_cat = $data_single['id_cat'];
             }
 
             $sql = "select count(*) as num_messages ";
@@ -49,11 +53,51 @@ class Message
             $sql .= "u.id = m.user_origin and ";
             $sql .= "mp.id_topic = " . $params['id_topic'] . " ";
 
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "Message/get_messages_by_topic", $sql);
+            }
+
             $data['num_messages'] = $db->getDataSingleProp($sql, "num_messages");
-
             $data['last_page'] = ceil($data['num_messages'] / NUM_ITEMS_PAG);
-
             $data['url_base'] = "MessageController/display/" . $data['id_topic'];
+
+            $sql = "SELECT DISTINCT c.id, c.name ";
+            $sql .= "FROM categories_child cch, categories c ";
+            $sql .= "WHERE c.id = cch.id_cat_parent ";
+            $sql .= "and cch.id_cat = " . $id_cat . " ";
+            $sql .= "ORDER BY level";
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "Message/get_messages_by_topic", $sql);
+            }
+
+            $parents = $db->getData($sql);
+
+            $numRows = $db->numRows($sql);
+
+            if ($numRows > 0) {
+
+                $data['breadcumbs'] = array();
+
+                foreach ($parents as $key => $value) {
+                    $breadcumb = new BreadCumb(
+                        $value['name'],
+                        'index.php?url=CategoryController/display/' . $value['id'],
+                        null,
+                        true
+                    );
+
+                    array_push($data['breadcumbs'], $breadcumb);
+                }
+
+                $breadcumb = new BreadCumb(
+                    $data['title_topic'],
+                    "",
+                    null,
+                    false
+                );
+                array_push($data['breadcumbs'], $breadcumb);
+            }
         } catch (Exception $e) {
             $data['show_message_info'] = true;
             $data['success'] = false;
@@ -104,7 +148,7 @@ class Message
             $sql .= $params['id_topic'] . ", ";
             $sql .= $num_index;
             $sql .= ")";
-            
+
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Message/reply_topic", $sql);
             }

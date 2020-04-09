@@ -41,6 +41,38 @@ class Topic
             $data['id_cat'] = $params['id_cat'];
             $data['name_category'] = $db->getDataSingleProp($sql, "name");
 
+
+
+            $sql = "SELECT c.id, c.name ";
+            $sql .= "FROM categories_child cch, categories c ";
+            $sql .= "WHERE c.id = cch.id_cat_parent and cch.id_cat = " . $data['id_cat']  . " ";
+            $sql .= "ORDER BY level";
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "Topic/get_topics", $sql);
+            }
+
+            $parents = $db->getData($sql);
+
+            $numRows = $db->numRows($sql);
+
+            if ($numRows > 0) {
+
+                $data['breadcumbs'] = array();
+
+                foreach ($parents as $key => $value) {
+                    $breadcumb = new BreadCumb(
+                        $value['name'],
+                        'index.php?url=CategoryController/display/' . $value['id'],
+                        null,
+                        $key < ($numRows - 1)
+                    );
+
+                    array_push($data['breadcumbs'], $breadcumb);
+                }
+            }
+
+
             $data['success'] = true;
         } catch (Exception $e) {
             $data['show_message_info'] = true;

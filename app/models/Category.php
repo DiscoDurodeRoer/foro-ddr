@@ -35,6 +35,36 @@ class Category
                         array_push($data['categories'], $value);
                     }
                 }
+
+                $sql = "SELECT DISTINCT c.id, c.name ";
+                $sql .= "FROM categories_child cch, categories c ";
+                $sql .= "WHERE c.id = cch.id_cat_parent ";
+                $sql .= "and cch.id_cat = " . $params['id_cat_parent'] . " ";
+                $sql .= "ORDER BY level";
+
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "Category/get_categories", $sql);
+                }
+
+                $parents = $db->getData($sql);
+
+                $numRows = $db->numRows($sql);
+
+                if ($numRows > 0) {
+
+                    $data['breadcumbs'] = array();
+
+                    foreach ($parents as $key => $value) {
+                        $breadcumb = new BreadCumb(
+                            $value['name'],
+                            'index.php?url=CategoryController/display/' . $value['id'],
+                            null,
+                            $key < ($numRows - 1)
+                        );
+
+                        array_push($data['breadcumbs'], $breadcumb);
+                    }
+                }
             } else {
                 foreach ($datadb  as $key => $value) {
                     if ($value['id'] === $value['parent_cat']) {
@@ -54,7 +84,6 @@ class Category
 
                 $data['categories'][$key]['child'] = $child;
             }
-            
         } catch (Exception $e) {
             $data['show_message_info'] = true;
             $data['success'] = false;
