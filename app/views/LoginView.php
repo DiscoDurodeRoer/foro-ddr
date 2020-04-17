@@ -12,14 +12,14 @@ include_once 'header.php';
             <div class="row form-group">
                 <div class="col-12">
                     <label for="nick_email">Nickname o email (*)</label>
-                    <input type="text" name="nick_email" class="form-control" id="nick_email" required />
+                    <input type="text" name="nick_email" class="form-control" id="nick_email" />
                 </div>
             </div>
 
             <div class="row form-group">
                 <div class="col-12">
                     <label for="pass">Contraseña (*)</label>
-                    <input type="password" name="pass" class="form-control" required />
+                    <input type="password" name="pass" class="form-control" />
                 </div>
             </div>
 
@@ -31,8 +31,11 @@ include_once 'header.php';
             </div>
 
             <div class="row form-group">
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                <div class="col-6">
+                    <button type="submit" name="action" class="btn btn-primary btn-block">Login</button>
+                </div>
+                <div class="col-6">
+                    <button type="submit" name="back" class="btn btn-primary btn-block">Volver</button>
                 </div>
             </div>
 

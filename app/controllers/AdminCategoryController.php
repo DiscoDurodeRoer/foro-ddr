@@ -10,17 +10,18 @@ class AdminCategoryController extends Controller
         $this->model = $this->model("AdminCategory");
     }
 
-    function display()
+    function display($page = 1)
     {
         isLogged();
 
         $params = array(
-            'mode' => ALL_CATEGORIES
+            'mode' => ALL_CATEGORIES,
+            'page' => filter_var($page, FILTER_VALIDATE_INT)
         );
 
         $data = $this->model->get_categories($params);
 
-        if(isModeDebug()){
+        if (isModeDebug()) {
             writeLog(INFO_LOG, "AdminCategoryController/display", json_encode($data));
         }
 
@@ -41,7 +42,7 @@ class AdminCategoryController extends Controller
 
         $data['display_create'] = true;
 
-        if(isModeDebug()){
+        if (isModeDebug()) {
             writeLog(INFO_LOG, "AdminCategoryController/display_create", json_encode($data));
         }
 
@@ -65,21 +66,28 @@ class AdminCategoryController extends Controller
 
                 $data = $this->model->create_category($params);
 
-                $params = array(
-                    'mode' => ALL_CATEGORIES
-                );
+                // $params = array(
+                //     'mode' => ALL_CATEGORIES,
+                //     'page' => 1
+                // );
 
-                $categories = $this->model->get_categories($params);
+                // $data_categories = $this->model->get_categories($params);
 
-                $data['categories'] = $categories['categories'];
+                // $data['categories'] = $data_categories['categories'];
+                // $data["pag"] = $data_categories['pag'];
+                // $data['last_page'] = ceil($data_categories['num_elems'] / NUM_ITEMS_PAG);
+                // $data["num_elems"] = $data_categories['num_elems'];
+                // $data['url_base'] = $data_categories['url_base'];
 
-                if(isModeDebug()){
-                    writeLog(INFO_LOG, "AdminCategoryController/create_category", json_encode($data));
-                }
+                // if (isModeDebug()) {
+                //     writeLog(INFO_LOG, "AdminCategoryController/create_category", json_encode($data));
+                // }
 
-                $this->view("AdminCategoryView", $data);
+                // $this->view("AdminCategoryView", $data);
+                
+                // header("Location: index.php?url=AdminCategoryController/display");
             } else {
-                header("Location: index.php?url=AdminCategoryController/display");
+                // header("Location: index.php?url=AdminCategoryController/display");
             }
         }
     }
@@ -102,7 +110,7 @@ class AdminCategoryController extends Controller
 
         $data['display_edit'] = true;
 
-        if(isModeDebug()){
+        if (isModeDebug()) {
             writeLog(INFO_LOG, "AdminCategoryController/display_edit", json_encode($data));
         }
 
@@ -128,14 +136,19 @@ class AdminCategoryController extends Controller
                 $data = $this->model->edit_category($params);
 
                 $params = array(
-                    'mode' => ALL_CATEGORIES
+                    'mode' => ALL_CATEGORIES,
+                    'page' => 1
                 );
 
-                $categories = $this->model->get_categories($params);
+                $data_categories = $this->model->get_categories($params);
 
-                $data['categories'] = $categories['categories'];
+                $data['categories'] = $data_categories['categories'];
+                $data["pag"] = $data_categories['pag'];
+                $data['last_page'] = ceil($data_categories['num_elems'] / NUM_ITEMS_PAG);
+                $data["num_elems"] = $data_categories['num_elems'];
+                $data['url_base'] = $data_categories['url_base'];
 
-                if(isModeDebug()){
+                if (isModeDebug()) {
                     writeLog(INFO_LOG, "AdminCategoryController/edit_category", json_encode($data));
                 }
 
@@ -158,14 +171,23 @@ class AdminCategoryController extends Controller
         $data = $this->model->delete_category($params);
 
         $params = array(
-            'mode' => ALL_CATEGORIES
+            'mode' => ALL_CATEGORIES,
+            'page' => 1
         );
 
-        $categories = $this->model->get_categories($params);
+        $data_categories = $this->model->get_categories($params);
 
-        $data['categories'] = $categories['categories'];
+        if (isModeDebug()) {
+            writeLog(INFO_LOG, "AdminCategoryController/delete_category", json_encode($data_categories));
+        }
 
-        if(isModeDebug()){
+        $data['categories'] = $data_categories['categories'];
+        $data["pag"] = $data_categories['pag'];
+        $data['last_page'] = ceil($data_categories['num_elems'] / NUM_ITEMS_PAG);
+        $data["num_elems"] = $data_categories['num_elems'];
+        $data['url_base'] = $data_categories['url_base'];
+
+        if (isModeDebug()) {
             writeLog(INFO_LOG, "AdminCategoryController/delete_category", json_encode($data));
         }
 

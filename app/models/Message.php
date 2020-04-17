@@ -17,13 +17,18 @@ class Message
 
         try {
 
-            $sql = "select m.text, DATE_FORMAT(m.date_creation, '%d/%m/%Y %T') as 'date_creation', u.nickname, m.show_message, ";
-            $sql .= "u.avatar, DATE_FORMAT(u.last_connection, '%d/%m/%Y %T') as last_connection,  DATE_FORMAT(u.registry_date, '%d/%m/%Y') as registry_date, mp.message_index ";
-            $sql .= "from messages m, messages_public mp, users u ";
-            $sql .= "where m.id = mp.id_message and ";
+            $sql = "SELECT m.text, DATE_FORMAT(m.date_creation, '%d/%m/%Y %T') as 'date_creation', u.nickname, m.show_message, ";
+            $sql .= "u.avatar, DATE_FORMAT(u.last_connection, '%d/%m/%Y %T') as last_connection, ";
+            $sql .= "DATE_FORMAT(u.registry_date, '%d/%m/%Y') as registry_date, mp.message_index, r.rol as rol_name ";
+            $sql .= "FROM messages m, messages_public mp, users u, roles r ";
+            $sql .= "WHERE m.id = mp.id_message and ";
             $sql .= "u.id = m.user_origin and ";
+            $sql .= "r.id = u.rol and ";
             $sql .= "mp.id_topic = " . filter_var($params['id_topic'], FILTER_SANITIZE_NUMBER_INT) . " ";
             $sql .= "order by m.date_creation ";
+
+            $data['num_elems'] = $db->numRows($sql);
+
             $sql .= "LIMIT " . ($params['page'] - 1) * NUM_ITEMS_PAG . "," . NUM_ITEMS_PAG;
 
             if (isModeDebug()) {
@@ -31,8 +36,6 @@ class Message
             }
 
             $data['messages'] = $db->getData($sql);
-
-            $data["pag"] = $params['page'];
             $data['id_topic'] = $params['id_topic'];
 
             $sql = "SELECT title, open, id_cat ";
@@ -47,18 +50,9 @@ class Message
                 $id_cat = $data_single['id_cat'];
             }
 
-            $sql = "select count(*) as num_messages ";
-            $sql .= "from messages m, messages_public mp, users u ";
-            $sql .= "where m.id = mp.id_message and ";
-            $sql .= "u.id = m.user_origin and ";
-            $sql .= "mp.id_topic = " . $params['id_topic'] . " ";
-
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "Message/get_messages_by_topic", $sql);
-            }
-
-            $data['num_messages'] = $db->getDataSingleProp($sql, "num_messages");
-            $data['last_page'] = ceil($data['num_messages'] / NUM_ITEMS_PAG);
+            // Paginacion
+            $data["pag"] = $params['page'];
+            $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
             $data['url_base'] = "MessageController/display/" . $data['id_topic'];
 
             $sql = "SELECT DISTINCT c.id, c.name ";
@@ -80,12 +74,23 @@ class Message
                 $data['breadcumbs'] = array();
 
                 foreach ($parents as $key => $value) {
-                    $breadcumb = new BreadCumb(
-                        $value['name'],
-                        'index.php?url=CategoryController/display/' . $value['id'],
-                        null,
-                        true
-                    );
+
+
+                    if ($key === count($parents) - 1){
+                        $breadcumb = new BreadCumb(
+                            $value['name'],
+                            'index.php?url=TopicController/display/' . $value['id'],
+                            null,
+                            true
+                        );    
+                    }else{
+                        $breadcumb = new BreadCumb(
+                            $value['name'],
+                            'index.php?url=CategoryController/display/' . $value['id'],
+                            null,
+                            true
+                        );    
+                    }
 
                     array_push($data['breadcumbs'], $breadcumb);
                 }

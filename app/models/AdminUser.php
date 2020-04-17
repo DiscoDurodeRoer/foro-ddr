@@ -7,7 +7,7 @@ class AdminUser
     {
     }
 
-    function get_all_users()
+    function get_all_users($params)
     {
 
         $db = new PDODB();
@@ -17,11 +17,20 @@ class AdminUser
             $sql = "SELECT * ";
             $sql .= "FROM users ";
 
+            $data['num_elems'] = $db->numRows($sql);
+
+            $sql .= "LIMIT " . ($params['page'] - 1) * NUM_ITEMS_PAG . "," . NUM_ITEMS_PAG;
+
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "AdminUser/get_all_users", $sql);
             }
 
             $data['users'] = $db->getData($sql);
+
+            // Paginacion
+            $data["pag"] = $params['page'];
+            $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
+            $data['url_base'] = "AdminUserController/display";
 
             $data['success'] = true;
         } catch (Exception $e) {

@@ -7,7 +7,7 @@ class AdminTopic
     {
     }
 
-    function get_topics()
+    function get_topics($params)
     {
 
         $db = new PDODB();
@@ -20,11 +20,20 @@ class AdminTopic
             $sql .= "WHERE t.id_cat = c.id ";
             $sql .= "ORDER BY date_creation ";
 
+            $data['num_elems'] = $db->numRows($sql);
+
+            $sql .= "LIMIT " . ($params['page'] - 1) * NUM_ITEMS_PAG . "," . NUM_ITEMS_PAG;
+
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "AdminTopic/get_topics", $sql);
             }
 
             $data['topics'] = $db->getData($sql);
+
+            // Paginacion
+            $data["pag"] = $params['page'];
+            $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
+            $data['url_base'] = "AdminTopicController/display";
 
             $data['success'] = true;
         } catch (Exception $e) {

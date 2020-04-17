@@ -39,3 +39,26 @@ function redirect_to_url($url)
 {
     header("Location: " . $url);
 }
+
+function msgNoRead()
+{
+
+    $session = new Session();
+    $db = new PDODB();
+
+    $sql = "SELECT count(*) as num_messages ";
+    $sql .= "FROM unread_messages_public um, ";
+    $sql .= "messages_public mp ";
+    $sql .= "WHERE mp.id_message = um.id_message and ";
+    $sql .= "um.id_user = " . $session->getAttribute(SESSION_ID_USER);
+
+    if (isModeDebug()) {
+        writeLog(INFO_LOG, "functions/msgNoRead", $sql);
+    }
+
+    $numMessages = $db->getDataSingleProp($sql, "num_messages");
+
+    $db->close();
+
+    return $numMessages;
+}

@@ -2,7 +2,7 @@
 require_once 'AdminView.php'
 ?>
 
-<div class="col-md-9">
+<div class="col-md-10 col-12 p-4">
 
     <?php
     if (isset($data['display_create']) || isset($data['display_edit'])) {
@@ -31,7 +31,7 @@ require_once 'AdminView.php'
                     <div class="row form-group">
                         <div class="col-12">
                             <label for="name">Nombre</label>
-                            <input type="text" class="form-control" name="name" id="name" required maxlength="80" value="<?php echo isset($data['category']) ? $data['category']['name'] : ''; ?>" />
+                            <input type="text" class="form-control" name="name" id="name" maxlength="80" value="<?php echo isset($data['category']) ? $data['category']['name'] : ''; ?>" />
                         </div>
                     </div>
 
@@ -39,7 +39,7 @@ require_once 'AdminView.php'
                     <div class="row form-group">
                         <div class="col-12">
                             <label for="description">Descripción</label>
-                            <textarea name="description" class="form-control" id="description" required maxlength="300"><?php echo isset($data['category']) ? trim($data['category']['description']) : ''; ?></textarea>
+                            <textarea name="description" class="form-control" id="description" maxlength="300"><?php echo isset($data['category']) ? trim($data['category']['description']) : ''; ?></textarea>
                         </div>
                     </div>
 
@@ -51,7 +51,6 @@ require_once 'AdminView.php'
                                 <?php
 
                                 foreach ($data['categories'] as $key => $value) {
-                                    print_r($value['id']);
                                     if (isset($data['category']) && $data['category']['parent_cat'] === $value['id']) {
                                         echo "<option selected value='" . $value['id'] . "'>" . $value['name'] . "</option>";
                                     } else {
@@ -89,23 +88,20 @@ require_once 'AdminView.php'
     } else {
     ?>
 
-        <div class="row">
-            <div class="col-12">
+        <div class="row mb-2">
+            <div class="col-md-9 col-12">
                 <h1>Categorias</h1>
+            </div>
+            <div class="col-md-3 col-12">
+                <a class="btn btn-primary btn-icon btn-block" href="index.php?url=AdminCategoryController/display_create">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Crear Categoria
+                </a>
             </div>
         </div>
 
         <div class="row">
             <div class="col-12">
                 <?php include_once 'show-info-message.php'; ?>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12">
-                <a class="btn btn-primary btn-icon" href="index.php?url=AdminCategoryController/display_create">
-                    <i class="fa fa-plus" aria-hidden="true"></i>Crear Categoria
-                </a>
             </div>
         </div>
 
@@ -124,7 +120,7 @@ require_once 'AdminView.php'
                         <th></th>
                     </tr>
                     <?php
-                    
+
                     foreach ($data['categories'] as $key => $value) {
                     ?>
                         <tr>
@@ -135,19 +131,26 @@ require_once 'AdminView.php'
                             <td><?php echo $value['icon']; ?></td>
                             <td><?php echo $value['num_topics']; ?></td>
                             <td>
+                                <?php
+                                if ($value['has_child'] == 0) {
+                                ?>
                                 <a class="btn btn-primary btn-icon" href="index.php?url=AdminCategoryController/display_edit/<?php echo $value['id']; ?>">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </a>
+                                <?php
+                                }
+                                ?>
+                                
                             </td>
                             <td>
                                 <?php
-                                    if($value['has_child'] == 0 && $value['num_topics'] == 0){
-                                    ?>
+                                if ($value['has_child'] == 0 && $value['num_topics'] == 0) {
+                                ?>
                                     <a class="btn btn-danger btn-icon" href="index.php?url=AdminCategoryController/delete_category/<?php echo $value['id']; ?>">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>    
-                                    <?php
-                                    }
+                                    </a>
+                                <?php
+                                }
                                 ?>
                             </td>
                         </tr>
@@ -155,6 +158,14 @@ require_once 'AdminView.php'
                     }
                     ?>
                 </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <?php
+                include_once "pagination-controls.php";
+                ?>
             </div>
         </div>
 

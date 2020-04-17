@@ -10,14 +10,15 @@ class TopicController extends Controller
         $this->model = $this->model("Topic");
     }
 
-    function display($id_cat = null)
+    function display($id_cat = null, $page = 1)
     {
 
         // Si existe la categoria, muestro los topic
         if (isset($id_cat)) {
 
             $params = array(
-                'id_cat' => filter_var($id_cat, FILTER_SANITIZE_NUMBER_INT)
+                'id_cat' => filter_var($id_cat, FILTER_SANITIZE_NUMBER_INT),
+                'page' => filter_var($page, FILTER_VALIDATE_INT)
             );
 
             $data = $this->model->get_topics($params);
@@ -56,24 +57,28 @@ class TopicController extends Controller
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
-            $data = array();
+            if (isset($_POST['action'])) {
+                $data = array();
 
-            $session = new Session();
+                $session = new Session();
 
-            $params = array(
-                'id_user' => $session->getAttribute(SESSION_ID_USER),
-                'title_topic' => $_POST['title'],
-                'id_cat' => filter_var($_POST['id_cat'], FILTER_SANITIZE_NUMBER_INT),
-                'text' => $_POST['text']
-            );
+                $params = array(
+                    'id_user' => $session->getAttribute(SESSION_ID_USER),
+                    'title_topic' => $_POST['title'],
+                    'id_cat' => filter_var($_POST['id_cat'], FILTER_SANITIZE_NUMBER_INT),
+                    'text' => $_POST['text']
+                );
 
-            $data = $this->model->create_topic($params);
+                $data = $this->model->create_topic($params);
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "TopicController/create_topic", json_encode($data));
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "TopicController/create_topic", json_encode($data));
+                }
+
+                $this->view("TopicView", $data);
+            } else {
+                redirect_to_url("index.php?url=TopicController/display/" . $_POST['id_cat']);
             }
-
-            $this->view("TopicView", $data);
         }
     }
 }

@@ -109,7 +109,7 @@ if($data['last_page'] != 1){
                 // Boton siguiente
 
                 // Si el numero de registros actual es superior al maximo
-                if (($data['pag'] * NUM_ITEMS_PAG) < $data['num_messages']) {
+                if (($data['pag'] * NUM_ITEMS_PAG) < $data['num_elems']) {
                 ?>
                     <a href="index.php?url=<?php echo $data['url_base']; ?>/<?php echo $data['pag'] + 1; ?>">
                         <button class="btn btn-primary">

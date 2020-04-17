@@ -3,7 +3,7 @@ if (isset($data['show_message_info'])) {
 ?>
     <div class="row">
         <div class="col-12">
-            <div class="alert <?php echo $data['success'] ? 'alert-success' : 'alert-danger' ?> text-center" role="alert">
+            <div class="alert <?php echo $data['success'] ? 'alert-success' : 'alert-danger' ?> <?php echo isset($data['text-center']) && $data['text-center'] ? 'text-center' : '' ?>" role="alert">
                 <?php
                 if (is_array($data['message'])) {
                 ?>

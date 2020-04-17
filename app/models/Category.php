@@ -12,7 +12,7 @@ class Category
 
         $db = new PDODB();
         $data = array();
-        $data['categories'] = array();
+        $data['category'] = array();
 
         try {
 
@@ -32,7 +32,7 @@ class Category
             if (isset($params['id_cat_parent'])) {
                 foreach ($datadb  as $key => $value) {
                     if ($value['id'] === $params['id_cat_parent']) {
-                        array_push($data['categories'], $value);
+                        $data['category'] = $value;
                     }
                 }
 
@@ -68,22 +68,20 @@ class Category
             } else {
                 foreach ($datadb  as $key => $value) {
                     if ($value['id'] === $value['parent_cat']) {
-                        array_push($data['categories'], $value);
+                        $data['category'] = $value;
                     }
                 }
             }
 
-            foreach ($data['categories'] as $key => $value) {
+            $id_cat_parent_child = $data['category']['id'];
 
-                $id_cat_parent_child = $value['id'];
+            $child = array_filter($datadb, function ($element) use ($id_cat_parent_child) {
+                return $element['parent_cat'] === $id_cat_parent_child
+                    && $element['id'] != $element['parent_cat'];
+            });
 
-                $child = array_filter($datadb, function ($element) use ($id_cat_parent_child) {
-                    return $element['parent_cat'] === $id_cat_parent_child
-                        && $element['id'] != $element['parent_cat'];
-                });
+            $data['category']['child'] = $child;
 
-                $data['categories'][$key]['child'] = $child;
-            }
         } catch (Exception $e) {
             $data['show_message_info'] = true;
             $data['success'] = false;

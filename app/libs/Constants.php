@@ -26,3 +26,5 @@ define("ERROR_GENERAL", "Ha ocurrido un error, contacte con el administrador");
 define("MODE_DEBUG", "1");
 define("ERROR_LOG", "E");
 define("INFO_LOG", "I");
+
+define("DEFAULT_AVATAR", PAGE_URL."img/default-avatar.jpg");

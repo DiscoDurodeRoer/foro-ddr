@@ -24,6 +24,9 @@ class AdminCategory
                 $sql .= "and cc.num_topics = 0 ";
             } else if ($params['mode'] == ONLY_CHILDS) {
                 $sql .= "and (select count(*) from categories WHERE cc.id = parent_cat) = 0 ";
+            } else {
+                $data['num_elems'] = $db->numRows($sql);
+                $sql .= "LIMIT " . ($params['page'] - 1) * NUM_ITEMS_PAG . "," . NUM_ITEMS_PAG;
             }
 
             if (isModeDebug()) {
@@ -31,6 +34,12 @@ class AdminCategory
             }
 
             $data['categories'] = $db->getData($sql);
+
+            if ($params['mode'] === ALL_CATEGORIES) {
+                $data["pag"] = $params['page'];
+                $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
+                $data['url_base'] = "AdminCategoryController/display";
+            }
 
             $data['success'] = true;
         } catch (Exception $e) {
@@ -47,14 +56,22 @@ class AdminCategory
     function create_category($params)
     {
 
-        $db = new PDODB();
+        $db = new MySQLDB();
         $data = array();
         $data['show_message_info'] = true;
 
         try {
+
+
+            $sql = "SELECT IFNULL((MAX(id) + 1), 1) as id FROM categories";
+            
+            $id = $db->getDataSingleProp($sql, 'id');
+
+
+
             $sql = "INSERT INTO categories ";
             $sql .= "VALUES( ";
-            $sql .= "null,";
+            $sql .= $id . ",";
             $sql .= "'" . $params['name'] . "', ";
             $sql .= "'" . $params['description'] . "', ";
             $sql .= "'" . $params['parent_cat'] . "', ";
@@ -62,11 +79,70 @@ class AdminCategory
             $sql .= "0";
             $sql .= ");";
 
+            // $sql = "INSERT INTO categories ";
+            // $sql .= "SELECT IFNULL((MAX(id) + 1), 1),";
+            // $sql .= "'" . $params['name'] . "', ";
+            // $sql .= "'" . $params['description'] . "', ";
+            // $sql .= "'" . $params['parent_cat'] . "', ";
+            // $sql .= "'',"; // icono
+            // $sql .= "0 ";
+            // $sql .= "FROM categories;";
+
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
             }
 
             $data['success'] = $db->executeInstruction($sql);
+
+            // $id_cat = $db->getLastId();
+
+            // writeLog(INFO_LOG, "AdminCategory/create_category id_cat", $id_cat);
+
+
+            // $sql = "SELECT id_cat_parent, level ";
+            // $sql .= "FROM categories_child ";
+            // $sql .= "WHERE id_cat = " . $params['parent_cat'] . " ";
+            // $sql .= "ORDER BY level ";
+
+            // if (isModeDebug()) {
+            //     writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
+            // }
+
+            // $categories_child = $db->getData($sql);
+
+            // $last_level = 1;
+
+            // foreach ($categories_child as $key => $value) {
+
+            //     $sql = "INSERT INTO categories_child ";
+            //     $sql .= "VALUES( ";
+            //     $sql .= $id_cat . " ,";
+            //     $sql .= $value['id_cat_parent'] . " ,";
+            //     $sql .= $value['level'];
+            //     $sql .= ");";
+
+            //     $last_level = $value['level'];
+
+            //     if (isModeDebug()) {
+            //         writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
+            //     }
+
+            //     $db->executeInstruction($sql);
+            // }
+
+            // $sql = "INSERT INTO categories_child ";
+            // $sql .= "VALUES( ";
+            // $sql .= $id_cat . " ,";
+            // $sql .= $id_cat . " ,";
+            // $sql .= ($last_level + 1);
+            // $sql .= ");";
+
+            // if (isModeDebug()) {
+            //     writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
+            // }
+
+            // $db->executeInstruction($sql);
+
 
             if ($data['success']) {
                 $data['message'] = "La categoria se ha creado correctamente";
@@ -118,24 +194,81 @@ class AdminCategory
         $db = new PDODB();
         $data = array();
         $data['show_message_info'] = true;
+        $data['message'] = array();
 
         try {
-            $sql = "UPDATE categories SET ";
-            $sql .= "name = '" . $params['name'] . "', ";
-            $sql .= "description = '" . $params['description'] . "', ";
-            $sql .= "parent_cat = '" . $params['parent_cat'] . "' ";
-            $sql .= "WHERE id = " . $params['id'];
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminCategory/edit_category", $sql);
-            }
+            if (empty($params['name']) || empty($params['description'])) {
 
-            $data['success'] = $db->executeInstruction($sql);
+                if (empty($params['name'])) {
+                    array_push($data['message'], "El nombre de la categoria es obligatoria");
+                }
 
-            if ($data['success']) {
-                $data['message'] = "Se ha editado la categoria correctamente";
+                if (empty($params['description'])) {
+                    array_push($data['message'], "La descripción de la categoria es obligatoria");
+                }
             } else {
-                $data['message'] = "No se ha editado la categoria correctamente";
+                $sql = "UPDATE categories SET ";
+                $sql .= "name = '" . $params['name'] . "', ";
+                $sql .= "description = '" . $params['description'] . "', ";
+                $sql .= "parent_cat = '" . $params['parent_cat'] . "' ";
+                $sql .= "WHERE id = " . $params['id'];
+
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "AdminCategory/edit_category", $sql);
+                }
+
+                $data['success'] = $db->executeInstruction($sql);
+
+                $sql = "DELETE FROM categories_child ";
+                $sql .= "WHERE id_cat = " . $params['id'] . " ";
+                $sql .= "and level > (";
+                $sql .=         "SELECT level ";
+                $sql .=         "FROM categories_child ";
+                $sql .=         "WHERE id_cat_parent = (";
+                $sql .=             "SELECT parent_cat ";
+                $sql .=             "FROM categories ";
+                $sql .=             "WHERE id = ". $params['parent_cat'].")";
+                $sql .=         ")";
+                
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "AdminCategory/edit_category", $sql);
+                }
+
+                $db->executeInstruction($sql);
+
+                $sql = "INSERT INTO categories_child ";
+                $sql .= "VALUES( ";
+                $sql .= $params['id'] . " ,";
+                $sql .= $params['parent_cat'] . " ,";
+                $sql .= "(SELECT (level + 1) FROM categories_child WHERE id_cat_parent = (SELECT parent_cat FROM categories WHERE id = ". $params['parent_cat']."))";
+                $sql .= ");";
+    
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
+                }
+    
+                $db->executeInstruction($sql);
+
+
+                $sql = "INSERT INTO categories_child ";
+                $sql .= "VALUES( ";
+                $sql .= $params['id'] . " ,";
+                $sql .= $params['id'] . " ,";
+                $sql .= "(SELECT (level + 2) FROM categories_child WHERE id_cat_parent = (SELECT parent_cat FROM categories WHERE id = ". $params['parent_cat']."))";
+                $sql .= ");";
+    
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
+                }
+    
+                $db->executeInstruction($sql);
+
+                if ($data['success']) {
+                    array_push($data['message'], "Se ha editado la categoria correctamente");
+                } else {
+                    array_push($data['message'], "No se ha editado la categoria correctamente");
+                }
             }
         } catch (Exception $e) {
             $data['success'] = false;
@@ -164,6 +297,11 @@ class AdminCategory
             }
 
             $data['success'] = $db->executeInstruction($sql);
+
+            $sql = "DELETE FROM categories_child ";
+            $sql .= "WHERE id_cat = " . $params['id_category'];
+
+            $db->executeInstruction($sql);
 
             if ($data['success']) {
                 $data['message'] = "Se ha borrado la categoria correctamente";

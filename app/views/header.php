@@ -17,18 +17,18 @@
     <div class="row-no-gutters" id="header">
         <!-- Cabecera -->
         <!-- <div class="row" id=""> -->
-        <div class="col-12 mt-2">
+        <div class="col-12">
             <!-- Menu -->
 
             <div class="container">
 
                 <div class="row">
-                    <div class="col-md-4 col-12 block-logo">
+                    <div class="col-lg-4 col-12 block-logo">
                         <a class="navbar-brand" href="index.php">
                             <img src="img/logo-foro.png" alt="">
                         </a>
                     </div>
-                    <div class="col-md-8 col-12 mt-2 block-buttons">
+                    <div class="col-lg-8 col-12 mt-2 block-buttons">
 
                         <?php
 
@@ -51,15 +51,15 @@
 
                             ?>
 
-                            <a class="btn btn-info btn-icon" href="index.php?url=NoReadMessagesPublicController/display/">
-                                <i class="fa fa-envelope-o" aria-hidden="true"></i>Mensajes no leidos
+                            <a class="btn btn-info btn-icon btn-xs-block" href="index.php?url=NoReadMessagesPublicController/display/">
+                                <i class="fa fa-envelope-o" aria-hidden="true"></i>Mensajes no leidos <span class="badge badge-light"><?php echo $data['msg_no_read'] ?></span>
                             </a>
 
-                            <a class="btn btn-info btn-icon" href="index.php?url=UserController/display_profile/">
+                            <a class="btn btn-info btn-icon btn-xs-block" href="index.php?url=UserController/display_profile/">
                                 <i class="fa fa-user" aria-hidden="true"></i>Ver perfil
                             </a>
 
-                            <a class="btn btn-danger btn-icon" href="index.php?url=UserController/logout/">
+                            <a class="btn btn-danger btn-icon btn-xs-block" href="index.php?url=UserController/logout/">
                                 <i class="fa fa-power-off" aria-hidden="true"></i>Logout
                             </a>
 

@@ -21,13 +21,13 @@ include_once 'header.php';
                 ?>
 
                     <div class="row">
-                        <div class="col-9">
+                        <div class="col-md-9 col-12 mt-2">
                             <h1><?php echo $data['name_category']  ?></h1>
                         </div>
                         <?php
                         if ($data['login']) {
                         ?>
-                            <div class="col-3">
+                            <div class="col-md-3 col-12">
                                 <a class="btn btn-primary btn-block btn-icon" href="index.php?url=TopicController/display_create_topic/<?php echo $data['id_cat']; ?>">
                                     <i class="fa fa-plus-circle" aria-hidden="true"></i> Crear topic
                                 </a>
@@ -37,22 +37,18 @@ include_once 'header.php';
                         ?>
                     </div>
 
-
-
-
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 mt-2">
                             <table class="table">
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">Topic</th>
                                         <th scope="col">Vistas</th>
-                                        <!-- <th scope="col">Mensajes</th> -->
+                                        <th scope="col">Usuario creador</th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                     <?php
 
                                     if (isset($data['topics'])) {
@@ -67,16 +63,25 @@ include_once 'header.php';
                                     <?php
                                             echo "<td>" . $value['views'] . "</td>";
                                             echo "<td>" . $value['nickname'] . "</td>";
+                                            if($value['open'] === FALSE){
+                                                echo "<td><i class='fa fa-lock'></i></td>";
+                                            }else{
+                                                echo "<td></td>";
+                                            }
                                             echo "</tr>";
                                         }
                                     }
-
-
-
                                     ?>
-
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <?php
+                                include_once "pagination-controls.php";
+                            ?>
                         </div>
                     </div>
 
@@ -105,8 +110,11 @@ include_once 'header.php';
                                 </div>
 
                                 <div class="row form-group">
-                                    <div class="col-12">
-                                        <button class="btn btn-primary btn-block" type="submit">Crear</button>
+                                    <div class="col-6">
+                                        <button class="btn btn-primary btn-block" name="action" type="submit">Crear</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn btn-primary btn-block" name="back" type="submit">Volver</button>
                                     </div>
                                 </div>
 

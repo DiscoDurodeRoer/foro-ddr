@@ -14,14 +14,32 @@ class User
 
         $errors = array();
 
+        if (empty($params['name'])) {
+            array_push($errors, "El nombre no puede estar vacio.");
+        }
+
+        if (empty($params['nickname'])) {
+            array_push($errors, "El nickname no puede estar vacio.");
+        }
+
+        if (empty($params['email'])) {
+            array_push($errors, "El email no puede estar vacio.");
+        }
+
+
+
         if (!isset($params['id_user'])) {
-            $this->checkPass($params, $errors);
+            if (empty($params['pass'])) {
+                array_push($errors, "El pass no puede estar vacio.");
+            } else {
+                $this->checkPass($params, $errors);
+            }
         }
 
         $sql = "SELECT count(*) as num_usuarios ";
         $sql .= "FROM users ";
         $sql .= "WHERE trim(lower(nickname)) = '" . trim(strtolower($params['nickname'])) . "' ";
-        if (isset($id_user)) {
+        if (isset($params['id_user'])) {
             $sql .= "and id <> " . $params['id_user'];
         }
 
@@ -60,7 +78,7 @@ class User
     function checkPass($params, &$errors)
     {
 
-        if ($params['pass'] !== $params['confirm_pass']) {
+        if ($params['pass'] !== $params['confirm-pass']) {
             array_push($errors, "Las contraseña no coinciden.");
         }
     }
@@ -97,7 +115,6 @@ class User
     function registry($params)
     {
 
-
         $db = new PDODB();
         $data = array();
         $data['show_message_info'] = true;
@@ -106,7 +123,7 @@ class User
 
             $sql = "INSERT INTO users VALUES(";
             $sql .= "null,";
-            $sql .= "'" . $params['username'] . "', ";
+            $sql .= "'" . $params['name'] . "', ";
             $sql .= "'" . $params['surname'] . "', ";
             $sql .= "'" . $params['nickname'] . "', ";
             $sql .= "'" . $params['email'] . "', ";
@@ -129,12 +146,13 @@ class User
             $success = $db->executeInstruction($sql);
 
             $data['success'] = $success;
+            $data['text-center'] = true;
 
             if ($success) {
                 $data['message'] = "Su registro se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
 
                 $id_user = $db->getLastId();
-                $data['user'] = array('id' => $id_user, 'nickname' => $params['nickname']);
+                $data['user'] = array('id' => $id_user, 'nickname' => $params['nickname'], 'rol' => '1');
                 prepareDataLogin($data['user']);
             } else {
                 $data['message'] = "Su registro no se ha realizado con éxito. Contacte con discoduroderoer desde este <a href='https://www.discoduroderoer.es/contactanos/'>formulario</a>.";
@@ -161,14 +179,14 @@ class User
         try {
 
             $sql = "UPDATE users ";
-            $sql .= "SET name = '" . $params['username'] . "', ";
+            $sql .= "SET name = '" . $params['name'] . "', ";
             $sql .= "surname = '" . $params['surname'] . "', ";
             $sql .= "nickname = '" . $params['nickname'] . "', ";
             $sql .= "email = '" . $params['email'] . "', ";
             if (!empty($params['avatar'])) {
                 $sql .= "avatar = '" . $params['avatar'] . "' ";
             } else {
-                $sql .= "avatar = '" . PAGE_URL . "img/default-avatar.jpg' ";
+                $sql .= "avatar = '" . DEFAULT_AVATAR . "' ";
             }
             $sql .= "WHERE id = " . $params['id_user'];
 
@@ -178,10 +196,11 @@ class User
 
             $data['success'] = $db->executeInstruction($sql);
 
+            $data['text-center'] = true;
             if ($data['success']) {
                 $data['message'] = "La edición se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
 
-                $data['user'] = array('id' => $params['id_user'], 'nickname' => $params['nickname']);
+                $data['user'] = array('id' => $params['id_user'], 'nickname' => $params['nickname'], 'rol' => $params['rol']);
                 prepareDataLogin($data['user']);
             } else {
                 $data['message'] = "La edición no se ha realizado con éxito. Contacte con discoduroderoer desde este <a href='https://www.discoduroderoer.es/contactanos/'>formulario</a>.";
@@ -215,6 +234,7 @@ class User
 
             $data['success'] = $db->executeInstruction($sql);
 
+            $data['text-center'] = true;
             if ($data['success']) {
                 $data['message'] = "La contraseña ha sido cambiada";
             } else {

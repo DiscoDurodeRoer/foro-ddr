@@ -20,28 +20,32 @@ class Topic
             $sql = "SELECT t.id, t.title, u.nickname, t.open, t.views ";
             $sql .= "FROM topics t, users u ";
             $sql .= "WHERE t.creator_user = u.id and ";
-            $sql .= "t.id_cat = " . $params['id_cat'];
+            $sql .= "t.id_cat = " . $params['id_cat'] . " ";
+
+            $data['num_elems'] = $db->numRows($sql);
+            $sql .= "LIMIT " . ($params['page'] - 1) * NUM_ITEMS_PAG . "," . NUM_ITEMS_PAG;
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Topic/get_topics", $sql);
             }
 
-            $data_topics = $db->getData($sql);
+            $data['topics'] =  $db->getData($sql);
+            $data['id_cat'] = $params['id_cat'];
 
-            $data['topics'] = $data_topics;
+            // Paginacion
+            $data["pag"] = $params['page'];
+            $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
+            $data['url_base'] = "TopicController/display/" . $data['id_cat'];
 
             $sql = "SELECT name ";
             $sql .= "FROM categories ";
-            $sql .= "WHERE id = " . $params['id_cat'];
+            $sql .= "WHERE id = " . $data['id_cat'];
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Topic/get_topics", $sql);
             }
 
-            $data['id_cat'] = $params['id_cat'];
             $data['name_category'] = $db->getDataSingleProp($sql, "name");
-
-
 
             $sql = "SELECT c.id, c.name ";
             $sql .= "FROM categories_child cch, categories c ";
@@ -61,6 +65,7 @@ class Topic
                 $data['breadcumbs'] = array();
 
                 foreach ($parents as $key => $value) {
+
                     $breadcumb = new BreadCumb(
                         $value['name'],
                         'index.php?url=CategoryController/display/' . $value['id'],

@@ -27,13 +27,21 @@ class NoReadMessagesPublic
             $sql .= "mp.id_topic = t.id and ";
             $sql .= "mp.id_message = um.id_message and ";
             $sql .= "um.id_user = " . $params['id_user'] . " ";
-            $sql .= "group by t.id, t.title";
+            $sql .= "group by t.id, t.title ";
+            
+            $data['num_elems'] = $db->numRows($sql);
+            $sql .= "LIMIT " . ($params['page'] - 1) * NUM_ITEMS_PAG . "," . NUM_ITEMS_PAG;
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "NoReadMessagesPublic/get_no_read_messages_public", $sql);
             }
 
             $data['no_read_messages'] = $db->getData($sql);
+
+            // Paginacion
+            $data["pag"] = $params['page'];
+            $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
+            $data['url_base'] = "NoReadMessagesPublicController/display/" . $data['id_topic'];
 
             $data['has_messages'] = count($data['no_read_messages']) > 0;
 

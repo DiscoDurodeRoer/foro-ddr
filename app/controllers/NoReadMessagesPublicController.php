@@ -10,13 +10,14 @@ class NoReadMessagesPublicController extends Controller
         $this->model = $this->model("NoReadMessagesPublic");
     }
 
-    function display()
+    function display($page = 1)
     {
 
         $session = new Session();
 
         $params = array(
-            'id_user' => $session->getAttribute(SESSION_ID_USER)
+            'id_user' => $session->getAttribute(SESSION_ID_USER),
+            'page' => filter_var($page, FILTER_VALIDATE_INT)
         );
 
         $data = $this->model->get_no_read_messages_public($params);

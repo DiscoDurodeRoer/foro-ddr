@@ -12,11 +12,15 @@ class AdminTopicController extends Controller
         $this->modelCategory = $this->model("AdminCategory");
     }
 
-    function display()
+    function display($page = 1)
     {
         isLogged();
 
-        $data = $this->model->get_topics();
+        $params = array(
+            'page' => filter_var($page, FILTER_VALIDATE_INT)
+        );
+
+        $data = $this->model->get_topics($params);
 
         if (isModeDebug()) {
             writeLog(INFO_LOG, "AdminTopicController/display", json_encode($data));

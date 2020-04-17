@@ -21,14 +21,28 @@ include_once 'header.php';
             <div class="row">
                 <div class="col-12">
 
-                    <div class="row mb-2">
+                    <?php
+                    if ($data['open_topic'] === FALSE) {
+                    ?>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="alert alert-info" role="alert">
+                                    <strong>Este hilo esta cerrado, por lo que no podrás responder.</strong>
+                                </div>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                    ?>
+
+                    <div class="row mb-2 mt-2">
                         <div class="col-md-10 col-12">
                             <h1><?php echo $data['title_topic'] ?></h1>
                         </div>
                         <?php
                         if ($data['login'] && $data['open_topic']) {
                         ?>
-                            <div class="col-md-2 col-5">
+                            <div class="col-md-2 col-12 mt-2">
                                 <a class="btn btn-primary btn-block btn-icon" href="index.php?url=MessageController/display_reply_topic/<?php echo $data['id_topic']; ?>">
                                     <i class="fa fa-comment" aria-hidden="true"></i> Responder
                                 </a>
@@ -37,6 +51,8 @@ include_once 'header.php';
                         }
                         ?>
                     </div>
+
+
 
                     <div class="row">
                         <div class="col-12">
@@ -47,15 +63,20 @@ include_once 'header.php';
                                 <div id="<?php echo $value['message_index']; ?>" class="card card-message mb-3">
                                     <span class="card-header"><?php echo $value['date_creation'] ?></span>
                                     <div class="row no-gutters">
-                                        <div class="user-data-message text-center p-3 col-md-3">
+                                        <div class="user-data-message p-3 col-md-3">
                                             <div class="row">
-                                                <div class="col-12">
+                                                <div class="col-12 text-center">
                                                     <img class="user-avatar" src="<?php echo $value['avatar'] ?>" alt="">
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-12">
+                                                <div class="col-12 text-center">
                                                     <span class="username"><?php echo $value['nickname'] ?></span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 text-center">
+                                                    <span class="registry-user"><?php echo $value['rol_name'] ?></span>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -84,10 +105,13 @@ include_once 'header.php';
                         </div>
                     </div>
 
-
-                    <?php
-                    include_once "pagination-controls.php";
-                    ?>
+                    <div class="row">
+                        <div class="col-12">
+                            <?php
+                            include_once "pagination-controls.php";
+                            ?>
+                        </div>
+                    </div>
 
                     <?php
                     if ($data['login'] && $data['open_topic']) {
@@ -150,8 +174,11 @@ include_once 'header.php';
                 </div>
 
                 <div class="row form-group">
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary btn-block">Responder</button>
+                    <div class="col-6">
+                        <button type="submit" name="action" class="btn btn-primary btn-block">Responder</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" name="back" class="btn btn-primary btn-block">Volver</button>
                     </div>
                 </div>
 

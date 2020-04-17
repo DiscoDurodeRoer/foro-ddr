@@ -10,11 +10,15 @@ class AdminUserController extends Controller
         $this->model = $this->model("AdminUser");
     }
 
-    function display()
+    function display($page = 1)
     {
         isLogged();
 
-        $data = $this->model->get_all_users();
+        $params = array(
+            'page' => filter_var($page, FILTER_VALIDATE_INT)
+        );
+
+        $data = $this->model->get_all_users($params);
 
         if (isModeDebug()) {
             writeLog(INFO_LOG, "AdminUserController/display", json_encode($data));

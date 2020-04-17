@@ -57,6 +57,15 @@ include_once 'header.php';
 </div>
 
 
+<div class="row">
+    <div class="col-12">
+        <?php
+            include_once "pagination-controls.php";
+        ?>
+    </div>
+</div>
+
+
 
 <?php
 

@@ -104,6 +104,8 @@ class PDODB
 
         if ($error[0] === "00000") {
             $result->execute();
+
+            writeLog(INFO_LOG, "Count", $result->rowCount());
             return $result->rowCount() > 0;
         } else {
             throw new Exception($error[2]);

@@ -2,7 +2,7 @@
 require_once 'AdminView.php'
 ?>
 
-<div class="col-md-9">
+<div class="col-md-10 col-12 p-4">
 
     <div class="row">
         <div class="col-12">
@@ -84,8 +84,13 @@ require_once 'AdminView.php'
         </div>
     </div>
 
-
-
+    <div class="row">
+        <div class="col-12">
+            <?php
+                include_once "pagination-controls.php";
+            ?>
+        </div>
+    </div>
 
 </div>
 

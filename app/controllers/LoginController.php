@@ -20,26 +20,31 @@ class LoginController extends Controller
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
-            $data = array();
+            if (isset($_POST['action'])) {
 
-            $params = array(
-                'nick_email' => $_POST['nick_email'],
-                'pass' => $_POST['pass']
-            );
+                $data = array();
 
-            $data = $this->model->checkLogin($params);
+                $params = array(
+                    'nick_email' => $_POST['nick_email'],
+                    'pass' => $_POST['pass']
+                );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "Login/login", json_encode($data));
-            }
+                $data = $this->model->checkLogin($params);
 
-            if ($data['success']) {
-                if ($data['user']) {
-                    prepareDataLogin($data['user']);
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "Login/login", json_encode($data));
                 }
-               redirect_to_url(BASE_URL);
+
+                if ($data['success']) {
+                    if ($data['user']) {
+                        prepareDataLogin($data['user']);
+                    }
+                    redirect_to_url(BASE_URL);
+                } else {
+                    $this->view("LoginView", $data);
+                }
             } else {
-                $this->view("LoginView", $data);
+                redirect_to_url("index.php");
             }
         }
     }

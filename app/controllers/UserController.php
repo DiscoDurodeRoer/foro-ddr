@@ -66,38 +66,60 @@ class UserController extends Controller
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
-            $data = array();
 
-            $params = array(
-                'nickname' => $_POST['nickname'],
-                'email' => $_POST['email'],
-                'id' => filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT)
-            );
+            if (isset($_POST['action'])) {
 
-            $errors = $this->model->checkErrors($params);
-
-            if (count($errors) === 0) {
+                $data = array();
 
                 $params = array(
+                    'name' => $_POST['name'],
+                    'surname' => $_POST['surname'],
                     'nickname' => $_POST['nickname'],
                     'email' => $_POST['email'],
-                    'id' => $_POST['id'],
-                    'username' => $_POST['username'],
-                    'surname' => $_POST['surname'],
-                    'avatar' => $_POST['avatar']
+                    'id_user' => filter_var($_POST['id_user'], FILTER_SANITIZE_NUMBER_INT)
                 );
 
-                $data = $this->model->edit_profile($params);
+                $errors = $this->model->checkErrors($params);
+
+                if (count($errors) === 0) {
+
+                    $params = array(
+                        'nickname' => $_POST['nickname'],
+                        'email' => $_POST['email'],
+                        'id_user' => $_POST['id_user'],
+                        'name' => $_POST['name'],
+                        'rol' => $_POST['rol'],
+                        'surname' => $_POST['surname'],
+                        'avatar' => $_POST['avatar']
+                    );
+
+                    $data = $this->model->edit_profile($params);
+                } else {
+
+                    $data['info_user'] = array(
+                        'name' => $_POST['name'],
+                        'surname' => $_POST['surname'],
+                        'nickname' => $_POST['nickname'],
+                        'email' => $_POST['email'],
+                        'rol' => $_POST['rol'],
+                        'id' => filter_var($_POST['id_user'], FILTER_SANITIZE_NUMBER_INT),
+                        'avatar' => $_POST['avatar']
+                    );
+
+                    $data['show_message_info'] = true;
+                    $data['success'] = false;
+                    $data['message'] = $errors;
+                    $data['edit_profile'] = true;
+                }
+
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "UserController/edit_profile", json_encode($data));
+                }
+
+                $this->view("UserView", $data);
             } else {
-                $data['errors'] = $errors;
-                $data['edit_profile'] = true;
+                redirect_to_url("index.php?url=UserController/display_profile");
             }
-
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "UserController/edit_profile", json_encode($data));
-            }
-
-            $this->view("UserView", $data);
         }
     }
 
@@ -116,42 +138,46 @@ class UserController extends Controller
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
-            $data = array();
-
-            $params = array(
-                'nickname' => $_POST['nickname'],
-                'email' => $_POST['email'],
-                'id' => null,
-                'pass' => $_POST['pass'],
-                'confirm_pass' => $_POST['confirm_pass']
-            );
-
-            $errors = $this->model->checkErrors($params);
-
-            if (count($errors) === 0) {
+            if (isset($_POST['action'])) {
+                $data = array();
 
                 $params = array(
                     'username' => $_POST['username'],
-                    'surname' => $_POST['surname'],
                     'nickname' => $_POST['nickname'],
                     'email' => $_POST['email'],
                     'pass' => $_POST['pass'],
-                    'avatar' => $_POST['avatar']
+                    'confirm_pass' => $_POST['confirm_pass']
                 );
 
-                $data = $this->model->registry($params);
+                $errors = $this->model->checkErrors($params);
+
+                if (count($errors) === 0) {
+
+                    $params = array(
+                        'username' => $_POST['username'],
+                        'surname' => $_POST['surname'],
+                        'nickname' => $_POST['nickname'],
+                        'email' => $_POST['email'],
+                        'pass' => $_POST['pass'],
+                        'avatar' => $_POST['avatar']
+                    );
+
+                    $data = $this->model->registry($params);
+                } else {
+                    $data['show_message_info'] = true;
+                    $data['success'] = false;
+                    $data['message'] = $errors;
+                    $data['registry'] = true;
+                }
+
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "UserController/registrer", json_encode($data));
+                }
+
+                $this->view("UserView", $data);
             } else {
-                $data['show_message_info'] = true;
-                $data['success'] = false;
-                $data['message'] = $errors;
-                $data['registry'] = true;
+                redirect_to_url("index.php");
             }
-
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "UserController/registrer", json_encode($data));
-            }
-
-            $this->view("UserView", $data);
         }
     }
 

@@ -16,6 +16,9 @@ class Controller{
             $data['login']= $session->getAttribute('login');
             $data['nickname']=$session->getAttribute('nickname');
             $data['isAdmin']=$session->getAttribute('isAdmin');
+            if($data['login'] === TRUE){
+                $data['msg_no_read']=msgNoRead();
+            }
             require_once("../app/views/".$view.".php");
         }else{
             die("No existe la vista");

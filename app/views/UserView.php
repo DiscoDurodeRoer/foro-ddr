@@ -18,30 +18,31 @@ include_once 'header.php';
                 <?php
                     if(isset($data['edit_profile'])){
                         ?>
-                            <input type="hidden" name="id" value="<?php if (isset($data['id'])) { echo $data['id']; } ?>"/>
+                            <input type="hidden" name="id_user" value="<?php echo $data['info_user']['id']; ?>"/>
+                            <input type="hidden" name="rol" value="<?php echo $data['info_user']['rol']; ?>"/>
                         <?php
                     }
                 ?>
                 
                 <div class="row form-group">
                     <div class="col-md-6 col-12">
-                        <label for="username">Nombre (*)</label>
-                        <input type="text" name="username" class="form-control" id="username" required maxlength="20" value="<?php if (isset($data['name'])) { echo $data['name']; } ?>" />
+                        <label for="name">Nombre (*)</label>
+                        <input type="text" name="name" class="form-control" id="name"  maxlength="20" value="<?php if (isset($data['info_user'])) { echo $data['info_user']['name']; } ?>" />
                     </div>
                     <div class="col-md-6 col-12">
                         <label for="surname">Apellidos</label>
-                        <input type="text" name="surname" class="form-control" id="surname" maxlength="30" value="<?php if (isset($data['surname'])) { echo $data['surname']; } ?>" />
+                        <input type="text" name="surname" class="form-control" id="surname" maxlength="30" value="<?php if (isset($data['info_user'])) { echo $data['info_user']['surname']; } ?>" />
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-md-6 col-12">
                         <label for="nickname">Alias (*)</label>
-                        <input type="text" name="nickname" class="form-control" id="nickname" required maxlength="40" value="<?php if (isset($data['nickname'])) { echo $data['nickname']; } ?>" />
+                        <input type="text" name="nickname" class="form-control" id="nickname"  maxlength="40" value="<?php if (isset($data['info_user'])) { echo $data['info_user']['nickname']; } ?>" />
                     </div>
                     <div class="col-md-6 col-12">
                         <label for="email">Email (*)</label>
-                        <input type="email" name="email" class="form-control" id="email" required maxlength="40" value="<?php if (isset($data['email'])) { echo $data['email']; } ?>"/>
+                        <input type="email" name="email" class="form-control" id="email"  maxlength="40" value="<?php if (isset($data['info_user'])) { echo $data['info_user']['email']; } ?>"/>
                     </div>
                 </div>
 
@@ -51,11 +52,11 @@ include_once 'header.php';
                     <div class="row form-group">
                         <div class="col-md-6 col-12">
                             <label for="pass">Contraseña (*)</label>
-                            <input type="password" name="pass" class="form-control" required maxlength="20" />
+                            <input type="password" name="pass" class="form-control"  maxlength="20" />
                         </div>
                         <div class="col-md-6 col-12">
                             <label for="confirm-pass">Confirmar contraseña (*)</label>
-                            <input type="password" name="confirm_pass" class="form-control" id="confirm_pass" required maxlength="20" />
+                            <input type="password" name="confirm-pass" class="form-control" id="confirm-pass"  maxlength="20" />
                         </div>
                     </div>
                     <?php
@@ -72,8 +73,11 @@ include_once 'header.php';
                 </div>
 
                 <div class="row form-group">
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary btn-block"><?php echo isset($data['registry']) ? 'Registro' : 'Editar'; ?></button>
+                    <div class="col-6">
+                        <button type="submit" name="action" class="btn btn-primary btn-block"><?php echo isset($data['registry']) ? 'Registro' : 'Editar'; ?></button>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" name="back" class="btn btn-primary btn-block">Volver</button>
                     </div>
                 </div>
 
@@ -128,10 +132,10 @@ include_once 'header.php';
                                                 <td>Última conexion</td>
                                                 <td><?php echo $data['info_user']['last_connection'] ?></td>
                                             </tr>
-                                            <tr>
+                                            <!-- <tr>
                                                 <td>Total posts</td>
                                                 <td>0</td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -173,7 +177,7 @@ include_once 'header.php';
                 <div class="row form-group">
                     <div class="col-12">
                         <label for="pass">Contraseña (*)</label>
-                        <input type="password" name="pass" class="form-control" required maxlength="20" />
+                        <input type="password" name="pass" class="form-control"  maxlength="20" />
                     </div>
 
                 </div>
@@ -181,7 +185,7 @@ include_once 'header.php';
                 <div class="row form-group">
                     <div class="col-12">
                         <label for="confirm-pass">Confirmar contraseña (*)</label>
-                        <input type="password" name="confirm-pass" class="form-control" id="confirm-pass" required maxlength="20" />
+                        <input type="password" name="confirm-pass" class="form-control" id="confirm-pass"  maxlength="20" />
                     </div>
                 </div>
 

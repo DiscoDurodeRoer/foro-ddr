@@ -14,8 +14,8 @@
 
 <body>
 
-    <div class="container-fluid" id="page">
-        <div class="row">
+    <div class="container-fluid h-100" id="admin-page">
+        <div class="row h-100">
 
             <?php
                 require_once 'AdminSidebarMenu.php';
