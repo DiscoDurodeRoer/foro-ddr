@@ -76,20 +76,20 @@ class Message
                 foreach ($parents as $key => $value) {
 
 
-                    if ($key === count($parents) - 1){
+                    if ($key === count($parents) - 1) {
                         $breadcumb = new BreadCumb(
                             $value['name'],
                             'index.php?url=TopicController/display/' . $value['id'],
                             null,
                             true
-                        );    
-                    }else{
+                        );
+                    } else {
                         $breadcumb = new BreadCumb(
                             $value['name'],
                             'index.php?url=CategoryController/display/' . $value['id'],
                             null,
                             true
-                        );    
+                        );
                     }
 
                     array_push($data['breadcumbs'], $breadcumb);
@@ -123,8 +123,10 @@ class Message
 
         try {
 
+            $id_message = $db->getLastId("id", "messages");
+
             $sql = "INSERT INTO messages VALUES (";
-            $sql .= "null, ";
+            $sql .= $id_message . ", ";
             $sql .= "'" . $params['text'] . "', ";
             $sql .= "'" . today() . "' , ";
             $sql .= $params['id_user'] . ", ";
@@ -136,7 +138,6 @@ class Message
             }
 
             $db->executeInstruction($sql);
-            $id_message = $db->getLastId();
 
             $sql = "SELECT (count(*) + 1) as num_index ";
             $sql .= "FROM messages_public ";

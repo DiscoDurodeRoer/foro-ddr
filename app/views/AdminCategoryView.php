@@ -23,6 +23,7 @@ require_once 'AdminView.php'
                     if (isset($data['display_edit'])) {
                     ?>
                         <input type="hidden" class="form-control" name="id" value="<?php echo $data['category']['id']; ?>" />
+                        <input type="hidden" class="form-control" name="parent_cat_ori" value="<?php echo $data['category']['parent_cat']; ?>" />
                     <?php
                     }
                     ?>
@@ -43,24 +44,33 @@ require_once 'AdminView.php'
                         </div>
                     </div>
 
-                    <!-- Nombre categoria -->
-                    <div class="row form-group">
-                        <div class="col-12">
-                            <label for="parent_cat">Categoria padre</label>
-                            <select class="form-control" name="parent_cat" id="parent_cat">
-                                <?php
+                    <?php
 
-                                foreach ($data['categories'] as $key => $value) {
-                                    if (isset($data['category']) && $data['category']['parent_cat'] === $value['id']) {
-                                        echo "<option selected value='" . $value['id'] . "'>" . $value['name'] . "</option>";
-                                    } else {
-                                        echo "<option value='" . $value['id'] . "'>" . $value['name'] . "</option>";
+                    if (!isset($data['category']['has_child']) || $data['category']['has_child'] == 0) {
+                    ?>
+                        <!-- Nombre categoria -->
+                        <div class="row form-group">
+                            <div class="col-12">
+                                <label for="parent_cat">Categoria padre</label>
+                                <select class="form-control" name="parent_cat" id="parent_cat">
+                                    <?php
+
+                                    foreach ($data['categories'] as $key => $value) {
+                                        if (isset($data['category']) && $data['category']['parent_cat'] === $value['id']) {
+                                            echo "<option selected value='" . $value['id'] . "'>" . $value['name'] . "</option>";
+                                        } else {
+                                            echo "<option value='" . $value['id'] . "'>" . $value['name'] . "</option>";
+                                        }
                                     }
-                                }
-                                ?>
-                            </select>
+                                    ?>
+                                </select>
+                            </div>
                         </div>
-                    </div>
+                    <?php
+                    }
+
+                    ?>
+
 
                     <!-- Icono categoria -->
                     <!-- <div class="row form-group">
@@ -99,75 +109,83 @@ require_once 'AdminView.php'
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12">
-                <?php include_once 'show-info-message.php'; ?>
+        <?php
+        if ($data['num_elems'] == 0) {
+        ?>
+           <div class="row">
+                <div class="col-12">
+                    <p>No hay categorias</p>
+                </div>
             </div>
-        </div>
+        <?php
+        } else {
+        ?>
+            <div class="row">
+                <div class="col-12">
+                    <?php include_once 'show-info-message.php'; ?>
+                </div>
+            </div>
 
-        <div class="row">
-            <div class="col-12">
-                <table class="table">
+            <div class="row">
+                <div class="col-12">
+                    <table class="table">
 
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Descripción</th>
-                        <th>Padre</th>
-                        <th>Icono</th>
-                        <th>Topics</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    <?php
-
-                    foreach ($data['categories'] as $key => $value) {
-                    ?>
                         <tr>
-                            <td><?php echo $value['id']; ?></td>
-                            <td><?php echo $value['name']; ?></td>
-                            <td><?php echo $value['description']; ?></td>
-                            <td><?php echo $value['parent']; ?></td>
-                            <td><?php echo $value['icon']; ?></td>
-                            <td><?php echo $value['num_topics']; ?></td>
-                            <td>
-                                <?php
-                                if ($value['has_child'] == 0) {
-                                ?>
-                                <a class="btn btn-primary btn-icon" href="index.php?url=AdminCategoryController/display_edit/<?php echo $value['id']; ?>">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </a>
-                                <?php
-                                }
-                                ?>
-                                
-                            </td>
-                            <td>
-                                <?php
-                                if ($value['has_child'] == 0 && $value['num_topics'] == 0) {
-                                ?>
-                                    <a class="btn btn-danger btn-icon" href="index.php?url=AdminCategoryController/delete_category/<?php echo $value['id']; ?>">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                <?php
-                                }
-                                ?>
-                            </td>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Padre</th>
+                            <th>Icono</th>
+                            <th>Topics</th>
+                            <th></th>
+                            <th></th>
                         </tr>
-                    <?php
-                    }
-                    ?>
-                </table>
-            </div>
-        </div>
+                        <?php
 
-        <div class="row">
-            <div class="col-12">
-                <?php
-                include_once "pagination-controls.php";
-                ?>
+                        foreach ($data['categories'] as $key => $value) {
+                        ?>
+                            <tr>
+                                <td><?php echo $value['id']; ?></td>
+                                <td><?php echo $value['name']; ?></td>
+                                <td><?php echo $value['description']; ?></td>
+                                <td><?php echo $value['parent']; ?></td>
+                                <td><?php echo $value['icon']; ?></td>
+                                <td><?php echo $value['num_topics']; ?></td>
+                                <td>
+                                    <a class="btn btn-primary btn-icon" href="index.php?url=AdminCategoryController/display_edit/<?php echo $value['id']; ?>">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <?php
+                                    if ($value['has_child'] == 0 && $value['num_topics'] == 0) {
+                                    ?>
+                                        <a class="btn btn-danger btn-icon" href="index.php?url=AdminCategoryController/delete_category/<?php echo $value['id']; ?>">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                    <?php
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </table>
+                </div>
             </div>
-        </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <?php
+                    include_once "pagination-controls.php";
+                    ?>
+                </div>
+            </div>
+        <?php
+        }
+        ?>
+
 
     <?php
     }

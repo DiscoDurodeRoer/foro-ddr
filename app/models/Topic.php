@@ -101,8 +101,12 @@ class Topic
 
         try {
 
+
+
+            $id_topic = $db->getLastId("id", "topics");
+
             $sql = "INSERT INTO topics VALUES (";
-            $sql .= "null, ";
+            $sql .= $id_topic . ", ";
             $sql .= "'" . $params['title_topic'] . "', ";
             $sql .= "'" . today() . "' , ";
             $sql .= $params['id_user'] . ", ";
@@ -118,11 +122,12 @@ class Topic
             $success = $db->executeInstruction($sql);
 
             if ($success) {
-                $id_topic = $db->getLastId();
                 $data['id_topic'] = $id_topic;
 
+                $id_message = $db->getLastId("id", "messages");
+
                 $sql = "INSERT INTO messages VALUES (";
-                $sql .= "null, "; // id
+                $sql .= $id_message . ", "; // id
                 $sql .= "'" . $params['text'] . "', "; // Texto 
                 $sql .= "'" . today() . "' , "; // Fecha
                 $sql .= $params['id_user'] . ", "; // fecha publicacion
@@ -136,8 +141,6 @@ class Topic
                 $success = $db->executeInstruction($sql);
 
                 if ($success) {
-
-                    $id_message = $db->getLastId();
 
                     $sql = "INSERT INTO messages_public VALUES (";
                     $sql .= $id_message . ", ";

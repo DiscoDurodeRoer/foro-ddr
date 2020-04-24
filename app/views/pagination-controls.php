@@ -1,7 +1,7 @@
 
             <?php
 
-if($data['last_page'] != 1){
+if($data['last_page'] < 1){
     ?>
     <!-- Controles paginacion -->
     <div class="row">

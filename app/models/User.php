@@ -121,8 +121,10 @@ class User
 
         try {
 
+            $id_user = $db->getLastId("id", "users");
+
             $sql = "INSERT INTO users VALUES(";
-            $sql .= "null,";
+            $sql .= $id_user . ",";
             $sql .= "'" . $params['name'] . "', ";
             $sql .= "'" . $params['surname'] . "', ";
             $sql .= "'" . $params['nickname'] . "', ";
@@ -151,7 +153,6 @@ class User
             if ($success) {
                 $data['message'] = "Su registro se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
 
-                $id_user = $db->getLastId();
                 $data['user'] = array('id' => $id_user, 'nickname' => $params['nickname'], 'rol' => '1');
                 prepareDataLogin($data['user']);
             } else {
@@ -162,7 +163,6 @@ class User
             $data['message'] = ERROR_GENERAL;
             writeLog(ERROR_LOG, "User/registry", $e->getMessage());
         }
-
 
         $db->close();
 

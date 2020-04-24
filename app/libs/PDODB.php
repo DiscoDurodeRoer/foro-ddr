@@ -99,13 +99,12 @@ class PDODB
     function executeInstruction($sql)
     {
 
-        $result = $this->connection->query($sql);
+        $result = $this->connection->prepare($sql);
         $error = $this->connection->errorInfo();
 
         if ($error[0] === "00000") {
             $result->execute();
-
-            writeLog(INFO_LOG, "Count", $result->rowCount());
+            writeLog(ERROR_LOG, "Count: ({$sql})", $result->rowCount());
             return $result->rowCount() > 0;
         } else {
             throw new Exception($error[2]);
@@ -117,8 +116,9 @@ class PDODB
         $this->connection = null;
     }
 
-    function getLastId()
+    function getLastId($field, $table)
     {
-        return $this->connection->lastInsertId();
+        $sql = "SELECT IFNULL((MAX(".$field.") + 1), 1) as id FROM " . $table;
+        return $this->getDataSingleProp($sql, "id");
     }
 }
