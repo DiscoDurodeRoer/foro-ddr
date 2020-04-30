@@ -1,5 +1,5 @@
 <?php
-if (isset($data['breadcumbs'])) {
+if (isset($data['breadcumbs']) && count($data['breadcumbs']) > 1) {
 ?>
     <ul class="breadcumbs mb-3">
         <?php

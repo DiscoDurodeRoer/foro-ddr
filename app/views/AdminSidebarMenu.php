@@ -11,6 +11,9 @@
             <a class="nav-link" href="index.php?url=AdminTopicController/display">Topics</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="index.php?url=AdminLogController/display">Log</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="index.php?url=AdminController/back/">Volver al foro</a>
         </li>
         <li class="nav-item">

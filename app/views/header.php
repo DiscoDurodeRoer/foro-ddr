@@ -51,7 +51,7 @@
 
                             ?>
 
-                            <a class="btn btn-info btn-icon btn-xs-block" href="index.php?url=NoReadMessagesPublicController/display/">
+                            <a class="btn btn-info btn-icon btn-xs-block" href="index.php?url=NoReadMessagesPublicController/display">
                                 <i class="fa fa-envelope-o" aria-hidden="true"></i>Mensajes no leidos <span class="badge badge-light"><?php echo $data['msg_no_read'] ?></span>
                             </a>
 
