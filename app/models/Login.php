@@ -33,7 +33,8 @@ class Login
                 $sql .= "FROM users ";
                 $sql .= "WHERE (nickname = '" . strtolower($params['nick_email']) . "' or ";
                 $sql .= "email = '" . strtolower($params['nick_email']) . "') and ";
-                $sql .= "pass = '" . hash_hmac("sha512", $params['pass'], HASH_PASS_KEY) . "' and borrado <> 1";
+                $sql .= "pass = '" . hash_hmac("sha512", $params['pass'], HASH_PASS_KEY) . "' ";
+                $sql .= "and borrado <> 1 and verificado = 1";
     
                 if (isModeDebug()) {
                     writeLog(INFO_LOG, "Login/checkLogin", $sql);

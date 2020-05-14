@@ -1,5 +1,7 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 function prepareDataLogin($user)
 {
     $session = new Session();
@@ -61,4 +63,53 @@ function msgNoRead()
     $db->close();
 
     return $numMessages;
+}
+
+function generateUserKey()
+{
+
+    $userKey = "";
+
+    for ($i = 0; $i < LENGTH_USER_KEY; $i++) {
+
+        $typeCharacter = rand(0, 2);
+
+        if ($typeCharacter === USER_KEY_NUMBER) {
+            $userKey .= rand(0, 9);
+        } elseif ($typeCharacter === USER_KEY_MAYUS) {
+            $userKey .= chr(rand(65, 90));
+        } else {
+            $userKey .= chr(rand(97, 122));
+        }
+    }
+
+    return $userKey;
+}
+
+
+function sendEmail($email, $subject, $message)
+{
+
+    $mail = new PHPMailer();
+    $mail->isSMTP();
+    $mail->SMTPAuth = true;
+    $mail->Host = EMAIL_HOST;
+    $mail->Username = EMAIL_USERNAME;
+    $mail->Password = EMAIL_PASS;
+    $mail->SMTPSecure = EMAIL_SMTPSECURE;
+    $mail->Port = EMAIL_PORT;
+    $mail->setFrom(EMAIL_ADMIN);
+    $mail->addAddress($email);
+    $mail->Subject  = $subject;
+    $mail->isHTML(true);
+    $mail->Body     = $message;
+    if (!$mail->send()) {
+        writeLog(ERROR_LOG, "functions/sendEmail", "No se envido el mensaje" . $mail->ErrorInfo);
+        return false;
+    } else {
+        if (isModeDebug()) {
+            writeLog(INFO_LOG, "functions/sendEmail", "Se ha enviado el correo correctamente");
+        }
+        return true;
+    }
 }

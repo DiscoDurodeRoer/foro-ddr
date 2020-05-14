@@ -1,1 +1,165 @@
 [I][30-04-2020 21:34:52][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
+[I][05-05-2020 18:27:47][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][05-05-2020 18:27:47][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 18:42:39][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 18:42:39][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 18:55:55][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 18:55:55][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 19:05:23][functions/sendEmail]: Se ha enviado el correo correctamente
+[I][14-05-2020 19:05:23][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 19:05:23][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 19:09:03][functions/sendEmail]: Se ha enviado el correo correctamente
+[I][14-05-2020 19:09:03][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 19:09:03][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 19:14:51][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(nickname)) = 'fer' 
+[I][14-05-2020 19:14:51][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(email)) = 'fer@fer.es' 
+[I][14-05-2020 19:14:51][UserController/registrer]: {"show_message_info":true,"success":false,"message":["El nombre no puede estar vacio.","Las contrase\u00f1a no coinciden."],"registry":true}
+[I][14-05-2020 19:17:03][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(nickname)) = 'fer' 
+[I][14-05-2020 19:17:03][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(email)) = 'fer@fer.es' 
+[I][14-05-2020 19:17:03][UserController/registrer]: {"show_message_info":true,"success":false,"message":["El nombre no puede estar vacio."],"registry":true}
+[I][14-05-2020 19:17:29][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(nickname)) = 'fer' 
+[I][14-05-2020 19:17:29][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(email)) = 'fer@fer.es' 
+[I][14-05-2020 19:17:29][UserController/registrer]: {"show_message_info":true,"success":false,"message":["El nombre no puede estar vacio."],"registry":true}
+[I][14-05-2020 19:18:46][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(nickname)) = 'fer' 
+[I][14-05-2020 19:18:46][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(email)) = 'fer@fer.es' 
+[I][14-05-2020 19:18:46][User/registry]: INSERT INTO users VALUES(13,'fer', 'er', 'fer', 'fer@fer.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2,  '2020-05-14 19:18' , 0, 0);
+[E][14-05-2020 19:18:46][Count: (INSERT INTO users VALUES(13,'fer', 'er', 'fer', 'fer@fer.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2,  '2020-05-14 19:18' , 0, 0);)]: 1
+[I][14-05-2020 19:18:48][functions/sendEmail]: Se ha enviado el correo correctamente
+[I][14-05-2020 19:18:48][UserController/registrer]: {"show_message_info":true,"success":true,"text-center":true,"message":"Su registro se ha completado con \u00e9xito. Pulsa <a href='\/foro-ddr\/'>aqu\u00ed<\/a> para volver al inicio.","user":{"id":"13","nickname":"fer","rol":"1"}}
+[I][14-05-2020 19:18:48][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 13
+[I][14-05-2020 19:18:48][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(nickname)) = 'fer' 
+[I][14-05-2020 19:18:48][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(email)) = 'fer@fer.es' 
+[I][14-05-2020 19:18:48][UserController/registrer]: {"show_message_info":true,"success":false,"message":["El nickname ya existe.","El email ya existe."],"registry":true}
+[I][14-05-2020 19:18:48][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 13
+[I][14-05-2020 19:19:45][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(nickname)) = 'fer' 
+[I][14-05-2020 19:19:45][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(email)) = 'fer@fer.es' 
+[I][14-05-2020 19:19:45][User/registry]: INSERT INTO users VALUES(13,'fer', 'er', 'fer', 'fer@fer.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2,  '2020-05-14 19:19' , 0, 0);
+[E][14-05-2020 19:19:45][Count: (INSERT INTO users VALUES(13,'fer', 'er', 'fer', 'fer@fer.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2,  '2020-05-14 19:19' , 0, 0);)]: 1
+[I][14-05-2020 19:19:47][functions/sendEmail]: Se ha enviado el correo correctamente
+[I][14-05-2020 19:19:47][UserController/registrer]: {"show_message_info":true,"success":true,"text-center":true,"message":"Su registro se ha completado con \u00e9xito. Pulsa <a href='\/foro-ddr\/'>aqu\u00ed<\/a> para volver al inicio.","user":{"id":"13","nickname":"fer","rol":"1"}}
+[I][14-05-2020 19:19:47][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 13
+[I][14-05-2020 19:19:49][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 19:19:49][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 19:19:49][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 13
+[I][14-05-2020 19:33:24][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(nickname)) = 'fer' 
+[I][14-05-2020 19:33:24][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(email)) = 'fer@fer.es' 
+[I][14-05-2020 19:33:24][UserController/registrer]: {"show_message_info":true,"success":false,"message":["El nickname ya existe.","El email ya existe."],"registry":true}
+[I][14-05-2020 19:33:24][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 13
+[I][14-05-2020 20:17:45][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 20:17:45][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 20:21:38][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(nickname)) = 'fer2' 
+[I][14-05-2020 20:21:38][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(email)) = 'fer@fer2.es' 
+[I][14-05-2020 20:21:38][User/registry]: INSERT INTO users VALUES(14,'fer2', 'fer2', 'fer2', 'fer@fer2.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2,  '2020-05-14 20:21' , 0, 0);
+[E][14-05-2020 20:21:38][Count: (INSERT INTO users VALUES(14,'fer2', 'fer2', 'fer2', 'fer@fer2.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2,  '2020-05-14 20:21' , 0, 0);)]: 0
+[E][14-05-2020 20:21:38][Count: (INSERT INTO users_activation VALUES(14,'ujvNh65h5654vdJkbJ2X'))]: 0
+[I][14-05-2020 20:21:38][UserController/registrer]: {"show_message_info":true,"success":false,"text-center":true,"message":"Su registro no se ha realizado con \u00e9xito. Contacte con discoduroderoer desde este <a href='https:\/\/www.discoduroderoer.es\/contactanos\/'>formulario<\/a>."}
+[I][14-05-2020 20:23:51][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(nickname)) = 'fer2' 
+[I][14-05-2020 20:23:51][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(email)) = 'fer@fer2.es' 
+[I][14-05-2020 20:23:51][User/registry]: INSERT INTO users VALUES(14,'fer2', 'fer2', 'fer2', 'fer@fer2.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2,  '2020-05-14 20:23' , 0, 0,0);
+[E][14-05-2020 20:23:51][Count: (INSERT INTO users VALUES(14,'fer2', 'fer2', 'fer2', 'fer@fer2.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2,  '2020-05-14 20:23' , 0, 0,0);)]: 1
+[E][14-05-2020 20:23:51][Count: (INSERT INTO users_activation VALUES(14,'1avBpZMbABwvh4477mwI'))]: 1
+[I][14-05-2020 20:23:53][functions/sendEmail]: Se ha enviado el correo correctamente
+[I][14-05-2020 20:23:53][UserController/registrer]: {"show_message_info":true,"success":true,"text-center":true,"message":"Su registro se ha completado con \u00e9xito. Pulsa <a href='\/foro-ddr\/'>aqu\u00ed<\/a> para volver al inicio.","user":{"id":"14","nickname":"fer2","rol":"1"}}
+[I][14-05-2020 20:23:53][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
+[I][14-05-2020 20:28:55][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(nickname)) = 'fer2' 
+[I][14-05-2020 20:28:55][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(email)) = 'fer@fer2.es' 
+[I][14-05-2020 20:28:55][UserController/registrer]: {"show_message_info":true,"success":false,"message":["El nickname ya existe.","El email ya existe."],"registry":true}
+[I][14-05-2020 20:28:55][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
+[I][14-05-2020 20:28:57][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 20:28:57][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 20:28:57][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
+[I][14-05-2020 20:29:00][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 20:29:00][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 20:29:50][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 20:29:50][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 20:30:12][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 20:30:12][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 20:30:26][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(nickname)) = 'fer2' 
+[I][14-05-2020 20:30:26][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(email)) = 'fer@fer2.es' 
+[I][14-05-2020 20:30:26][User/registry]: INSERT INTO users VALUES(14,'fer2', 'fer2', 'fer2', 'fer@fer2.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2,  '2020-05-14 20:30' , 0, 0,0);
+[E][14-05-2020 20:30:26][Count: (INSERT INTO users VALUES(14,'fer2', 'fer2', 'fer2', 'fer@fer2.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2,  '2020-05-14 20:30' , 0, 0,0);)]: 1
+[E][14-05-2020 20:30:26][Count: (INSERT INTO users_activation VALUES(14,'P32747XVf4SL9sooQIaA'))]: 1
+[I][14-05-2020 20:30:28][functions/sendEmail]: Se ha enviado el correo correctamente
+[I][14-05-2020 20:30:28][UserController/registrer]: {"show_message_info":true,"success":true,"text-center":true,"message":"Su registro se ha completado con \u00e9xito. Pulsa <a href='\/foro-ddr\/'>aqu\u00ed<\/a> para volver al inicio."}
+[I][14-05-2020 20:31:08][User/verification]: SELECT ua.id_user, u.email, u.nickname, u.rol FROM users_activation ua, users u WHERE u.id = ua.id_user and ua.user_key = 'P32747XVf4SL9sooQIaA'
+[I][14-05-2020 20:31:09][User/verification]: UPDATE users SET verificado = 1 WHERE id = 
+[E][14-05-2020 20:31:09][Count: (UPDATE users SET verificado = 1 WHERE id = )]: 0
+[I][14-05-2020 20:31:09][User/verification]: DELETE FROM users_activation WHERE id = 
+[E][14-05-2020 20:31:09][Count: (DELETE FROM users_activation WHERE id = )]: 0
+[I][14-05-2020 20:34:12][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(nickname)) = 'fer2' 
+[I][14-05-2020 20:34:12][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(email)) = 'fer@fer2.es' 
+[I][14-05-2020 20:34:12][User/registry]: INSERT INTO users VALUES(14,'fer2', 'fer2', 'fer2', 'fer@fer2.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2,  '2020-05-14 20:34' , 0, 0,0);
+[E][14-05-2020 20:34:12][Count: (INSERT INTO users VALUES(14,'fer2', 'fer2', 'fer2', 'fer@fer2.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2,  '2020-05-14 20:34' , 0, 0,0);)]: 1
+[E][14-05-2020 20:34:12][Count: (INSERT INTO users_activation VALUES(14,'68dp1ZMY5c26L76R1UPH'))]: 1
+[I][14-05-2020 20:34:14][functions/sendEmail]: Se ha enviado el correo correctamente
+[I][14-05-2020 20:34:14][UserController/registrer]: {"show_message_info":true,"success":true,"text-center":true,"message":"Su registro se ha completado con \u00e9xito. Pulsa <a href='\/foro-ddr\/'>aqu\u00ed<\/a> para volver al inicio."}
+[I][14-05-2020 20:34:29][User/verification]: SELECT ua.id_user, u.email, u.nickname, u.rol FROM users_activation ua, users u WHERE u.id = ua.id_user and ua.user_key = '68dp1ZMY5c26L76R1UPH'
+[I][14-05-2020 20:34:29][User/verification]: UPDATE users SET verificado = 1 WHERE id = 14
+[E][14-05-2020 20:34:29][Count: (UPDATE users SET verificado = 1 WHERE id = 14)]: 1
+[I][14-05-2020 20:34:29][User/verification]: DELETE FROM users_activation WHERE id = 14
+[E][14-05-2020 20:34:29][Count: (DELETE FROM users_activation WHERE id = 14)]: 0
+[I][14-05-2020 20:36:16][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(nickname)) = 'fer2' 
+[I][14-05-2020 20:36:16][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(email)) = 'fer@fer2.es' 
+[I][14-05-2020 20:36:16][User/registry]: INSERT INTO users VALUES(14,'fer2', 'fer2', 'fer2', 'fer@fer2.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2,  '2020-05-14 20:36' , 0, 0,0);
+[E][14-05-2020 20:36:16][Count: (INSERT INTO users VALUES(14,'fer2', 'fer2', 'fer2', 'fer@fer2.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2,  '2020-05-14 20:36' , 0, 0,0);)]: 1
+[E][14-05-2020 20:36:16][Count: (INSERT INTO users_activation VALUES(14,'98jNCyZ67Mj20DScV3VR'))]: 1
+[I][14-05-2020 20:36:18][functions/sendEmail]: Se ha enviado el correo correctamente
+[I][14-05-2020 20:36:18][UserController/registrer]: {"show_message_info":true,"success":true,"text-center":true,"message":"Su registro se ha completado con \u00e9xito. Pulsa <a href='\/foro-ddr\/'>aqu\u00ed<\/a> para volver al inicio."}
+[I][14-05-2020 20:36:25][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(nickname)) = 'fer2' 
+[I][14-05-2020 20:36:25][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(email)) = 'fer@fer2.es' 
+[I][14-05-2020 20:36:25][UserController/registrer]: {"show_message_info":true,"success":false,"message":["El nickname ya existe.","El email ya existe."],"registry":true}
+[I][14-05-2020 20:37:27][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(nickname)) = 'fer2' 
+[I][14-05-2020 20:37:27][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(email)) = 'fer@fer2.es' 
+[I][14-05-2020 20:37:27][User/registry]: INSERT INTO users VALUES(14,'fer2', 'fer2', 'fer2', 'fer@fer2.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2,  '2020-05-14 20:37' , 0, 0,0);
+[E][14-05-2020 20:37:27][Count: (INSERT INTO users VALUES(14,'fer2', 'fer2', 'fer2', 'fer@fer2.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2,  '2020-05-14 20:37' , 0, 0,0);)]: 1
+[E][14-05-2020 20:37:27][Count: (INSERT INTO users_activation VALUES(14,'3zF0w5u6700hywx48iuB'))]: 1
+[I][14-05-2020 20:37:29][functions/sendEmail]: Se ha enviado el correo correctamente
+[I][14-05-2020 20:37:29][UserController/registrer]: {"show_message_info":true,"success":true,"text-center":true,"message":"Su registro se ha completado con \u00e9xito. Pulsa <a href='\/foro-ddr\/'>aqu\u00ed<\/a> para volver al inicio."}
+[I][14-05-2020 20:37:50][User/verification]: SELECT ua.id_user, u.email, u.nickname, u.rol FROM users_activation ua, users u WHERE u.id = ua.id_user and ua.user_key = '3zF0w5u6700hywx48iuB'
+[I][14-05-2020 20:37:50][User/verification]: UPDATE users SET verificado = 1 WHERE id = 14
+[E][14-05-2020 20:37:50][Count: (UPDATE users SET verificado = 1 WHERE id = 14)]: 1
+[I][14-05-2020 20:37:50][User/verification]: DELETE FROM users_activation WHERE id_user = 14
+[E][14-05-2020 20:37:50][Count: (DELETE FROM users_activation WHERE id_user = 14)]: 1
+[I][14-05-2020 20:37:52][functions/sendEmail]: Se ha enviado el correo correctamente
+[I][14-05-2020 20:37:52][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
+[I][14-05-2020 20:41:08][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(nickname)) = 'fer2' 
+[I][14-05-2020 20:41:08][User/checkErrors]: SELECT count(*) as num_usuarios FROM users WHERE trim(lower(email)) = 'fer@fer2.es' 
+[I][14-05-2020 20:41:08][UserController/registrer]: {"show_message_info":true,"success":false,"message":["El nickname ya existe.","El email ya existe."],"registry":true}
+[I][14-05-2020 20:41:08][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
+[I][14-05-2020 20:41:10][AdminCategory/get_categories]: SELECT cc.id, cc.name, cc.description, cp.name as parent, cc.icon, cc.num_topics, (select count(*) from categories WHERE cc.id = parent_cat) as has_child FROM categories cc, categories cp WHERE cc.parent_cat = cp.id LIMIT 0,10
+[I][14-05-2020 20:41:10][AdminCategoryController/display]: {"num_elems":8,"categories":[{"id":"1","name":"Inicio","description":"","parent":"Inicio","icon":"","num_topics":"0","has_child":"3"},{"id":"2","name":"Programaci\u00f3n","description":"","parent":"Inicio","icon":"","num_topics":"0","has_child":"3"},{"id":"3","name":"Java","description":"","parent":"Programaci\u00f3n","icon":"","num_topics":"0","has_child":"2"},{"id":"4","name":"Python","description":"","parent":"Programaci\u00f3n","icon":"","num_topics":"0","has_child":"0"},{"id":"5","name":"Javascript","description":"","parent":"Programaci\u00f3n","icon":"","num_topics":"0","has_child":"0"},{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent":"Inicio","icon":"","num_topics":"0","has_child":"0"},{"id":"7","name":"General","description":"Topics sobre Java","parent":"Java","icon":"","num_topics":"0","has_child":"0"},{"id":"8","name":"Ficheros","description":"Topics sobre ficheros Java","parent":"Java","icon":"","num_topics":"0","has_child":"0"}],"pag":1,"last_page":1,"url_base":"AdminCategoryController\/display","success":true}
+[I][14-05-2020 20:41:11][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
+[I][14-05-2020 20:41:13][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 20:41:13][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 20:41:13][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
+[I][14-05-2020 20:41:14][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 20:41:14][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 20:41:15][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
+[I][14-05-2020 20:41:16][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 20:41:16][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 20:41:16][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
+[I][14-05-2020 20:41:18][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 20:41:18][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 20:41:31][Login/checkLogin]: SELECT id, nickname, rol FROM users WHERE (nickname = 'fer2' or email = 'fer2') and pass = '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084' and borrado <> 1 and verificado == 1
+[E][14-05-2020 20:41:31][Login/checkLogin]: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= 1' at line 1
+[I][14-05-2020 20:41:31][Login/login]: {"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][14-05-2020 20:41:49][Login/checkLogin]: SELECT id, nickname, rol FROM users WHERE (nickname = 'fer2' or email = 'fer2') and pass = '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084' and borrado <> 1 and verificado == 1
+[E][14-05-2020 20:41:49][Login/checkLogin]: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= 1' at line 1
+[I][14-05-2020 20:41:49][Login/login]: {"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][14-05-2020 20:42:11][Login/checkLogin]: SELECT id, nickname, rol FROM users WHERE (nickname = 'fer2' or email = 'fer2') and pass = '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084' and borrado <> 1 and verificado = 1
+[I][14-05-2020 20:42:11][Login/login]: {"id":"14","nickname":"fer2","rol":"2","success":true,"user":{"id":"14","nickname":"fer2","rol":"2"}}
+[I][14-05-2020 20:42:11][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 20:42:11][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 20:42:11][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
+[I][14-05-2020 20:42:14][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 20:42:14][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 20:42:20][Login/checkLogin]: SELECT id, nickname, rol FROM users WHERE (nickname = 'fer2' or email = 'fer2') and pass = '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084' and borrado <> 1 and verificado = 1
+[I][14-05-2020 20:42:20][Login/login]: {"id":"14","nickname":"fer2","rol":"2","success":true,"user":{"id":"14","nickname":"fer2","rol":"2"}}
+[I][14-05-2020 20:42:20][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 20:42:20][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 20:42:20][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
+[I][14-05-2020 21:04:48][User/verification]: SELECT ua.id_user, u.email, u.nickname, u.rol FROM users_activation ua, users u WHERE u.id = ua.id_user and ua.user_key = '3zF0w5u6700hywx48iuB'
+[I][14-05-2020 21:04:48][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
+[I][14-05-2020 21:04:51][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][14-05-2020 21:04:51][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][14-05-2020 21:04:51][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14

@@ -142,11 +142,11 @@ class UserController extends Controller
                 $data = array();
 
                 $params = array(
-                    'username' => $_POST['username'],
+                    'name' => $_POST['name'],
                     'nickname' => $_POST['nickname'],
                     'email' => $_POST['email'],
                     'pass' => $_POST['pass'],
-                    'confirm_pass' => $_POST['confirm_pass']
+                    'confirm-pass' => $_POST['confirm-pass']
                 );
 
                 $errors = $this->model->checkErrors($params);
@@ -154,7 +154,7 @@ class UserController extends Controller
                 if (count($errors) === 0) {
 
                     $params = array(
-                        'username' => $_POST['username'],
+                        'name' => $_POST['name'],
                         'surname' => $_POST['surname'],
                         'nickname' => $_POST['nickname'],
                         'email' => $_POST['email'],
@@ -256,6 +256,18 @@ class UserController extends Controller
             $session->destroySession();
             redirect_to_url(BASE_URL);
         }
+    }
+
+    function verification($key){
+
+        $params = [
+            'key' => $key
+        ];
+
+        $data = $this->model->verification($params);
+
+        $this->view("UserView", $data);
+
     }
 
     function no_unsubscribe()

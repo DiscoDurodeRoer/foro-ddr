@@ -28,3 +28,17 @@ define("ERROR_LOG", "E");
 define("INFO_LOG", "I");
 
 define("DEFAULT_AVATAR", PAGE_URL."img/default-avatar.jpg");
+
+define("LENGTH_USER_KEY", 20);
+define("USER_KEY_NUMBER", 0);
+define("USER_KEY_MAYUS", 1);
+define("USER_KEY_MINUS", 2);
+
+//  Conf Email
+
+define("EMAIL_HOST", "smtp.mailtrap.io");
+define("EMAIL_USERNAME", "8aba630f0ba7e7");
+define("EMAIL_PASS", "407377b27bbf2c");
+define("EMAIL_SMTPSECURE", "tls");
+define("EMAIL_PORT", 2525);
+define("EMAIL_ADMIN", 'ddr-288a24@inbox.mailtrap.io');

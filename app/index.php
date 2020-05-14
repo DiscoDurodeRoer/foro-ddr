@@ -8,4 +8,10 @@
     require_once("libs/functions.php");
     require_once('libs/Log.php');
     require_once('libs/Breadcumb.php');
+    // PHPMailer
+    require_once('libs/PHPMailer/SMTP.php');
+    require_once('libs/PHPMailer/POP3.php');
+    require_once('libs/PHPMailer/Exception.php');
+    require_once('libs/PHPMailer/OAuth.php');
+    require_once('libs/PHPMailer/PHPMailer.php');
 ?>

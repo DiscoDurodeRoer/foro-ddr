@@ -139,6 +139,7 @@ class User
             $sql .= "2, ";
             $sql .= " '" . today() . "' , ";
             $sql .= "0, ";
+            $sql .= "0,";
             $sql .= "0);";
 
             if (isModeDebug()) {
@@ -147,14 +148,22 @@ class User
 
             $success = $db->executeInstruction($sql);
 
+            $key = generateUserKey();
+
+            $sql = "INSERT INTO users_activation VALUES(";
+            $sql .= $id_user . ",";
+            $sql .= "'" . $key . "'" . ")";
+
+            $db->executeInstruction($sql);
+
             $data['success'] = $success;
             $data['text-center'] = true;
 
             if ($success) {
                 $data['message'] = "Su registro se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
 
-                $data['user'] = array('id' => $id_user, 'nickname' => $params['nickname'], 'rol' => '1');
-                prepareDataLogin($data['user']);
+                sendEmail($params['email'], "Validación Cuenta Foro DDR", "Debes validar tu cuenta desde este enlace. <a href='" . PAGE_URL . "index.php?url=UserController/verification/" . $key . "'>Pulsa el link para validar tu cuenta.</a>");
+
             } else {
                 $data['message'] = "Su registro no se ha realizado con éxito. Contacte con discoduroderoer desde este <a href='https://www.discoduroderoer.es/contactanos/'>formulario</a>.";
             }
@@ -277,6 +286,77 @@ class User
 
         $db->close();
 
+        return $data;
+    }
+
+    function verification($params)
+    {
+
+        $db = new PDODB();
+        $data = array();
+        $data['show_message_info'] = true;
+
+
+        try {
+
+            $sql = "SELECT ua.id_user, u.email, u.nickname, u.rol ";
+            $sql .= "FROM users_activation ua, users u ";
+            $sql .= "WHERE u.id = ua.id_user and ";
+            $sql .= "ua.user_key = '" . $params['key'] . "'";
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "User/verification", $sql);
+            }
+
+            $nRows = $db->numRows($sql);
+
+            if ($nRows === 1) {
+
+                $dataUser = $db->getDataSingle($sql);
+                $id = $dataUser['id_user'];
+                $email = $dataUser['email'];
+                $nickname = $dataUser['nickname'];
+
+                $sql = "UPDATE users SET ";
+                $sql .= "verificado = 1 ";
+                $sql .= "WHERE id = " . $id;
+
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "User/verification", $sql);
+                }
+
+                $db->executeInstruction($sql);
+
+                $sql = "DELETE FROM users_activation ";
+                $sql .= "WHERE id_user = " . $id;
+
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "User/verification", $sql);
+                }
+
+                $data['success'] = $db->executeInstruction($sql);
+
+                $data['text-center'] = true;
+                if ($data['success']) {
+
+                    $data['message'] = "¡Has sido verificado! ¡Bienvenido a Foro DDR!";
+
+                    sendEmail($email, "¡Bienvenido al Foro DDR!", "Bienvenido al foro DDR");
+
+                    $data['user'] = array('id' => $id, 'nickname' => $nickname, 'rol' => IS_USER);
+                    prepareDataLogin($data['user']);
+                } else {
+                    $data['message'] = "Clave incorrecta.";
+                }
+            }
+        } catch (Exception $e) {
+            $data['show_message_info'] = true;
+            $data['success'] = false;
+            $data['message'] = ERROR_GENERAL;
+            writeLog(ERROR_LOG, "User/verification", $e->getMessage());
+        }
+
+        $db->close();
         return $data;
     }
 }
