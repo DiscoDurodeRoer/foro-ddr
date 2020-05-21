@@ -163,7 +163,6 @@ class User
                 $data['message'] = "Su registro se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
 
                 sendEmail($params['email'], "Validación Cuenta Foro DDR", "Debes validar tu cuenta desde este enlace. <a href='" . PAGE_URL . "index.php?url=UserController/verification/" . $key . "'>Pulsa el link para validar tu cuenta.</a>");
-
             } else {
                 $data['message'] = "Su registro no se ha realizado con éxito. Contacte con discoduroderoer desde este <a href='https://www.discoduroderoer.es/contactanos/'>formulario</a>.";
             }
@@ -233,15 +232,45 @@ class User
         $data['show_message_info'] = true;
 
         try {
-            $sql = "UPDATE users ";
-            $sql .= "SET pass = '" . hash_hmac("sha512", $params['pass'], HASH_PASS_KEY) . "' ";
-            $sql .= "WHERE id = " . $params['id_user'];
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "User/change_password", $sql);
+            if (isset($params['user_key'])) {
+
+                // comprobar que el user key existe en la bd
+
+                $sql = "UPDATE users ";
+                $sql .= "SET pass = '" . hash_hmac("sha512", $params['pass'], HASH_PASS_KEY) . "' ";
+                $sql .= "WHERE id = (SELECT id_user ";
+                $sql .= "            FROM users_remember ";
+                $sql .= "            WHERE user_key = '" . $params['user_key'] . "')";
+
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "User/change_password", $sql);
+                }
+
+                $data['success'] = $db->executeInstruction($sql);
+
+                $sql = "DELETE FROM users_remember ";
+                $sql .= "WHERE user_key = '" . $params['user_key'] . "'";
+
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "User/change_password", $sql);
+                }
+
+                $db->executeInstruction($sql);
+            } else {
+
+                $sql = "UPDATE users ";
+                $sql .= "SET pass = '" . hash_hmac("sha512", $params['pass'], HASH_PASS_KEY) . "' ";
+                $sql .= "WHERE id = " . $params['id_user'];
+
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "User/change_password", $sql);
+                }
+
+                $data['success'] = $db->executeInstruction($sql);
             }
 
-            $data['success'] = $db->executeInstruction($sql);
+
 
             $data['text-center'] = true;
             if ($data['success']) {

@@ -12,7 +12,11 @@ class LoginController extends Controller
 
     function display()
     {
-        $this->view("LoginView");
+        $data = array();
+
+        $data['display_login'] = true;
+
+        $this->view("LoginView", $data);
     }
 
     function login()
@@ -44,7 +48,44 @@ class LoginController extends Controller
                     $this->view("LoginView", $data);
                 }
             } else {
-                redirect_to_url("index.php");
+                redirect_to_url(BASE_URL);
+            }
+        }
+    }
+
+    function display_remember()
+    {
+
+        $data = array();
+
+        $data['display_recover_password'] = true;
+
+        $this->view("LoginView", $data);
+    }
+
+    function remember()
+    {
+
+
+        if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
+
+            if (isset($_POST['action'])) {
+
+                $data = array();
+
+                $params = array(
+                    'email' => $_POST['email']
+                );
+
+                $data = $this->model->sendNotificationRememeber($params);
+
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "Login/remember", json_encode($data));
+                }
+
+                $this->view("LoginView", $data);
+            } else {
+                redirect_to_url("index.php?url=LoginController/display");
             }
         }
     }

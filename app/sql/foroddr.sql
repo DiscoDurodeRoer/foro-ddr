@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-05-2020 a las 23:39:59
+-- Tiempo de generación: 21-05-2020 a las 21:01:45
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.3.0
 
@@ -279,6 +279,24 @@ CREATE TABLE `users_activation` (
   `user_key` varchar(20) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `users_remember`
+--
+
+CREATE TABLE `users_remember` (
+  `id_user` int(11) NOT NULL,
+  `user_key` varchar(20) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `users_remember`
+--
+
+INSERT INTO `users_remember` (`id_user`, `user_key`) VALUES
+(14, 'aWfn01PD68pkuQ322vFY');
+
 --
 -- Índices para tablas volcadas
 --
@@ -358,6 +376,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `users_activation`
   ADD PRIMARY KEY (`id_user`);
+
+--
+-- Indices de la tabla `users_remember`
+--
+ALTER TABLE `users_remember`
+  ADD PRIMARY KEY (`id_user`,`user_key`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas

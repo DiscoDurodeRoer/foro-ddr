@@ -20,6 +20,8 @@ class UserController extends Controller
     function display_profile()
     {
 
+        isLogged();
+
         $data = array();
 
         $session = new Session();
@@ -42,6 +44,8 @@ class UserController extends Controller
     function display_edit_profile()
     {
 
+        isLogged();
+
         $data = array();
 
         $session = new Session();
@@ -63,6 +67,8 @@ class UserController extends Controller
 
     function edit_profile()
     {
+
+        isLogged();
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -123,10 +129,16 @@ class UserController extends Controller
         }
     }
 
-    function edit_password()
+    function edit_password($userKey = null)
     {
 
-        $data = array();
+        if (!isset($userKey)) {
+            isLogged();
+        }
+
+        $data = array(
+            'user_key' => $userKey
+        );
 
         $data['change_password'] = true;
 
@@ -193,6 +205,10 @@ class UserController extends Controller
                 'confirm-pass' => $_POST['confirm-pass']
             );
 
+            if (!isset($params['user_key'])) {
+                isLogged();
+            }
+
             $errors = array();
 
             $this->model->checkPass($params, $errors);
@@ -202,10 +218,17 @@ class UserController extends Controller
 
                 $session = new Session();
 
-                $params = array(
-                    'id_user' => $session->getAttribute(SESSION_ID_USER),
-                    'pass' => $_POST['pass']
-                );
+                if(isset($_POST['user_key'])){
+                    $params = array(
+                        'pass' => $_POST['pass'],
+                        'user_key' => $_POST['user_key']
+                    );
+                }else{
+                    $params = array(
+                        'id_user' => $session->getAttribute(SESSION_ID_USER),
+                        'pass' => $_POST['pass']
+                    );
+                }
 
                 $data = $this->model->change_password($params);
             } else {
@@ -240,6 +263,8 @@ class UserController extends Controller
     function unsubscribe()
     {
 
+        isLogged();
+
         $session = new Session();
 
         $params = array(
@@ -258,7 +283,8 @@ class UserController extends Controller
         }
     }
 
-    function verification($key){
+    function verification($key)
+    {
 
         $params = [
             'key' => $key
@@ -267,7 +293,6 @@ class UserController extends Controller
         $data = $this->model->verification($params);
 
         $this->view("UserView", $data);
-
     }
 
     function no_unsubscribe()
