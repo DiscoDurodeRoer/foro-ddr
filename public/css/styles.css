@@ -184,3 +184,18 @@ ul.menu-admin li a:hover {
 .block-sidebar {
     background: #23282d;
 }
+
+/* Form-search */
+
+.search-block {
+    padding: 10px;
+    cursor: pointer;
+}
+
+#form-search {
+    position: absolute;
+    background: #FFF;
+    border: 1px solid;
+    padding: 15px;
+    width: 300px;
+}

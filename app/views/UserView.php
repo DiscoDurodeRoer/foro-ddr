@@ -151,6 +151,9 @@ include_once 'header.php';
 
                             <div class="row">
                                 <div class="col-12 text-right">
+                                    <a class="btn btn-success btn-icon" href="index.php?url=UserController/display_topics_user/">
+                                    <i class="fa fa-eye" aria-hidden="true"></i> Participaciones en topics
+                                    </a>
                                     <a class="btn btn-success btn-icon" href="index.php?url=UserController/display_edit_profile/">
                                         <i class="fa fa-pencil" aria-hidden="true"></i> Editar perfil
                                     </a>
@@ -228,7 +231,6 @@ include_once 'header.php';
                         </div>
                     </div>
 
-
                     <div class="row">
                         <div class="col-12">
                             <a class="btn btn-success btn-icon" href="index.php?url=UserController/unsubscribe/">
@@ -240,11 +242,54 @@ include_once 'header.php';
                         </div>
                     </div>
 
-
                 </div>
             </div>
 
 
+
+        <?php
+        } else if (isset($data['display_topics_user'])) {
+        ?>
+
+            <div class="row">
+                <div class="col-12">
+                    <h1>Topics en los que has participado</h1>
+                </div>
+            </div>
+
+            <?php
+
+            if ($data['has_results']) {
+            ?>
+
+                <table class="table">
+
+                    <tr>
+                        <th>Topic</th>
+                        <th>Ultimo mensaje</th>
+                        <th>Número de posts</th>
+                    </tr>
+
+                    <?php
+
+                    foreach ($data['topics_user'] as $key => $value) {
+                        echo "<tr>";
+
+                        echo "<td><a href='index.php?url=MessageController/display/" . $value['id_topic'] . "'>" . $value['title'] . "</a></td>";
+                        echo "<td>" . $value['date_last_message'] . "</td>";
+                        echo "<td>" . $value['num_post'] . "</td>";
+
+                        echo "</tr>";
+                    }
+                    ?>
+                </table>
+            <?php
+            } else {
+            ?>
+                <p>No has participado en ningún topic.</p>
+            <?php
+            }
+            ?>
 
         <?php
         }

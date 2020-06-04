@@ -388,4 +388,39 @@ class User
         $db->close();
         return $data;
     }
+
+    function search_topics_user($params)
+    {
+
+        $db = new PDODB();
+        $data = array();
+
+        try {
+
+            $sql = "SELECT mp.id_topic, t.title, DATE_FORMAT(MAX(m.date_creation), '%d/%m/%Y %T') as date_last_message, COUNT(*) as num_post ";
+            $sql .= "FROM messages m, messages_public mp, topics t ";
+            $sql .= "WHERE m.id = mp.id_message ";
+            $sql .= "AND t.id = mp.id_topic ";
+            $sql .= "AND m.user_origin = " . $params['id_user'] . " ";
+            $sql .= "GROUP BY mp.id_topic, t.title ";
+            $sql .= "ORDER BY date_last_message DESC";
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "User/search_topics_user", $sql);
+            }
+
+            $data['topics_user'] = $db->getData($sql);
+
+            $data['has_results'] = $db->numRows($sql) > 0;
+
+        } catch (Exception $e) {
+            $data['show_message_info'] = true;
+            $data['success'] = false;
+            $data['message'] = ERROR_GENERAL;
+            writeLog(ERROR_LOG, "User/verification", $e->getMessage());
+        }
+
+        $db->close();
+        return $data;
+    }
 }

@@ -41,6 +41,8 @@
                             <span class="greeting mr-3">Hola, <?php echo $nickname ?></span>
 
                             <?php
+
+                            include "block-search.php";
                             if ($data['isAdmin']) {
                             ?>
                                 <a class="btn btn-success btn-icon" href="index.php?url=AdminController/display">
@@ -50,6 +52,7 @@
                             }
 
                             ?>
+
 
                             <a class="btn btn-info btn-icon btn-xs-block" href="index.php?url=NoReadMessagesPublicController/display">
                                 <i class="fa fa-envelope-o" aria-hidden="true"></i>Mensajes no leidos <span class="badge badge-light"><?php echo $data['msg_no_read'] ?></span>
@@ -65,7 +68,10 @@
 
                         <?php
                         } else {
+
+                            include "block-search.php";
                         ?>
+
                             <a class="btn btn-primary btn-icon" href="index.php?url=UserController/display/">
                                 <i class="fa fa-sign-in" aria-hidden="true"></i>Registrarse
                             </a>
@@ -75,6 +81,8 @@
                         <?php
                         }
                         ?>
+
+
 
                     </div>
                 </div>

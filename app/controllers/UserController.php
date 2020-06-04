@@ -218,12 +218,12 @@ class UserController extends Controller
 
                 $session = new Session();
 
-                if(isset($_POST['user_key'])){
+                if (isset($_POST['user_key'])) {
                     $params = array(
                         'pass' => $_POST['pass'],
                         'user_key' => $_POST['user_key']
                     );
-                }else{
+                } else {
                     $params = array(
                         'id_user' => $session->getAttribute(SESSION_ID_USER),
                         'pass' => $_POST['pass']
@@ -298,5 +298,23 @@ class UserController extends Controller
     function no_unsubscribe()
     {
         header("Location: index.php?url=UserController/display_profile/");
+    }
+
+    function display_topics_user()
+    {
+
+        isLogged();
+
+        $session = new Session();
+
+        $params = array(
+            'id_user' => $session->getAttribute(SESSION_ID_USER)
+        );
+
+        $data = $this->model->search_topics_user($params);
+
+        $data['display_topics_user'] = true;
+
+        $this->view("UserView", $data);
     }
 }
