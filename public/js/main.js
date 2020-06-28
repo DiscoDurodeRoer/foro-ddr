@@ -7,8 +7,47 @@ function init() {
 function initEvents() {
     document.getElementById("icon-search").addEventListener("click", function () {
         showHideSearch();
-    })
+    });
+    if (document.getElementById("password")) {
+        document.getElementById("password").addEventListener("keyup", function (e) {
+            let regex = new RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,20}$/);
+            validateField("password", regex);
+        })
+    }
+    if (document.getElementById("email")) {
+        document.getElementById("email").addEventListener("keyup", function (e) {
+            let regex = new RegExp(/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/);
+            validateField("email", regex);
+        })
+    }
+    if (document.getElementById("formUser")) {
+        document.getElementById("formUser").addEventListener("submit", function (e) {
+            let regexPass = new RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,20}$/);
+            validateField("password", regexPass);
+            regexEmail = new RegExp(/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/);
+            validateField("email", regexEmail);
+        })
+    }
+    if (document.getElementsByName("back") && document.getElementsByName("back").length > 0) {
+        document.getElementsByName("back")[0].addEventListener("click", function () {
+            window.history.back();
+        })
+    }
 }
+
+function validateField(id, regex) {
+
+    let value = document.getElementById(id).value;
+
+    if (regex.test(value)) {
+        document.getElementById(id).setAttribute("class", "form-control is-valid");
+
+    } else {
+        document.getElementById(id).setAttribute("class", "form-control is-invalid");
+        event.preventDefault();
+    }
+}
+
 
 function initCheckEditor() {
 

@@ -57,28 +57,28 @@ class TopicController extends Controller
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
-            if (isset($_POST['action'])) {
-                $data = array();
+            $data = array();
 
-                $session = new Session();
+            $session = new Session();
 
-                $params = array(
-                    'id_user' => $session->getAttribute(SESSION_ID_USER),
-                    'title_topic' => $_POST['title'],
-                    'id_cat' => filter_var($_POST['id_cat'], FILTER_SANITIZE_NUMBER_INT),
-                    'text' => $_POST['text']
-                );
+            $params = array(
+                'id_user' => $session->getAttribute(SESSION_ID_USER),
+                'title_topic' => $_POST['title'],
+                'id_cat' => filter_var($_POST['id_cat'], FILTER_SANITIZE_NUMBER_INT),
+                'text' => trim($_POST['text'])
+            );
 
-                $data = $this->model->create_topic($params);
+            $data = $this->model->create_topic($params);
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "TopicController/create_topic", json_encode($data));
-                }
-
-                $this->view("TopicView", $data);
-            } else {
-                redirect_to_url("index.php?url=TopicController/display/" . $_POST['id_cat']);
+            if(!$data['success']){
+                $data['create'] = true;
             }
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "TopicController/create_topic", json_encode($data));
+            }
+
+            $this->view("TopicView", $data);
         }
     }
 }

@@ -55,40 +55,32 @@ class AdminCategoryController extends Controller
         isLogged();
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
+            $params = array(
+                'name' => $_POST['name'],
+                'description' => $_POST['description'],
+                'parent_cat' => isset($_POST['parent_cat']) ? filter_var($_POST['parent_cat'], FILTER_SANITIZE_NUMBER_INT) : 1
+            );
 
-            if (isset($_POST['action'])) {
+            $data = $this->model->create_category($params);
 
-                $params = array(
-                    'name' => $_POST['name'],
-                    'description' => $_POST['description'],
-                    'parent_cat' => isset($_POST['parent_cat']) ? filter_var($_POST['parent_cat'], FILTER_SANITIZE_NUMBER_INT): 1
-                );
+            $params = array(
+                'mode' => ALL_CATEGORIES,
+                'page' => 1
+            );
 
-                $data = $this->model->create_category($params);
+            $data_categories = $this->model->get_categories($params);
 
-                $params = array(
-                    'mode' => ALL_CATEGORIES,
-                    'page' => 1
-                );
+            $data['categories'] = $data_categories['categories'];
+            $data["pag"] = $data_categories['pag'];
+            $data['last_page'] = ceil($data_categories['num_elems'] / NUM_ITEMS_PAG);
+            $data["num_elems"] = $data_categories['num_elems'];
+            $data['url_base'] = $data_categories['url_base'];
 
-                $data_categories = $this->model->get_categories($params);
-
-                $data['categories'] = $data_categories['categories'];
-                $data["pag"] = $data_categories['pag'];
-                $data['last_page'] = ceil($data_categories['num_elems'] / NUM_ITEMS_PAG);
-                $data["num_elems"] = $data_categories['num_elems'];
-                $data['url_base'] = $data_categories['url_base'];
-
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "AdminCategoryController/create_category", json_encode($data));
-                }
-
-                $this->view("AdminCategoryView", $data);
-
-                //header("Location: index.php?url=AdminCategoryController/display");
-            } else {
-                header("Location: index.php?url=AdminCategoryController/display");
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "AdminCategoryController/create_category", json_encode($data));
             }
+
+            $this->view("AdminCategoryView", $data);
         }
     }
 
@@ -124,40 +116,36 @@ class AdminCategoryController extends Controller
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
-            if (isset($_POST['action'])) {
 
-                $params = array(
-                    'name' => $_POST['name'],
-                    'description' => $_POST['description'],
-                    'parent_cat_ori' => $_POST['parent_cat_ori'],
-                    'parent_cat' => isset($_POST['parent_cat']) ? filter_var($_POST['parent_cat'], FILTER_SANITIZE_NUMBER_INT) : null,
-                    'id' => filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT)
-                );
+            $params = array(
+                'name' => $_POST['name'],
+                'description' => $_POST['description'],
+                'parent_cat_ori' => $_POST['parent_cat_ori'],
+                'parent_cat' => isset($_POST['parent_cat']) ? filter_var($_POST['parent_cat'], FILTER_SANITIZE_NUMBER_INT) : null,
+                'id' => filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT)
+            );
 
 
-                $data = $this->model->edit_category($params);
+            $data = $this->model->edit_category($params);
 
-                $params = array(
-                    'mode' => ALL_CATEGORIES,
-                    'page' => 1
-                );
+            $params = array(
+                'mode' => ALL_CATEGORIES,
+                'page' => 1
+            );
 
-                $data_categories = $this->model->get_categories($params);
+            $data_categories = $this->model->get_categories($params);
 
-                $data['categories'] = $data_categories['categories'];
-                $data["pag"] = $data_categories['pag'];
-                $data['last_page'] = ceil($data_categories['num_elems'] / NUM_ITEMS_PAG);
-                $data["num_elems"] = $data_categories['num_elems'];
-                $data['url_base'] = $data_categories['url_base'];
+            $data['categories'] = $data_categories['categories'];
+            $data["pag"] = $data_categories['pag'];
+            $data['last_page'] = ceil($data_categories['num_elems'] / NUM_ITEMS_PAG);
+            $data["num_elems"] = $data_categories['num_elems'];
+            $data['url_base'] = $data_categories['url_base'];
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "AdminCategoryController/edit_category", json_encode($data));
-                }
-
-                $this->view("AdminCategoryView", $data);
-            } else {
-                header("Location: index.php?url=AdminCategoryController/display");
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "AdminCategoryController/edit_category", json_encode($data));
             }
+
+            $this->view("AdminCategoryView", $data);
         }
     }
 

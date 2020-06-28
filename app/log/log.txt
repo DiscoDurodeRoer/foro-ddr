@@ -1,189 +1,300 @@
-[I][02-06-2020 20:49:26][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][02-06-2020 20:49:28][Search/wordsearched]: ["java,,,,serializacion"]
-[I][02-06-2020 20:49:28][Search/search_topics]: SELECT * FROM topics WHERE  title LIKE '%java,,,,serializacion%' 
-[I][02-06-2020 20:49:28][SearchController/display]: {"topics":[],"has_results":0}
-[I][02-06-2020 20:49:28][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][02-06-2020 20:49:32][Search/wordsearched]: ["java,,,,serializacion"]
-[I][02-06-2020 20:49:32][Search/search_topics]: SELECT * FROM topics WHERE  title LIKE '%java,,,,serializacion%' 
-[I][02-06-2020 20:49:32][SearchController/display]: {"topics":[],"has_results":0}
-[I][02-06-2020 20:49:32][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][02-06-2020 20:49:33][Category/get_categories]: SELECT * FROM categories ORDER BY name
-[I][02-06-2020 20:49:33][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
-[I][02-06-2020 20:49:33][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][02-06-2020 20:49:38][SearchController/proccess_search]: java\+\+\+\+serializacion
-[I][02-06-2020 20:49:38][Search/wordsearched]: ["java\\ \\ \\ \\ serializacion"]
-[I][02-06-2020 20:49:38][Search/search_topics]: SELECT * FROM topics WHERE  title LIKE '%java\ \ \ \ serializacion%' 
-[I][02-06-2020 20:49:38][SearchController/display]: {"topics":[],"has_results":0}
-[I][02-06-2020 20:49:38][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][02-06-2020 20:51:33][SearchController/proccess_search]: java;;;;serializacion
-[I][02-06-2020 20:51:33][Search/wordsearched]: ["java","","","","serializacion"]
-[I][02-06-2020 20:51:33][Search/search_topics]: SELECT * FROM topics WHERE  title LIKE '%java%'  OR  title LIKE '%serializacion%' 
-[I][02-06-2020 20:51:33][SearchController/display]: {"topics":[{"id":"3","title":"java buffered","date_creation":"2020-06-02 20:23:00","creator_user":"11","open":"1","views":"0","id_cat":"8"},{"id":"4","title":"java serializacion","date_creation":"2020-06-02 20:24:00","creator_user":"11","open":"1","views":"0","id_cat":"8"}],"has_results":2}
-[I][02-06-2020 20:51:33][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 18:27:24][Category/get_categories]: SELECT * FROM categories ORDER BY name
-[I][04-06-2020 18:27:24][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
-[I][04-06-2020 18:27:24][Category/get_categories]: SELECT * FROM categories ORDER BY name
-[I][04-06-2020 18:27:24][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
-[I][04-06-2020 18:43:41][Category/get_categories]: SELECT * FROM categories ORDER BY name
-[I][04-06-2020 18:43:41][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
-[I][04-06-2020 18:43:49][Login/checkLogin]: SELECT id, nickname, rol FROM users WHERE (nickname = 'fer2' or email = 'fer2') and pass = '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084' and borrado <> 1 and verificado = 1
-[I][04-06-2020 18:43:49][Login/login]: {"id":"14","nickname":"fer2","rol":"2","success":true,"user":{"id":"14","nickname":"fer2","rol":"2"}}
-[I][04-06-2020 18:43:49][Category/get_categories]: SELECT * FROM categories ORDER BY name
-[I][04-06-2020 18:43:49][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
-[I][04-06-2020 18:43:49][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
-[I][04-06-2020 18:43:52][User/get_all_info_user]: SELECT * FROM users WHERE id = 14
-[I][04-06-2020 18:43:52][UserController/display_profile]: {"info_user":{"id":"14","name":"fer2","surname":"fer2","nickname":"fer2","email":"fer@fer2.es","pass":"6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084","registry_date":"2020-05-14","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","rol":"2","last_connection":"2020-05-14 20:37:00","baneado":"0","borrado":"0","verificado":"1"},"profile":true}
-[I][04-06-2020 18:43:52][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
-[I][04-06-2020 18:45:02][SearchController/proccess_search]: java;;;;serializacion
-[I][04-06-2020 18:45:02][Search/wordsearched]: ["java","","","","serializacion"]
-[I][04-06-2020 18:45:02][Search/search_topics]: SELECT * FROM topics WHERE  title LIKE '%java%'  OR  title LIKE '%serializacion%' 
-[I][04-06-2020 18:45:02][SearchController/display]: {"topics":[{"id":"3","title":"java buffered","date_creation":"2020-06-02 20:23:00","creator_user":"11","open":"1","views":"0","id_cat":"8"},{"id":"4","title":"java serializacion","date_creation":"2020-06-02 20:24:00","creator_user":"11","open":"1","views":"0","id_cat":"8"}],"has_results":2}
-[I][04-06-2020 18:45:02][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
-[I][04-06-2020 18:45:31][User/get_all_info_user]: SELECT * FROM users WHERE id = 14
-[I][04-06-2020 18:45:31][UserController/display_profile]: {"info_user":{"id":"14","name":"fer2","surname":"fer2","nickname":"fer2","email":"fer@fer2.es","pass":"6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084","registry_date":"2020-05-14","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","rol":"2","last_connection":"2020-05-14 20:37:00","baneado":"0","borrado":"0","verificado":"1"},"profile":true}
-[I][04-06-2020 18:45:31][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
-[I][04-06-2020 18:47:58][SearchController/proccess_search]: java;;;;serializacion
-[I][04-06-2020 18:47:58][Search/wordsearched]: ["java","","","","serializacion"]
-[I][04-06-2020 18:47:58][Search/search_topics]: SELECT * FROM topics WHERE  title LIKE '%java%'  OR  title LIKE '%serializacion%' 
-[I][04-06-2020 18:47:58][SearchController/display]: {"topics":[{"id":"3","title":"java buffered","date_creation":"2020-06-02 20:23:00","creator_user":"11","open":"1","views":"0","id_cat":"8"},{"id":"4","title":"java serializacion","date_creation":"2020-06-02 20:24:00","creator_user":"11","open":"1","views":"0","id_cat":"8"}],"has_results":2}
-[I][04-06-2020 18:47:58][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
-[I][04-06-2020 19:06:09][User/get_all_info_user]: SELECT * FROM users WHERE id = 14
-[I][04-06-2020 19:06:09][UserController/display_profile]: {"info_user":{"id":"14","name":"fer2","surname":"fer2","nickname":"fer2","email":"fer@fer2.es","pass":"6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084","registry_date":"2020-05-14","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","rol":"2","last_connection":"2020-05-14 20:37:00","baneado":"0","borrado":"0","verificado":"1"},"profile":true}
-[I][04-06-2020 19:06:09][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
-[I][04-06-2020 19:28:37][User/get_all_info_user]: SELECT * FROM users WHERE id = 14
-[I][04-06-2020 19:28:37][UserController/display_profile]: {"info_user":{"id":"14","name":"fer2","surname":"fer2","nickname":"fer2","email":"fer@fer2.es","pass":"6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084","registry_date":"2020-05-14","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","rol":"2","last_connection":"2020-05-14 20:37:00","baneado":"0","borrado":"0","verificado":"1"},"profile":true}
-[I][04-06-2020 19:28:37][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
-[I][04-06-2020 19:34:28][User/get_all_info_user]: SELECT * FROM users WHERE id = 14
-[I][04-06-2020 19:34:28][UserController/display_profile]: {"info_user":{"id":"14","name":"fer2","surname":"fer2","nickname":"fer2","email":"fer@fer2.es","pass":"6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084","registry_date":"2020-05-14","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","rol":"2","last_connection":"2020-05-14 20:37:00","baneado":"0","borrado":"0","verificado":"1"},"profile":true}
-[I][04-06-2020 19:34:28][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
-[I][04-06-2020 19:34:43][User/search_topics_user]: SELECT distinct mp.id_topic, t.title FROM messages m, messages_public mp, topics t WHERE m.id = mp.id_message AND t.id = mp.id_topic AND m.user_origin = 14
-[I][04-06-2020 19:34:43][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
-[I][04-06-2020 19:34:52][User/get_all_info_user]: SELECT * FROM users WHERE id = 14
-[I][04-06-2020 19:34:52][UserController/display_profile]: {"info_user":{"id":"14","name":"fer2","surname":"fer2","nickname":"fer2","email":"fer@fer2.es","pass":"6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084","registry_date":"2020-05-14","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","rol":"2","last_connection":"2020-05-14 20:37:00","baneado":"0","borrado":"0","verificado":"1"},"profile":true}
-[I][04-06-2020 19:34:52][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
-[I][04-06-2020 19:37:33][User/get_all_info_user]: SELECT * FROM users WHERE id = 14
-[I][04-06-2020 19:37:33][UserController/display_profile]: {"info_user":{"id":"14","name":"fer2","surname":"fer2","nickname":"fer2","email":"fer@fer2.es","pass":"6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084","registry_date":"2020-05-14","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","rol":"2","last_connection":"2020-05-14 20:37:00","baneado":"0","borrado":"0","verificado":"1"},"profile":true}
-[I][04-06-2020 19:37:33][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
-[I][04-06-2020 19:37:34][User/search_topics_user]: SELECT distinct mp.id_topic, t.title FROM messages m, messages_public mp, topics t WHERE m.id = mp.id_message AND t.id = mp.id_topic AND m.user_origin = 14
-[I][04-06-2020 19:37:34][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 14
-[I][04-06-2020 19:38:11][Category/get_categories]: SELECT * FROM categories ORDER BY name
-[I][04-06-2020 19:38:12][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
-[I][04-06-2020 19:38:19][Login/checkLogin]: SELECT id, nickname, rol FROM users WHERE (nickname = 'ddr7' or email = 'ddr7') and pass = '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084' and borrado <> 1 and verificado = 1
-[I][04-06-2020 19:38:19][Login/login]: {"id":"11","nickname":"ddr7","rol":"1","success":true,"user":{"id":"11","nickname":"ddr7","rol":"1"}}
-[I][04-06-2020 19:38:20][Category/get_categories]: SELECT * FROM categories ORDER BY name
-[I][04-06-2020 19:38:20][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
-[I][04-06-2020 19:38:20][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:38:22][User/get_all_info_user]: SELECT * FROM users WHERE id = 11
-[I][04-06-2020 19:38:22][UserController/display_profile]: {"info_user":{"id":"11","name":"ddr7","surname":"ddr7","nickname":"ddr7","email":"ddr7@ddr7.es","pass":"6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084","registry_date":"2020-03-05","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","rol":"1","last_connection":"2020-03-05 18:52:00","baneado":"0","borrado":"0","verificado":"1"},"profile":true}
-[I][04-06-2020 19:38:22][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:38:25][User/search_topics_user]: SELECT distinct mp.id_topic, t.title FROM messages m, messages_public mp, topics t WHERE m.id = mp.id_message AND t.id = mp.id_topic AND m.user_origin = 11
-[I][04-06-2020 19:38:25][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:47:56][User/search_topics_user]: SELECT distinct mp.id_topic, t.title, MAX(m.date_creation) as date_last_message FROM messages m, messages_public mp, topics t WHERE m.id = mp.id_message AND t.id = mp.id_topic AND m.user_origin = 11 GROUP BY mp.id_topic, t.title ORDER BY date_last_message
-[I][04-06-2020 19:47:56][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:48:08][User/search_topics_user]: SELECT distinct mp.id_topic, t.title, MAX(m.date_creation) as date_last_message FROM messages m, messages_public mp, topics t WHERE m.id = mp.id_message AND t.id = mp.id_topic AND m.user_origin = 11 GROUP BY mp.id_topic, t.title ORDER BY date_last_message DESC
-[I][04-06-2020 19:48:08][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:49:52][User/search_topics_user]: SELECT distinct mp.id_topic, t.title, DATE_FORMAT(MAX(m.date_creation), '%d/%m/%Y %T') as date_last_message FROM messages m, messages_public mp, topics t WHERE m.id = mp.id_message AND t.id = mp.id_topic AND m.user_origin = 11 GROUP BY mp.id_topic, t.title ORDER BY date_last_message DESC
-[I][04-06-2020 19:49:52][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:50:02][Message/get_messages_by_topic]: SELECT m.text, DATE_FORMAT(m.date_creation, '%d/%m/%Y %T') as 'date_creation', u.nickname, m.show_message, u.avatar, DATE_FORMAT(u.last_connection, '%d/%m/%Y %T') as last_connection, DATE_FORMAT(u.registry_date, '%d/%m/%Y') as registry_date, mp.message_index, r.rol as rol_name FROM messages m, messages_public mp, users u, roles r WHERE m.id = mp.id_message and u.id = m.user_origin and r.id = u.rol and mp.id_topic = 3 order by m.date_creation LIMIT 0,10
-[I][04-06-2020 19:50:02][Message/get_messages_by_topic]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent and cch.id_cat = 8 ORDER BY level
-[I][04-06-2020 19:50:02][MessageController/display]: {"num_elems":1,"messages":[{"text":"","date_creation":"02\/06\/2020 20:23:00","nickname":"ddr7","show_message":"1","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","last_connection":"05\/03\/2020 18:52:00","registry_date":"05\/03\/2020","message_index":"1","rol_name":"admin"}],"id_topic":"3","title_topic":"java buffered","open_topic":"1","pag":"1","last_page":1,"url_base":"MessageController\/display\/3","breadcumbs":[{},{},{},{},{}],"display":true}
-[I][04-06-2020 19:50:02][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:50:04][MessageController/display_reply_topic]: {"reply_message":true,"id_topic":"3"}
-[I][04-06-2020 19:50:04][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:50:12][Message/reply_topic]: INSERT INTO messages VALUES (5, '<p>que pasa tio</p>', '2020-06-04 19:50' , 11, 1 )
-[E][04-06-2020 19:50:12][Count: (INSERT INTO messages VALUES (5, '<p>que pasa tio</p>', '2020-06-04 19:50' , 11, 1 ))]: 1
-[I][04-06-2020 19:50:12][Message/reply_topic]: SELECT (count(*) + 1) as num_index FROM messages_public WHERE id_topic = 3
-[I][04-06-2020 19:50:12][Message/reply_topic]: INSERT INTO messages_public VALUES (5, 3, 2)
-[E][04-06-2020 19:50:12][Count: (INSERT INTO messages_public VALUES (5, 3, 2))]: 1
-[I][04-06-2020 19:50:12][MessageController/reply_topic]: {"id_message":"5","success":true}
-[I][04-06-2020 19:50:12][MessageController/reply_topic]: {"success":true}
-[I][04-06-2020 19:50:12][Message/get_messages_by_topic]: SELECT m.text, DATE_FORMAT(m.date_creation, '%d/%m/%Y %T') as 'date_creation', u.nickname, m.show_message, u.avatar, DATE_FORMAT(u.last_connection, '%d/%m/%Y %T') as last_connection, DATE_FORMAT(u.registry_date, '%d/%m/%Y') as registry_date, mp.message_index, r.rol as rol_name FROM messages m, messages_public mp, users u, roles r WHERE m.id = mp.id_message and u.id = m.user_origin and r.id = u.rol and mp.id_topic = 3 order by m.date_creation LIMIT 0,10
-[I][04-06-2020 19:50:12][Message/get_messages_by_topic]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent and cch.id_cat = 8 ORDER BY level
-[I][04-06-2020 19:50:12][MessageController/display]: {"num_elems":2,"messages":[{"text":"","date_creation":"02\/06\/2020 20:23:00","nickname":"ddr7","show_message":"1","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","last_connection":"05\/03\/2020 18:52:00","registry_date":"05\/03\/2020","message_index":"1","rol_name":"admin"},{"text":"<p>que pasa tio<\/p>","date_creation":"04\/06\/2020 19:50:00","nickname":"ddr7","show_message":"1","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","last_connection":"05\/03\/2020 18:52:00","registry_date":"05\/03\/2020","message_index":"2","rol_name":"admin"}],"id_topic":"3","title_topic":"java buffered","open_topic":"1","pag":"1","last_page":1,"url_base":"MessageController\/display\/3","breadcumbs":[{},{},{},{},{}],"display":true}
-[I][04-06-2020 19:50:12][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:50:20][User/get_all_info_user]: SELECT * FROM users WHERE id = 11
-[I][04-06-2020 19:50:20][UserController/display_profile]: {"info_user":{"id":"11","name":"ddr7","surname":"ddr7","nickname":"ddr7","email":"ddr7@ddr7.es","pass":"6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084","registry_date":"2020-03-05","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","rol":"1","last_connection":"2020-03-05 18:52:00","baneado":"0","borrado":"0","verificado":"1"},"profile":true}
-[I][04-06-2020 19:50:20][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:50:21][User/search_topics_user]: SELECT distinct mp.id_topic, t.title, DATE_FORMAT(MAX(m.date_creation), '%d/%m/%Y %T') as date_last_message FROM messages m, messages_public mp, topics t WHERE m.id = mp.id_message AND t.id = mp.id_topic AND m.user_origin = 11 GROUP BY mp.id_topic, t.title ORDER BY date_last_message DESC
-[I][04-06-2020 19:50:21][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:52:49][User/search_topics_user]: SELECT mp.id_topic, t.title, DATE_FORMAT(MAX(m.date_creation), '%d/%m/%Y %T') as date_last_message, COUNT(*) as num_post FROM messages m, messages_public mp, topics t WHERE m.id = mp.id_message AND t.id = mp.id_topic AND m.user_origin = 11 GROUP BY mp.id_topic, t.title ORDER BY date_last_message DESC
-[I][04-06-2020 19:52:49][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:52:52][Message/get_messages_by_topic]: SELECT m.text, DATE_FORMAT(m.date_creation, '%d/%m/%Y %T') as 'date_creation', u.nickname, m.show_message, u.avatar, DATE_FORMAT(u.last_connection, '%d/%m/%Y %T') as last_connection, DATE_FORMAT(u.registry_date, '%d/%m/%Y') as registry_date, mp.message_index, r.rol as rol_name FROM messages m, messages_public mp, users u, roles r WHERE m.id = mp.id_message and u.id = m.user_origin and r.id = u.rol and mp.id_topic = 3 order by m.date_creation LIMIT 0,10
-[I][04-06-2020 19:52:53][Message/get_messages_by_topic]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent and cch.id_cat = 8 ORDER BY level
-[I][04-06-2020 19:52:53][MessageController/display]: {"num_elems":2,"messages":[{"text":"","date_creation":"02\/06\/2020 20:23:00","nickname":"ddr7","show_message":"1","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","last_connection":"05\/03\/2020 18:52:00","registry_date":"05\/03\/2020","message_index":"1","rol_name":"admin"},{"text":"<p>que pasa tio<\/p>","date_creation":"04\/06\/2020 19:50:00","nickname":"ddr7","show_message":"1","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","last_connection":"05\/03\/2020 18:52:00","registry_date":"05\/03\/2020","message_index":"2","rol_name":"admin"}],"id_topic":"3","title_topic":"java buffered","open_topic":"1","pag":"1","last_page":1,"url_base":"MessageController\/display\/3","breadcumbs":[{},{},{},{},{}],"display":true}
-[I][04-06-2020 19:52:53][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:52:59][MessageController/display_reply_topic]: {"reply_message":true,"id_topic":"3"}
-[I][04-06-2020 19:52:59][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:53:01][Message/reply_topic]: INSERT INTO messages VALUES (6, '<p>dfgdfgdfg</p>', '2020-06-04 19:53' , 11, 1 )
-[E][04-06-2020 19:53:01][Count: (INSERT INTO messages VALUES (6, '<p>dfgdfgdfg</p>', '2020-06-04 19:53' , 11, 1 ))]: 1
-[I][04-06-2020 19:53:01][Message/reply_topic]: SELECT (count(*) + 1) as num_index FROM messages_public WHERE id_topic = 3
-[I][04-06-2020 19:53:01][Message/reply_topic]: INSERT INTO messages_public VALUES (6, 3, 3)
-[E][04-06-2020 19:53:01][Count: (INSERT INTO messages_public VALUES (6, 3, 3))]: 1
-[I][04-06-2020 19:53:01][MessageController/reply_topic]: {"id_message":"6","success":true}
-[I][04-06-2020 19:53:01][MessageController/reply_topic]: {"success":true}
-[I][04-06-2020 19:53:02][Message/get_messages_by_topic]: SELECT m.text, DATE_FORMAT(m.date_creation, '%d/%m/%Y %T') as 'date_creation', u.nickname, m.show_message, u.avatar, DATE_FORMAT(u.last_connection, '%d/%m/%Y %T') as last_connection, DATE_FORMAT(u.registry_date, '%d/%m/%Y') as registry_date, mp.message_index, r.rol as rol_name FROM messages m, messages_public mp, users u, roles r WHERE m.id = mp.id_message and u.id = m.user_origin and r.id = u.rol and mp.id_topic = 3 order by m.date_creation LIMIT 0,10
-[I][04-06-2020 19:53:02][Message/get_messages_by_topic]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent and cch.id_cat = 8 ORDER BY level
-[I][04-06-2020 19:53:02][MessageController/display]: {"num_elems":3,"messages":[{"text":"","date_creation":"02\/06\/2020 20:23:00","nickname":"ddr7","show_message":"1","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","last_connection":"05\/03\/2020 18:52:00","registry_date":"05\/03\/2020","message_index":"1","rol_name":"admin"},{"text":"<p>que pasa tio<\/p>","date_creation":"04\/06\/2020 19:50:00","nickname":"ddr7","show_message":"1","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","last_connection":"05\/03\/2020 18:52:00","registry_date":"05\/03\/2020","message_index":"2","rol_name":"admin"},{"text":"<p>dfgdfgdfg<\/p>","date_creation":"04\/06\/2020 19:53:00","nickname":"ddr7","show_message":"1","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","last_connection":"05\/03\/2020 18:52:00","registry_date":"05\/03\/2020","message_index":"3","rol_name":"admin"}],"id_topic":"3","title_topic":"java buffered","open_topic":"1","pag":"1","last_page":1,"url_base":"MessageController\/display\/3","breadcumbs":[{},{},{},{},{}],"display":true}
-[I][04-06-2020 19:53:02][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:53:05][User/get_all_info_user]: SELECT * FROM users WHERE id = 11
-[I][04-06-2020 19:53:05][UserController/display_profile]: {"info_user":{"id":"11","name":"ddr7","surname":"ddr7","nickname":"ddr7","email":"ddr7@ddr7.es","pass":"6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084","registry_date":"2020-03-05","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","rol":"1","last_connection":"2020-03-05 18:52:00","baneado":"0","borrado":"0","verificado":"1"},"profile":true}
-[I][04-06-2020 19:53:05][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:53:07][User/search_topics_user]: SELECT mp.id_topic, t.title, DATE_FORMAT(MAX(m.date_creation), '%d/%m/%Y %T') as date_last_message, COUNT(*) as num_post FROM messages m, messages_public mp, topics t WHERE m.id = mp.id_message AND t.id = mp.id_topic AND m.user_origin = 11 GROUP BY mp.id_topic, t.title ORDER BY date_last_message DESC
-[I][04-06-2020 19:53:07][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:53:44][User/get_all_info_user]: SELECT * FROM users WHERE id = 11
-[I][04-06-2020 19:53:44][UserController/display_profile]: {"info_user":{"id":"11","name":"ddr7","surname":"ddr7","nickname":"ddr7","email":"ddr7@ddr7.es","pass":"6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084","registry_date":"2020-03-05","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","rol":"1","last_connection":"2020-03-05 18:52:00","baneado":"0","borrado":"0","verificado":"1"},"profile":true}
-[I][04-06-2020 19:53:44][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:54:55][User/search_topics_user]: SELECT mp.id_topic, t.title, DATE_FORMAT(MAX(m.date_creation), '%d/%m/%Y %T') as date_last_message, COUNT(*) as num_post FROM messages m, messages_public mp, topics t WHERE m.id = mp.id_message AND t.id = mp.id_topic AND m.user_origin = 11 GROUP BY mp.id_topic, t.title ORDER BY date_last_message DESC
-[I][04-06-2020 19:54:55][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 19:59:05][Category/get_categories]: SELECT * FROM categories ORDER BY name
-[I][04-06-2020 19:59:05][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
-[I][04-06-2020 19:59:05][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 20:07:47][Category/get_categories]: SELECT * FROM categories ORDER BY name
-[I][04-06-2020 20:07:47][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
-[I][04-06-2020 20:07:47][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 20:08:01][SearchController/proccess_search]: java;;;;serializacion
-[I][04-06-2020 20:08:01][Search/wordsearched]: ["java","","","","serializacion"]
-[I][04-06-2020 20:08:01][Search/search_topics]: SELECT * FROM topics WHERE  title LIKE '%java%'  OR  title LIKE '%serializacion%' 
-[I][04-06-2020 20:08:01][SearchController/display]: {"topics":[{"id":"3","title":"java buffered","date_creation":"2020-06-02 20:23:00","creator_user":"11","open":"1","views":"0","id_cat":"8"},{"id":"4","title":"java serializacion","date_creation":"2020-06-02 20:24:00","creator_user":"11","open":"1","views":"0","id_cat":"8"}],"has_results":2}
-[I][04-06-2020 20:08:01][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 20:11:01][SearchController/proccess_search]: java;;;;serializacion
-[I][04-06-2020 20:11:01][Search/wordsearched]: ["java","","","","serializacion"]
-[I][04-06-2020 20:11:01][Search/search_topics]: SELECT * FROM topics WHERE  title LIKE '%java%'  OR  title LIKE '%serializacion%' 
-[I][04-06-2020 20:11:01][SearchController/display]: {"topics":[{"id":"3","title":"java buffered","date_creation":"2020-06-02 20:23:00","creator_user":"11","open":"1","views":"0","id_cat":"8"},{"id":"4","title":"java serializacion","date_creation":"2020-06-02 20:24:00","creator_user":"11","open":"1","views":"0","id_cat":"8"}],"has_results":2}
-[I][04-06-2020 20:11:01][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 20:12:36][SearchController/proccess_search]: java;;;;serializacion
-[I][04-06-2020 20:12:36][Search/wordsearched]: ["java","","","","serializacion"]
-[I][04-06-2020 20:12:36][Search/search_topics]: SELECT * FROM topics WHERE  title LIKE '%java%'  OR  title LIKE '%serializacion%' 
-[I][04-06-2020 20:12:36][SearchController/display]: {"topics":[{"id":"3","title":"java buffered","date_creation":"2020-06-02 20:23:00","creator_user":"11","open":"1","views":"0","id_cat":"8"},{"id":"4","title":"java serializacion","date_creation":"2020-06-02 20:24:00","creator_user":"11","open":"1","views":"0","id_cat":"8"}],"has_results":2}
-[I][04-06-2020 20:12:36][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 20:16:01][Search/wordsearched]: ["java","","","","serializacion"]
-[I][04-06-2020 20:16:01][Search/search_topics]: SELECT * FROM topics WHERE  title LIKE '%java%'  OR  title LIKE '%serializacion%' 
-[I][04-06-2020 20:16:01][SearchController/display]: {"topics":[{"id":"3","title":"java buffered","date_creation":"2020-06-02 20:23:00","creator_user":"11","open":"1","views":"0","id_cat":"8"},{"id":"4","title":"java serializacion","date_creation":"2020-06-02 20:24:00","creator_user":"11","open":"1","views":"0","id_cat":"8"}],"has_results":2}
-[I][04-06-2020 20:16:01][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 20:20:41][Search/wordsearched]: ["java","","","","serializacion"]
-[I][04-06-2020 20:20:41][Search/search_topics]: SELECT * FROM topics WHERE  title LIKE '%java%'  OR  title LIKE '%serializacion%' 
-[I][04-06-2020 20:20:41][SearchController/display]: {"topics":[{"id":"3","title":"java buffered","date_creation":"2020-06-02 20:23:00","creator_user":"11","open":"1","views":"0","id_cat":"8"},{"id":"4","title":"java serializacion","date_creation":"2020-06-02 20:24:00","creator_user":"11","open":"1","views":"0","id_cat":"8"}],"has_results":2}
-[I][04-06-2020 20:20:41][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 20:21:40][Search/wordsearched]: ["java","","","","serializacion"]
-[I][04-06-2020 20:21:40][Search/search_topics]: SELECT * FROM topics WHERE  title LIKE '%java%'  OR  title LIKE '%serializacion%' 
-[I][04-06-2020 20:21:40][SearchController/display]: {"topics":[{"id":"3","title":"java buffered","date_creation":"2020-06-02 20:23:00","creator_user":"11","open":"1","views":"0","id_cat":"8"},{"id":"4","title":"java serializacion","date_creation":"2020-06-02 20:24:00","creator_user":"11","open":"1","views":"0","id_cat":"8"}],"has_results":2}
-[I][04-06-2020 20:21:40][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 20:21:57][Search/wordsearched]: ["java","","","","serializacion"]
-[I][04-06-2020 20:21:57][Search/search_topics]: SELECT * FROM topics WHERE  title LIKE '%java%'  OR  title LIKE '%serializacion%' 
-[I][04-06-2020 20:21:57][SearchController/display]: {"topics":[{"id":"3","title":"java buffered","date_creation":"2020-06-02 20:23:00","creator_user":"11","open":"1","views":"0","id_cat":"8"},{"id":"4","title":"java serializacion","date_creation":"2020-06-02 20:24:00","creator_user":"11","open":"1","views":"0","id_cat":"8"}],"has_results":2}
-[I][04-06-2020 20:21:57][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 20:23:17][Search/wordsearched]: ["java","","","","serializacion"]
-[I][04-06-2020 20:23:17][Search/search_topics]: SELECT * FROM topics WHERE  title LIKE '%java%'  OR  title LIKE '%serializacion%' 
-[I][04-06-2020 20:23:17][SearchController/display]: {"topics":[{"id":"3","title":"java buffered","date_creation":"2020-06-02 20:23:00","creator_user":"11","open":"1","views":"0","id_cat":"8"},{"id":"4","title":"java serializacion","date_creation":"2020-06-02 20:24:00","creator_user":"11","open":"1","views":"0","id_cat":"8"}],"has_results":2}
-[I][04-06-2020 20:23:17][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 20:27:11][Category/get_categories]: SELECT * FROM categories ORDER BY name
-[I][04-06-2020 20:27:11][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
-[I][04-06-2020 20:27:11][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 20:27:28][Category/get_categories]: SELECT * FROM categories ORDER BY name
-[I][04-06-2020 20:27:28][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
-[I][04-06-2020 20:27:28][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
-[I][04-06-2020 20:27:45][SearchController/proccess_search]: java;;;;serializacion
-[I][04-06-2020 20:27:45][Search/wordsearched]: ["java","","","","serializacion"]
-[I][04-06-2020 20:27:45][Search/search_topics]: SELECT * FROM topics WHERE  title LIKE '%java%'  OR  title LIKE '%serializacion%' 
-[I][04-06-2020 20:27:45][SearchController/display]: {"topics":[{"id":"3","title":"java buffered","date_creation":"2020-06-02 20:23:00","creator_user":"11","open":"1","views":"0","id_cat":"8"},{"id":"4","title":"java serializacion","date_creation":"2020-06-02 20:24:00","creator_user":"11","open":"1","views":"0","id_cat":"8"}],"has_results":2}
-[I][04-06-2020 20:27:45][functions/msgNoRead]: SELECT count(*) as num_messages FROM unread_messages_public um, messages_public mp WHERE mp.id_message = um.id_message and um.id_user = 11
+[I][25-06-2020 20:20:09][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:20:09][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:20:09][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:20:09][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:20:09][DATADB Category/get_categories]: [{"id":"1","name":"Inicio"},{"id":"2","name":"Programaci\u00f3n"}]
+[I][25-06-2020 20:20:09][CategoryController/display]: {"category":{"child":[]},"breadcumbs":[{},{}]}
+[I][25-06-2020 20:22:30][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:22:30][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:22:30][DATADB Category/get_categories]: [{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"},{"id":"5","name":"Javascript","description":"","parent_cat":"2","icon":"","num_topics":"0"},{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"4","name":"Python","description":"","parent_cat":"2","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:22:30][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:22:30][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:22:30][CategoryController/display]: {"category":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"0":{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"},"1":{"id":"5","name":"Javascript","description":"","parent_cat":"2","icon":"","num_topics":"0"},"3":{"id":"4","name":"Python","description":"","parent_cat":"2","icon":"","num_topics":"0"}}},"breadcumbs":[{},{}]}
+[I][25-06-2020 20:22:33][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:22:33][Category/get_categories]: {":id_cat_parent":3}
+[I][25-06-2020 20:22:33][DATADB Category/get_categories]: [{"id":"8","name":"Ficheros","description":"Topics sobre ficheros Java","parent_cat":"3","icon":"","num_topics":"1"},{"id":"7","name":"General","description":"Topics sobre Java","parent_cat":"3","icon":"","num_topics":"0"},{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:22:33][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:22:33][Category/get_categories]: {":id_cat_parent":3}
+[I][25-06-2020 20:22:33][CategoryController/display]: {"category":{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0","child":[{"id":"8","name":"Ficheros","description":"Topics sobre ficheros Java","parent_cat":"3","icon":"","num_topics":"1"},{"id":"7","name":"General","description":"Topics sobre Java","parent_cat":"3","icon":"","num_topics":"0"}]},"breadcumbs":[{},{},{}]}
+[I][25-06-2020 20:22:34][Topic/get_topics]: SELECT t.id, t.title, u.nickname, t.open, t.views FROM topics t, users u WHERE t.creator_user = u.id and t.id_cat = 8 LIMIT 0,10
+[I][25-06-2020 20:22:34][Topic/get_topics]: SELECT name FROM categories WHERE id = 8
+[I][25-06-2020 20:22:34][Topic/get_topics]: SELECT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent and cch.id_cat = 8 ORDER BY level
+[I][25-06-2020 20:22:34][TopicController/display]: {"num_elems":1,"topics":[{"id":"1","title":"sdf","nickname":"ddr15","open":"1","views":"0"}],"id_cat":"8","pag":1,"last_page":1,"url_base":"TopicController\/display\/8","name_category":"Ficheros","breadcumbs":[{},{},{},{}],"success":true,"display":true}
+[I][25-06-2020 20:22:35][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:22:35][Category/get_categories]: {":id_cat_parent":1}
+[I][25-06-2020 20:22:35][DATADB Category/get_categories]: [{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:22:35][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:22:35][Category/get_categories]: {":id_cat_parent":1}
+[I][25-06-2020 20:22:35][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"1":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"2":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}},"breadcumbs":[{}]}
+[I][25-06-2020 20:22:37][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:22:37][Category/get_categories]: {":id_cat_parent":6}
+[I][25-06-2020 20:22:37][DATADB Category/get_categories]: [{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:22:37][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:22:37][Category/get_categories]: {":id_cat_parent":6}
+[I][25-06-2020 20:22:37][CategoryController/display]: {"category":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0","child":[]},"breadcumbs":[{},{}]}
+[I][25-06-2020 20:22:43][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:22:43][Category/get_categories]: {":id_cat_parent":6}
+[I][25-06-2020 20:22:43][DATADB Category/get_categories]: [{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:22:43][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:22:43][Category/get_categories]: {":id_cat_parent":6}
+[I][25-06-2020 20:22:43][CategoryController/display]: {"category":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0","child":[]},"breadcumbs":[{},{}]}
+[I][25-06-2020 20:22:45][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:22:45][Category/get_categories]: {":id_cat_parent":6}
+[I][25-06-2020 20:22:45][DATADB Category/get_categories]: [{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:22:45][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:22:45][Category/get_categories]: {":id_cat_parent":6}
+[I][25-06-2020 20:22:45][CategoryController/display]: {"category":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0","child":[]},"breadcumbs":[{},{}]}
+[I][25-06-2020 20:22:47][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][25-06-2020 20:22:47][Category/get_categories]: []
+[I][25-06-2020 20:22:47][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][25-06-2020 20:22:48][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:22:48][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:22:48][DATADB Category/get_categories]: [{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"},{"id":"5","name":"Javascript","description":"","parent_cat":"2","icon":"","num_topics":"0"},{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"4","name":"Python","description":"","parent_cat":"2","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:22:48][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:22:48][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:22:48][CategoryController/display]: {"category":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"0":{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"},"1":{"id":"5","name":"Javascript","description":"","parent_cat":"2","icon":"","num_topics":"0"},"3":{"id":"4","name":"Python","description":"","parent_cat":"2","icon":"","num_topics":"0"}}},"breadcumbs":[{},{}]}
+[I][25-06-2020 20:22:50][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:22:50][Category/get_categories]: {":id_cat_parent":3}
+[I][25-06-2020 20:22:50][DATADB Category/get_categories]: [{"id":"8","name":"Ficheros","description":"Topics sobre ficheros Java","parent_cat":"3","icon":"","num_topics":"1"},{"id":"7","name":"General","description":"Topics sobre Java","parent_cat":"3","icon":"","num_topics":"0"},{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:22:50][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:22:50][Category/get_categories]: {":id_cat_parent":3}
+[I][25-06-2020 20:22:50][CategoryController/display]: {"category":{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0","child":[{"id":"8","name":"Ficheros","description":"Topics sobre ficheros Java","parent_cat":"3","icon":"","num_topics":"1"},{"id":"7","name":"General","description":"Topics sobre Java","parent_cat":"3","icon":"","num_topics":"0"}]},"breadcumbs":[{},{},{}]}
+[I][25-06-2020 20:22:50][Topic/get_topics]: SELECT t.id, t.title, u.nickname, t.open, t.views FROM topics t, users u WHERE t.creator_user = u.id and t.id_cat = 8 LIMIT 0,10
+[I][25-06-2020 20:22:50][Topic/get_topics]: SELECT name FROM categories WHERE id = 8
+[I][25-06-2020 20:22:50][Topic/get_topics]: SELECT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent and cch.id_cat = 8 ORDER BY level
+[I][25-06-2020 20:22:50][TopicController/display]: {"num_elems":1,"topics":[{"id":"1","title":"sdf","nickname":"ddr15","open":"1","views":"0"}],"id_cat":"8","pag":1,"last_page":1,"url_base":"TopicController\/display\/8","name_category":"Ficheros","breadcumbs":[{},{},{},{}],"success":true,"display":true}
+[I][25-06-2020 20:22:51][Message/get_messages_by_topic]: SELECT m.text, DATE_FORMAT(m.date_creation, '%d/%m/%Y %T') as 'date_creation', u.nickname, m.show_message, u.avatar, DATE_FORMAT(u.last_connection, '%d/%m/%Y %T') as last_connection, DATE_FORMAT(u.registry_date, '%d/%m/%Y') as registry_date, mp.message_index, r.rol as rol_name FROM messages m, messages_public mp, users u, roles r WHERE m.id = mp.id_message and u.id = m.user_origin and r.id = u.rol and mp.id_topic = 1 order by m.date_creation LIMIT 0,10
+[I][25-06-2020 20:22:51][Message/get_messages_by_topic]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent and cch.id_cat = 8 ORDER BY level
+[I][25-06-2020 20:22:51][MessageController/display]: {"num_elems":1,"messages":[{"text":"<p>meme<\/p>","date_creation":"23\/06\/2020 20:20:00","nickname":"ddr15","show_message":"1","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","last_connection":"23\/06\/2020 19:29:00","registry_date":"23\/06\/2020","message_index":"1","rol_name":"user"}],"id_topic":"1","title_topic":"sdf","open_topic":"1","pag":"1","last_page":1,"url_base":"MessageController\/display\/1","breadcumbs":[{},{},{},{},{}],"display":true}
+[I][25-06-2020 20:23:05][Message/get_messages_by_topic]: SELECT m.text, DATE_FORMAT(m.date_creation, '%d/%m/%Y %T') as 'date_creation', u.nickname, m.show_message, u.avatar, DATE_FORMAT(u.last_connection, '%d/%m/%Y %T') as last_connection, DATE_FORMAT(u.registry_date, '%d/%m/%Y') as registry_date, mp.message_index, r.rol as rol_name FROM messages m, messages_public mp, users u, roles r WHERE m.id = mp.id_message and u.id = m.user_origin and r.id = u.rol and mp.id_topic = 1 order by m.date_creation LIMIT 0,10
+[I][25-06-2020 20:23:05][Message/get_messages_by_topic]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent and cch.id_cat = 8 ORDER BY level
+[I][25-06-2020 20:23:05][MessageController/display]: {"num_elems":1,"messages":[{"text":"<p>meme<\/p>","date_creation":"23\/06\/2020 20:20:00","nickname":"ddr15","show_message":1,"avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","last_connection":"23\/06\/2020 19:29:00","registry_date":"23\/06\/2020","message_index":1,"rol_name":"user"}],"id_topic":"1","title_topic":"sdf","open_topic":1,"pag":"1","last_page":1,"url_base":"MessageController\/display\/1","breadcumbs":[{},{},{},{},{}],"display":true}
+[I][25-06-2020 20:23:07][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][25-06-2020 20:23:07][Category/get_categories]: []
+[I][25-06-2020 20:23:07][CategoryController/display]: {"category":{"id":1,"name":"Inicio","description":"","parent_cat":1,"icon":"","num_topics":0,"child":{"5":{"id":2,"name":"Programaci\u00f3n","description":"","parent_cat":1,"icon":"","num_topics":0},"7":{"id":6,"name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":1,"icon":"","num_topics":0}}}}
+[I][25-06-2020 20:23:07][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][25-06-2020 20:23:07][Category/get_categories]: []
+[I][25-06-2020 20:23:07][CategoryController/display]: {"category":{"id":1,"name":"Inicio","description":"","parent_cat":1,"icon":"","num_topics":0,"child":{"5":{"id":2,"name":"Programaci\u00f3n","description":"","parent_cat":1,"icon":"","num_topics":0},"7":{"id":6,"name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":1,"icon":"","num_topics":0}}}}
+[I][25-06-2020 20:23:09][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:23:09][Category/get_categories]: {":id_cat_parent":2}
+[E][25-06-2020 20:23:09][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number
+[I][25-06-2020 20:23:09][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:25:29][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:25:29][Category/get_categories]: {":id_cat_parent":2}
+[E][25-06-2020 20:25:29][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number
+[I][25-06-2020 20:25:29][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:34:48][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent1 or parent_cat = :id_cat_parent2 ORDER BY name
+[I][25-06-2020 20:34:48][Category/get_categories]: {":id_cat_parent":2}
+[E][25-06-2020 20:34:48][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+[I][25-06-2020 20:34:48][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:35:25][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent1 or parent_cat = :id_cat_parent2 ORDER BY name
+[I][25-06-2020 20:35:25][Category/get_categories]: {":id_cat_parent":2,":id_cat_parent1":2,":id_cat_parent2":2}
+[E][25-06-2020 20:35:25][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+[I][25-06-2020 20:35:25][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:35:29][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][25-06-2020 20:35:29][Category/get_categories]: {":id_cat_parent1":null,":id_cat_parent2":null}
+[I][25-06-2020 20:35:29][CategoryController/display]: {"category":{"child":[]}}
+[I][25-06-2020 20:35:31][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][25-06-2020 20:35:31][Category/get_categories]: {":id_cat_parent1":null,":id_cat_parent2":null}
+[I][25-06-2020 20:35:31][CategoryController/display]: {"category":{"child":[]}}
+[I][25-06-2020 20:36:25][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][25-06-2020 20:36:25][Category/get_categories]: []
+[I][25-06-2020 20:36:25][CategoryController/display]: {"category":{"id":1,"name":"Inicio","description":"","parent_cat":1,"icon":"","num_topics":0,"child":{"5":{"id":2,"name":"Programaci\u00f3n","description":"","parent_cat":1,"icon":"","num_topics":0},"7":{"id":6,"name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":1,"icon":"","num_topics":0}}}}
+[I][25-06-2020 20:36:28][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent1 or parent_cat = :id_cat_parent2 ORDER BY name
+[I][25-06-2020 20:36:28][Category/get_categories]: {":id_cat_parent":2,":id_cat_parent1":2,":id_cat_parent2":2}
+[E][25-06-2020 20:36:28][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+[I][25-06-2020 20:36:28][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:40:35][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent1 or parent_cat = :id_cat_parent2 ORDER BY name
+[I][25-06-2020 20:40:35][Category/get_categories]: {":id_cat_parent":2,":id_cat_parent1":2,":id_cat_parent2":2}
+[E][25-06-2020 20:40:35][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[I][25-06-2020 20:40:35][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:40:37][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][25-06-2020 20:40:37][Category/get_categories]: []
+[I][25-06-2020 20:40:37][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][25-06-2020 20:40:38][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent1 or parent_cat = :id_cat_parent2 ORDER BY name
+[I][25-06-2020 20:40:38][Category/get_categories]: {":id_cat_parent":2,":id_cat_parent1":2,":id_cat_parent2":2}
+[E][25-06-2020 20:40:38][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[I][25-06-2020 20:40:38][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:40:57][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent1 or parent_cat = :id_cat_parent2 ORDER BY name
+[I][25-06-2020 20:40:57][Category/get_categories]: {":id_cat_parent":2,":id_cat_parent1":2,":id_cat_parent2":2}
+[E][25-06-2020 20:40:57][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[I][25-06-2020 20:40:57][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:41:16][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent1 or parent_cat = :id_cat_parent2 ORDER BY name
+[I][25-06-2020 20:41:16][Category/get_categories]: {":id_cat_parent":2}
+[E][25-06-2020 20:41:16][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[I][25-06-2020 20:41:16][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:41:17][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][25-06-2020 20:41:17][Category/get_categories]: []
+[I][25-06-2020 20:41:17][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][25-06-2020 20:41:19][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][25-06-2020 20:41:19][Category/get_categories]: []
+[I][25-06-2020 20:41:19][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][25-06-2020 20:41:19][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent1 or parent_cat = :id_cat_parent2 ORDER BY name
+[I][25-06-2020 20:41:19][Category/get_categories]: {":id_cat_parent":2}
+[E][25-06-2020 20:41:19][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[I][25-06-2020 20:41:19][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:41:41][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][25-06-2020 20:41:41][Category/get_categories]: []
+[I][25-06-2020 20:41:41][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][25-06-2020 20:41:42][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:41:42][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:41:42][DATADB Category/get_categories]: [{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"},{"id":"5","name":"Javascript","description":"","parent_cat":"2","icon":"","num_topics":"0"},{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"4","name":"Python","description":"","parent_cat":"2","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:41:42][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:41:42][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:41:42][CategoryController/display]: {"category":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"0":{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"},"1":{"id":"5","name":"Javascript","description":"","parent_cat":"2","icon":"","num_topics":"0"},"3":{"id":"4","name":"Python","description":"","parent_cat":"2","icon":"","num_topics":"0"}}},"breadcumbs":[{},{}]}
+[I][25-06-2020 20:41:44][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:41:44][Category/get_categories]: {":id_cat_parent":3}
+[I][25-06-2020 20:41:44][DATADB Category/get_categories]: [{"id":"8","name":"Ficheros","description":"Topics sobre ficheros Java","parent_cat":"3","icon":"","num_topics":"1"},{"id":"7","name":"General","description":"Topics sobre Java","parent_cat":"3","icon":"","num_topics":"0"},{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:41:44][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:41:44][Category/get_categories]: {":id_cat_parent":3}
+[I][25-06-2020 20:41:44][CategoryController/display]: {"category":{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0","child":[{"id":"8","name":"Ficheros","description":"Topics sobre ficheros Java","parent_cat":"3","icon":"","num_topics":"1"},{"id":"7","name":"General","description":"Topics sobre Java","parent_cat":"3","icon":"","num_topics":"0"}]},"breadcumbs":[{},{},{}]}
+[I][25-06-2020 20:41:46][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:41:46][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:41:46][DATADB Category/get_categories]: [{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"},{"id":"5","name":"Javascript","description":"","parent_cat":"2","icon":"","num_topics":"0"},{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"4","name":"Python","description":"","parent_cat":"2","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:41:46][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:41:46][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:41:46][CategoryController/display]: {"category":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"0":{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"},"1":{"id":"5","name":"Javascript","description":"","parent_cat":"2","icon":"","num_topics":"0"},"3":{"id":"4","name":"Python","description":"","parent_cat":"2","icon":"","num_topics":"0"}}},"breadcumbs":[{},{}]}
+[I][25-06-2020 20:41:47][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:41:47][Category/get_categories]: {":id_cat_parent":1}
+[I][25-06-2020 20:41:47][DATADB Category/get_categories]: [{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:41:47][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:41:47][Category/get_categories]: {":id_cat_parent":1}
+[I][25-06-2020 20:41:47][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"1":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"2":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}},"breadcumbs":[{}]}
+[I][25-06-2020 20:41:49][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:41:49][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:41:49][DATADB Category/get_categories]: [{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"},{"id":"5","name":"Javascript","description":"","parent_cat":"2","icon":"","num_topics":"0"},{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"4","name":"Python","description":"","parent_cat":"2","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:41:49][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:41:49][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:41:49][CategoryController/display]: {"category":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"0":{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"},"1":{"id":"5","name":"Javascript","description":"","parent_cat":"2","icon":"","num_topics":"0"},"3":{"id":"4","name":"Python","description":"","parent_cat":"2","icon":"","num_topics":"0"}}},"breadcumbs":[{},{}]}
+[I][25-06-2020 20:41:50][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:41:50][Category/get_categories]: {":id_cat_parent":3}
+[I][25-06-2020 20:41:50][DATADB Category/get_categories]: [{"id":"8","name":"Ficheros","description":"Topics sobre ficheros Java","parent_cat":"3","icon":"","num_topics":"1"},{"id":"7","name":"General","description":"Topics sobre Java","parent_cat":"3","icon":"","num_topics":"0"},{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:41:50][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:41:50][Category/get_categories]: {":id_cat_parent":3}
+[I][25-06-2020 20:41:50][CategoryController/display]: {"category":{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0","child":[{"id":"8","name":"Ficheros","description":"Topics sobre ficheros Java","parent_cat":"3","icon":"","num_topics":"1"},{"id":"7","name":"General","description":"Topics sobre Java","parent_cat":"3","icon":"","num_topics":"0"}]},"breadcumbs":[{},{},{}]}
+[I][25-06-2020 20:41:51][Topic/get_topics]: SELECT t.id, t.title, u.nickname, t.open, t.views FROM topics t, users u WHERE t.creator_user = u.id and t.id_cat = 8 LIMIT 0,10
+[I][25-06-2020 20:41:51][Topic/get_topics]: SELECT name FROM categories WHERE id = 8
+[I][25-06-2020 20:41:51][Topic/get_topics]: SELECT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent and cch.id_cat = 8 ORDER BY level
+[I][25-06-2020 20:41:51][TopicController/display]: {"num_elems":1,"topics":[{"id":"1","title":"sdf","nickname":"ddr15","open":"1","views":"0"}],"id_cat":"8","pag":1,"last_page":1,"url_base":"TopicController\/display\/8","name_category":"Ficheros","breadcumbs":[{},{},{},{}],"success":true,"display":true}
+[I][25-06-2020 20:41:53][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:41:53][Category/get_categories]: {":id_cat_parent":1}
+[I][25-06-2020 20:41:53][DATADB Category/get_categories]: [{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:41:53][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:41:53][Category/get_categories]: {":id_cat_parent":1}
+[I][25-06-2020 20:41:53][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"1":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"2":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}},"breadcumbs":[{}]}
+[I][25-06-2020 20:43:38][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:43:38][Category/get_categories]: {":id_cat_parent":1}
+[I][25-06-2020 20:43:38][DATADB Category/get_categories]: []
+[I][25-06-2020 20:43:38][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:43:38][Category/get_categories]: {":id_cat_parent":1}
+[I][25-06-2020 20:43:38][CategoryController/display]: {"category":{"child":[]},"breadcumbs":[{}]}
+[I][25-06-2020 20:43:40][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][25-06-2020 20:43:40][Category/get_categories]: []
+[I][25-06-2020 20:43:40][CategoryController/display]: {"category":{"id":1,"name":"Inicio","description":"","parent_cat":1,"icon":"","num_topics":0,"child":{"5":{"id":2,"name":"Programaci\u00f3n","description":"","parent_cat":1,"icon":"","num_topics":0},"7":{"id":6,"name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":1,"icon":"","num_topics":0}}}}
+[I][25-06-2020 20:43:42][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:43:42][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:43:42][DATADB Category/get_categories]: []
+[I][25-06-2020 20:43:42][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:43:42][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:43:42][CategoryController/display]: {"category":{"child":[]},"breadcumbs":[{},{}]}
+[I][25-06-2020 20:43:49][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:43:49][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:43:49][DATADB Category/get_categories]: [{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"},{"id":"5","name":"Javascript","description":"","parent_cat":"2","icon":"","num_topics":"0"},{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"4","name":"Python","description":"","parent_cat":"2","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:43:49][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:43:49][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:43:49][CategoryController/display]: {"category":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"0":{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"},"1":{"id":"5","name":"Javascript","description":"","parent_cat":"2","icon":"","num_topics":"0"},"3":{"id":"4","name":"Python","description":"","parent_cat":"2","icon":"","num_topics":"0"}}},"breadcumbs":[{},{}]}
+[I][25-06-2020 20:44:30][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:44:30][Category/get_categories]: {":id_cat_parent":2}
+[E][25-06-2020 20:44:30][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number
+[I][25-06-2020 20:44:30][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:49:52][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:49:52][Category/get_categories]: {":id_cat_parent":2}
+[E][25-06-2020 20:49:52][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number
+[I][25-06-2020 20:49:52][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:49:53][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][25-06-2020 20:49:53][Category/get_categories]: []
+[I][25-06-2020 20:49:53][CategoryController/display]: {"category":{"id":1,"name":"Inicio","description":"","parent_cat":1,"icon":"","num_topics":0,"child":{"5":{"id":2,"name":"Programaci\u00f3n","description":"","parent_cat":1,"icon":"","num_topics":0},"7":{"id":6,"name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":1,"icon":"","num_topics":0}}}}
+[I][25-06-2020 20:49:55][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:49:55][Category/get_categories]: {":id_cat_parent":2}
+[E][25-06-2020 20:49:55][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number
+[I][25-06-2020 20:49:55][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:51:47][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:51:47][Category/get_categories]: {":id_cat_parent":2}
+[E][25-06-2020 20:51:47][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number
+[I][25-06-2020 20:51:47][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:51:52][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][25-06-2020 20:51:52][Category/get_categories]: []
+[I][25-06-2020 20:51:52][CategoryController/display]: {"category":{"id":1,"name":"Inicio","description":"","parent_cat":1,"icon":"","num_topics":0,"child":{"5":{"id":2,"name":"Programaci\u00f3n","description":"","parent_cat":1,"icon":"","num_topics":0},"7":{"id":6,"name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":1,"icon":"","num_topics":0}}}}
+[I][25-06-2020 20:51:53][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:51:53][Category/get_categories]: {":id_cat_parent":2}
+[E][25-06-2020 20:51:53][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number
+[I][25-06-2020 20:51:53][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:52:50][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:52:50][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:52:50][DATADB Category/get_categories]: [{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"},{"id":"5","name":"Javascript","description":"","parent_cat":"2","icon":"","num_topics":"0"},{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"4","name":"Python","description":"","parent_cat":"2","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:52:50][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:52:50][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:52:50][CategoryController/display]: {"category":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"0":{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"},"1":{"id":"5","name":"Javascript","description":"","parent_cat":"2","icon":"","num_topics":"0"},"3":{"id":"4","name":"Python","description":"","parent_cat":"2","icon":"","num_topics":"0"}}},"breadcumbs":[{},{}]}
+[I][25-06-2020 20:52:52][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:52:52][Category/get_categories]: {":id_cat_parent":3}
+[I][25-06-2020 20:52:52][DATADB Category/get_categories]: [{"id":"8","name":"Ficheros","description":"Topics sobre ficheros Java","parent_cat":"3","icon":"","num_topics":"1"},{"id":"7","name":"General","description":"Topics sobre Java","parent_cat":"3","icon":"","num_topics":"0"},{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:52:52][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:52:52][Category/get_categories]: {":id_cat_parent":3}
+[I][25-06-2020 20:52:52][CategoryController/display]: {"category":{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0","child":[{"id":"8","name":"Ficheros","description":"Topics sobre ficheros Java","parent_cat":"3","icon":"","num_topics":"1"},{"id":"7","name":"General","description":"Topics sobre Java","parent_cat":"3","icon":"","num_topics":"0"}]},"breadcumbs":[{},{},{}]}
+[I][25-06-2020 20:52:52][Topic/get_topics]: SELECT t.id, t.title, u.nickname, t.open, t.views FROM topics t, users u WHERE t.creator_user = u.id and t.id_cat = 8 LIMIT 0,10
+[I][25-06-2020 20:52:52][Topic/get_topics]: SELECT name FROM categories WHERE id = 8
+[I][25-06-2020 20:52:52][Topic/get_topics]: SELECT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent and cch.id_cat = 8 ORDER BY level
+[I][25-06-2020 20:52:52][TopicController/display]: {"num_elems":1,"topics":[{"id":"1","title":"sdf","nickname":"ddr15","open":"1","views":"0"}],"id_cat":"8","pag":1,"last_page":1,"url_base":"TopicController\/display\/8","name_category":"Ficheros","breadcumbs":[{},{},{},{}],"success":true,"display":true}
+[I][25-06-2020 20:52:54][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:52:54][Category/get_categories]: {":id_cat_parent":1}
+[I][25-06-2020 20:52:54][DATADB Category/get_categories]: [{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:52:54][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:52:54][Category/get_categories]: {":id_cat_parent":1}
+[I][25-06-2020 20:52:54][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"1":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"2":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}},"breadcumbs":[{}]}
+[I][25-06-2020 20:53:55][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:53:55][Category/get_categories]: {":id_cat_parent":1}
+[E][25-06-2020 20:53:55][Category/get_categories]: SQLSTATE[HY000]: General error: 2031 
+[I][25-06-2020 20:53:55][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:53:57][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][25-06-2020 20:53:57][Category/get_categories]: []
+[I][25-06-2020 20:53:57][CategoryController/display]: {"category":{"id":1,"name":"Inicio","description":"","parent_cat":1,"icon":"","num_topics":0,"child":{"5":{"id":2,"name":"Programaci\u00f3n","description":"","parent_cat":1,"icon":"","num_topics":0},"7":{"id":6,"name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":1,"icon":"","num_topics":0}}}}
+[I][25-06-2020 20:53:58][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:53:58][Category/get_categories]: {":id_cat_parent":2}
+[E][25-06-2020 20:53:58][Category/get_categories]: SQLSTATE[HY000]: General error: 2031 
+[I][25-06-2020 20:53:58][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:55:52][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:55:52][Category/get_categories]: {":id_cat_parent":2}
+[E][25-06-2020 20:55:52][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound
+[I][25-06-2020 20:55:52][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:55:53][Category/get_categories]: SELECT * FROM categories ORDER BY name
+[I][25-06-2020 20:55:53][Category/get_categories]: []
+[I][25-06-2020 20:55:53][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"5":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"7":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}}}
+[I][25-06-2020 20:55:54][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:55:54][Category/get_categories]: {":id_cat_parent":2}
+[E][25-06-2020 20:55:54][Category/get_categories]: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound
+[I][25-06-2020 20:55:54][CategoryController/display]: {"category":[],"show_message_info":true,"success":false,"message":"Ha ocurrido un error, contacte con el administrador"}
+[I][25-06-2020 20:56:11][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:56:11][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:56:11][DATADB Category/get_categories]: [{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"},{"id":"5","name":"Javascript","description":"","parent_cat":"2","icon":"","num_topics":"0"},{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"4","name":"Python","description":"","parent_cat":"2","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:56:11][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:56:11][Category/get_categories]: {":id_cat_parent":2}
+[I][25-06-2020 20:56:11][CategoryController/display]: {"category":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"0":{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"},"1":{"id":"5","name":"Javascript","description":"","parent_cat":"2","icon":"","num_topics":"0"},"3":{"id":"4","name":"Python","description":"","parent_cat":"2","icon":"","num_topics":"0"}}},"breadcumbs":[{},{}]}
+[I][25-06-2020 20:56:13][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:56:13][Category/get_categories]: {":id_cat_parent":3}
+[I][25-06-2020 20:56:13][DATADB Category/get_categories]: [{"id":"8","name":"Ficheros","description":"Topics sobre ficheros Java","parent_cat":"3","icon":"","num_topics":"1"},{"id":"7","name":"General","description":"Topics sobre Java","parent_cat":"3","icon":"","num_topics":"0"},{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:56:13][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:56:13][Category/get_categories]: {":id_cat_parent":3}
+[I][25-06-2020 20:56:13][CategoryController/display]: {"category":{"id":"3","name":"Java","description":"","parent_cat":"2","icon":"","num_topics":"0","child":[{"id":"8","name":"Ficheros","description":"Topics sobre ficheros Java","parent_cat":"3","icon":"","num_topics":"1"},{"id":"7","name":"General","description":"Topics sobre Java","parent_cat":"3","icon":"","num_topics":"0"}]},"breadcumbs":[{},{},{}]}
+[I][25-06-2020 20:56:14][Topic/get_topics]: SELECT t.id, t.title, u.nickname, t.open, t.views FROM topics t, users u WHERE t.creator_user = u.id and t.id_cat = 8 LIMIT 0,10
+[I][25-06-2020 20:56:14][Topic/get_topics]: SELECT name FROM categories WHERE id = 8
+[I][25-06-2020 20:56:14][Topic/get_topics]: SELECT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent and cch.id_cat = 8 ORDER BY level
+[I][25-06-2020 20:56:14][TopicController/display]: {"num_elems":1,"topics":[{"id":"1","title":"sdf","nickname":"ddr15","open":"1","views":"0"}],"id_cat":"8","pag":1,"last_page":1,"url_base":"TopicController\/display\/8","name_category":"Ficheros","breadcumbs":[{},{},{},{}],"success":true,"display":true}
+[I][25-06-2020 20:56:15][Message/get_messages_by_topic]: SELECT m.text, DATE_FORMAT(m.date_creation, '%d/%m/%Y %T') as 'date_creation', u.nickname, m.show_message, u.avatar, DATE_FORMAT(u.last_connection, '%d/%m/%Y %T') as last_connection, DATE_FORMAT(u.registry_date, '%d/%m/%Y') as registry_date, mp.message_index, r.rol as rol_name FROM messages m, messages_public mp, users u, roles r WHERE m.id = mp.id_message and u.id = m.user_origin and r.id = u.rol and mp.id_topic = 1 order by m.date_creation LIMIT 0,10
+[I][25-06-2020 20:56:15][Message/get_messages_by_topic]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent and cch.id_cat = 8 ORDER BY level
+[I][25-06-2020 20:56:15][MessageController/display]: {"num_elems":1,"messages":[{"text":"<p>meme<\/p>","date_creation":"23\/06\/2020 20:20:00","nickname":"ddr15","show_message":"1","avatar":"http:\/\/localhost:8080\/foro-ddr\/public\/img\/default-avatar.jpg","last_connection":"23\/06\/2020 19:29:00","registry_date":"23\/06\/2020","message_index":"1","rol_name":"user"}],"id_topic":"1","title_topic":"sdf","open_topic":"1","pag":"1","last_page":1,"url_base":"MessageController\/display\/1","breadcumbs":[{},{},{},{},{}],"display":true}
+[I][25-06-2020 20:56:25][Category/get_categories]: SELECT * FROM categories WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ORDER BY name
+[I][25-06-2020 20:56:25][Category/get_categories]: {":id_cat_parent":1}
+[I][25-06-2020 20:56:25][DATADB Category/get_categories]: [{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}]
+[I][25-06-2020 20:56:25][Category/get_categories]: SELECT DISTINCT c.id, c.name FROM categories_child cch, categories c WHERE c.id = cch.id_cat_parent AND cch.id_cat = :id_cat_parent ORDER BY level
+[I][25-06-2020 20:56:25][Category/get_categories]: {":id_cat_parent":1}
+[I][25-06-2020 20:56:25][CategoryController/display]: {"category":{"id":"1","name":"Inicio","description":"","parent_cat":"1","icon":"","num_topics":"0","child":{"1":{"id":"2","name":"Programaci\u00f3n","description":"","parent_cat":"1","icon":"","num_topics":"0"},"2":{"id":"6","name":"Sobre el foro","description":"Informaci\u00f3n \u00fatil sobre el foro","parent_cat":"1","icon":"","num_topics":"0"}}},"breadcumbs":[{}]}

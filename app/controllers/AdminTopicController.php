@@ -57,7 +57,6 @@ class AdminTopicController extends Controller
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
-            if (isset($_POST['action'])) {
 
                 $params = array(
                     'title' => $_POST['title'],
@@ -76,9 +75,7 @@ class AdminTopicController extends Controller
                 }
 
                 $this->view("AdminTopicView", $data);
-            } else {
-                header("Location: index.php?url=AdminTopicController/display");
-            }
+            
         }
     }
 

@@ -96,43 +96,30 @@ class Topic
 
         $db = new PDODB();
         $data = array();
-
         $data['show_message_info'] = true;
 
         try {
 
+            
+            if (empty($params['title_topic'])) {
+                $data['success'] = false;
+                $data['message'] = "El titulo no puede estar vacio.";
+            }else if (empty($params['text'])) {
+                $data['success'] = false;
+                $data['message'] = "El mensaje no puede estar vacio.";
+            } else {
 
+                $id_topic = $db->getLastId("id", "topics");
 
-            $id_topic = $db->getLastId("id", "topics");
-
-            $sql = "INSERT INTO topics VALUES (";
-            $sql .= $id_topic . ", ";
-            $sql .= "'" . $params['title_topic'] . "', ";
-            $sql .= "'" . today() . "' , ";
-            $sql .= $params['id_user'] . ", ";
-            $sql .=  "1, ";
-            $sql .=  "0, ";
-            $sql .= $params['id_cat'] . " ";
-            $sql .= ");";
-
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "Topic/create_topic", $sql);
-            }
-
-            $success = $db->executeInstruction($sql);
-
-            if ($success) {
-                $data['id_topic'] = $id_topic;
-
-                $id_message = $db->getLastId("id", "messages");
-
-                $sql = "INSERT INTO messages VALUES (";
-                $sql .= $id_message . ", "; // id
-                $sql .= "'" . $params['text'] . "', "; // Texto 
-                $sql .= "'" . today() . "' , "; // Fecha
-                $sql .= $params['id_user'] . ", "; // fecha publicacion
-                $sql .=  "1 "; // abierto
-                $sql .= ")";
+                $sql = "INSERT INTO topics VALUES (";
+                $sql .= $id_topic . ", ";
+                $sql .= "'" . $params['title_topic'] . "', ";
+                $sql .= "'" . today() . "' , ";
+                $sql .= $params['id_user'] . ", ";
+                $sql .=  "1, ";
+                $sql .=  "0, ";
+                $sql .= $params['id_cat'] . " ";
+                $sql .= ");";
 
                 if (isModeDebug()) {
                     writeLog(INFO_LOG, "Topic/create_topic", $sql);
@@ -141,11 +128,16 @@ class Topic
                 $success = $db->executeInstruction($sql);
 
                 if ($success) {
+                    $data['id_topic'] = $id_topic;
 
-                    $sql = "INSERT INTO messages_public VALUES (";
-                    $sql .= $id_message . ", ";
-                    $sql .= $id_topic . ", ";
-                    $sql .= "1 ";
+                    $id_message = $db->getLastId("id", "messages");
+
+                    $sql = "INSERT INTO messages VALUES (";
+                    $sql .= $id_message . ", "; // id
+                    $sql .= "'" . $params['text'] . "', "; // Texto 
+                    $sql .= "'" . today() . "' , "; // Fecha
+                    $sql .= $params['id_user'] . ", "; // fecha publicacion
+                    $sql .=  "1 "; // abierto
                     $sql .= ")";
 
                     if (isModeDebug()) {
@@ -153,15 +145,30 @@ class Topic
                     }
 
                     $success = $db->executeInstruction($sql);
+
+                    if ($success) {
+
+                        $sql = "INSERT INTO messages_public VALUES (";
+                        $sql .= $id_message . ", ";
+                        $sql .= $id_topic . ", ";
+                        $sql .= "1 ";
+                        $sql .= ")";
+
+                        if (isModeDebug()) {
+                            writeLog(INFO_LOG, "Topic/create_topic", $sql);
+                        }
+
+                        $success = $db->executeInstruction($sql);
+                    }
                 }
-            }
 
-            $data['success'] = $success;
+                $data['success'] = $success;
 
-            if ($data['success']) {
-                $data['message'] = "El topic se ha creado correctamente. Pulsa <a href='index.php?url=MessageController/display/" . $data['id_topic'] . "'>aquí</a> para ir al topic.";
-            } else {
-                $data['message'] = "El topic no se creo correctamente.";
+                if ($data['success']) {
+                    $data['message'] = "El topic se ha creado correctamente. Pulsa <a href='index.php?url=MessageController/display/" . $data['id_topic'] . "'>aquí</a> para ir al topic.";
+                } else {
+                    $data['message'] = "El topic no se creo correctamente.";
+                }
             }
         } catch (Exception $e) {
             $data['success'] = false;
@@ -170,7 +177,6 @@ class Topic
         }
 
         $db->close();
-
         return $data;
     }
 }

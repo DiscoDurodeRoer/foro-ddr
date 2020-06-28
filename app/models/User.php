@@ -379,7 +379,49 @@ class User
                 }
             }
         } catch (Exception $e) {
-            $data['show_message_info'] = true;
+            $data['success'] = false;
+            $data['message'] = ERROR_GENERAL;
+            writeLog(ERROR_LOG, "User/verification", $e->getMessage());
+        }
+
+        $db->close();
+        return $data;
+    }
+
+    function resend_confirmation($params)
+    {
+
+        $db = new PDODB();
+        $data = array();
+        $data['show_message_info'] = true;
+
+        try {
+
+            $sql = "SELECT ua.id_user, ua.user_key ";
+            $sql .= "FROM users_activation ua, users u ";
+            $sql .= "WHERE ua.id_user = u.id ";
+            $sql .= "AND u.email = '" . $params['email'] . "' ";
+            $sql .= "AND u.verificado = " . FALSE;
+
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "User/resend_confirmation", $sql);
+            }
+
+            $nRows = $db->numRows($sql);
+
+            if ($nRows === 1) {
+                $dataUserActivation = $db->getDataSingle($sql);
+                $data['success'] = true;
+                $data['message'] = "Se ha reenviado el correo de activación";
+
+                sendEmail($params['email'], "Validación Cuenta Foro DDR", "Debes validar tu cuenta desde este enlace. <a href='" . PAGE_URL . "index.php?url=UserController/verification/" . $dataUserActivation['user_key'] . "'>Pulsa el link para validar tu cuenta.</a>");
+            } else {
+
+                $data['success'] = false;
+                $data['message'] = "No existe el correo o ya estas verificado";
+            }
+        } catch (Exception $e) {
             $data['success'] = false;
             $data['message'] = ERROR_GENERAL;
             writeLog(ERROR_LOG, "User/verification", $e->getMessage());
@@ -412,7 +454,6 @@ class User
             $data['topics_user'] = $db->getData($sql);
 
             $data['has_results'] = $db->numRows($sql) > 0;
-
         } catch (Exception $e) {
             $data['show_message_info'] = true;
             $data['success'] = false;

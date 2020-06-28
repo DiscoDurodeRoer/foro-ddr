@@ -24,31 +24,26 @@ class LoginController extends Controller
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
-            if (isset($_POST['action'])) {
+            $data = array();
 
-                $data = array();
+            $params = array(
+                'nick_email' => $_POST['nick_email'],
+                'pass' => $_POST['pass']
+            );
 
-                $params = array(
-                    'nick_email' => $_POST['nick_email'],
-                    'pass' => $_POST['pass']
-                );
+            $data = $this->model->checkLogin($params);
 
-                $data = $this->model->checkLogin($params);
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "Login/login", json_encode($data));
+            }
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "Login/login", json_encode($data));
+            if ($data['success']) {
+                if ($data['user']) {
+                    prepareDataLogin($data['user']);
                 }
-
-                if ($data['success']) {
-                    if ($data['user']) {
-                        prepareDataLogin($data['user']);
-                    }
-                    redirect_to_url(BASE_URL);
-                } else {
-                    $this->view("LoginView", $data);
-                }
-            } else {
                 redirect_to_url(BASE_URL);
+            } else {
+                $this->view("LoginView", $data);
             }
         }
     }
@@ -69,24 +64,20 @@ class LoginController extends Controller
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
-            if (isset($_POST['action'])) {
 
-                $data = array();
+            $data = array();
 
-                $params = array(
-                    'email' => $_POST['email']
-                );
+            $params = array(
+                'email' => $_POST['email']
+            );
 
-                $data = $this->model->sendNotificationRememeber($params);
+            $data = $this->model->sendNotificationRememeber($params);
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "Login/remember", json_encode($data));
-                }
-
-                $this->view("LoginView", $data);
-            } else {
-                redirect_to_url("index.php?url=LoginController/display");
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "Login/remember", json_encode($data));
             }
+
+            $this->view("LoginView", $data);
         }
     }
 }

@@ -15,7 +15,7 @@ class CategoryController extends Controller
         $params = array();
 
         if ($id_cat_parent) {
-            $params['id_cat_parent'] = filter_var($id_cat_parent, FILTER_SANITIZE_NUMBER_INT);
+            $params[':id_cat_parent'] = intval(filter_var($id_cat_parent, FILTER_SANITIZE_NUMBER_INT));
         }
 
         $data = $this->model->get_categories($params);

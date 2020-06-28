@@ -1,1 +1,3 @@
 Options -Multiviews
+
+ErrorDocument 404 /app/views/404.php

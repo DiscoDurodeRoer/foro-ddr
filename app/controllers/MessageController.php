@@ -62,45 +62,40 @@ class MessageController extends Controller
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
+            $session = new Session();
 
-            if (isset($_POST['action'])) {
-                $session = new Session();
+            $params = array(
+                'id_user' => $session->getAttribute(SESSION_ID_USER),
+                'text' => $_POST['text'],
+                'id_topic' => filter_var($_POST['id_topic'], FILTER_SANITIZE_NUMBER_INT)
+            );
 
+            $data = $this->model->reply_topic($params);
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "MessageController/reply_topic", json_encode($data));
+            }
+
+            if ($data['success']) {
                 $params = array(
                     'id_user' => $session->getAttribute(SESSION_ID_USER),
-                    'text' => $_POST['text'],
+                    'id_message' => filter_var($data['id_message'], FILTER_SANITIZE_NUMBER_INT),
                     'id_topic' => filter_var($_POST['id_topic'], FILTER_SANITIZE_NUMBER_INT)
                 );
 
-                $data = $this->model->reply_topic($params);
+                $data = $this->model->notify_no_read_messages($params);
 
                 if (isModeDebug()) {
                     writeLog(INFO_LOG, "MessageController/reply_topic", json_encode($data));
                 }
 
                 if ($data['success']) {
-                    $params = array(
-                        'id_user' => $session->getAttribute(SESSION_ID_USER),
-                        'id_message' => filter_var($data['id_message'], FILTER_SANITIZE_NUMBER_INT),
-                        'id_topic' => filter_var($_POST['id_topic'], FILTER_SANITIZE_NUMBER_INT)
-                    );
-
-                    $data = $this->model->notify_no_read_messages($params);
-
-                    if (isModeDebug()) {
-                        writeLog(INFO_LOG, "MessageController/reply_topic", json_encode($data));
-                    }
-
-                    if ($data['success']) {
-                        redirect_to_url("/foro-ddr/index.php?url=MessageController/display/" . $params['id_topic']);
-                    } else {
-                        $this->view("MessageView", $data);
-                    }
+                    redirect_to_url("/foro-ddr/index.php?url=MessageController/display/" . $params['id_topic']);
                 } else {
                     $this->view("MessageView", $data);
                 }
             } else {
-                redirect_to_url("/foro-ddr/index.php?url=MessageController/display/" . filter_var($_POST['id_topic'], FILTER_SANITIZE_NUMBER_INT));
+                $this->view("MessageView", $data);
             }
         }
     }

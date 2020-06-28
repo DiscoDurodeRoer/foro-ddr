@@ -36,7 +36,7 @@ if (isset($data['display_login'])) {
                         <button type="submit" name="action" class="btn btn-primary btn-block">Login</button>
                     </div>
                     <div class="col-6">
-                        <button type="submit" name="back" class="btn btn-primary btn-block">Volver</button>
+                        <button type="button" name="back" class="btn btn-primary btn-block">Volver</button>
                     </div>
                 </div>
 
@@ -67,7 +67,7 @@ if (isset($data['display_login'])) {
                         <button type="submit" name="action" class="btn btn-primary btn-block">Cambiar contraseña</button>
                     </div>
                     <div class="col-6">
-                        <button type="submit" name="back" class="btn btn-primary btn-block">Volver</button>
+                        <button type="button" name="back" class="btn btn-primary btn-block">Volver</button>
                     </div>
                 </div>
 

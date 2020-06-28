@@ -32,7 +32,7 @@
 
                         <?php
 
-                        if ($data['login']) {
+                        if (isset($data) && $data['login']) {
 
                             $nickname = $data['nickname'];
 

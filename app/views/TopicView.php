@@ -114,7 +114,7 @@ include_once 'header.php';
                                         <button class="btn btn-primary btn-block" name="action" type="submit">Crear</button>
                                     </div>
                                     <div class="col-6">
-                                        <button class="btn btn-primary btn-block" name="back" type="submit">Volver</button>
+                                        <button class="btn btn-primary btn-block" name="back" type="button">Volver</button>
                                     </div>
                                 </div>
 

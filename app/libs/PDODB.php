@@ -15,7 +15,9 @@ class PDODB
 
         $opciones = array(
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
-            PDO::MYSQL_ATTR_FOUND_ROWS => true
+            PDO::MYSQL_ATTR_FOUND_ROWS => true,
+            // PDO::ATTR_EMULATE_PREPARES => false,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         );
 
         $this->connection = new PDO(
@@ -46,6 +48,26 @@ class PDODB
         return $data;
     }
 
+    function getDataPrepared($sql, $params)
+    {
+        
+        $data = array();
+        $result = $this->connection->prepare($sql);
+
+        $error = $this->connection->errorInfo();
+        if ($error[0] === "00000") {
+            $result->execute($params);
+            if ($result->rowCount() > 0) {
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    array_push($data, $row);
+                }
+            }
+        } else {
+            throw new Exception($error[2]);
+        }
+        return $data;
+    }
+
     function numRows($sql)
     {
         $result = $this->connection->query($sql);
@@ -53,6 +75,19 @@ class PDODB
 
         if ($error[0] === "00000") {
             $result->execute();
+            return $result->rowCount();
+        } else {
+            throw new Exception($error[2]);
+        }
+    }
+
+    function numRowsPrepared($sql, $params)
+    {
+        $result = $this->connection->prepare($sql);
+        $error = $this->connection->errorInfo();
+
+        if ($error[0] === "00000") {
+            $result->execute($params);
             return $result->rowCount();
         } else {
             throw new Exception($error[2]);
@@ -104,7 +139,6 @@ class PDODB
 
         if ($error[0] === "00000") {
             $result->execute();
-            writeLog(ERROR_LOG, "Count: ({$sql})", $result->rowCount());
             return $result->rowCount() > 0;
         } else {
             throw new Exception($error[2]);
@@ -118,7 +152,7 @@ class PDODB
 
     function getLastId($field, $table)
     {
-        $sql = "SELECT IFNULL((MAX(".$field.") + 1), 1) as id FROM " . $table;
+        $sql = "SELECT IFNULL((MAX(" . $field . ") + 1), 1) as id FROM " . $table;
         return $this->getDataSingleProp($sql, "id");
     }
 }

@@ -13,7 +13,7 @@ include_once 'header.php';
 
         ?>
 
-            <form action="index.php?url=UserController/<?php echo isset($data['registry']) ? 'registrer' : 'edit_profile'; ?>/" method="POST">
+            <form id="formUser" action="index.php?url=UserController/<?php echo isset($data['registry']) ? 'registrer' : 'edit_profile'; ?>/" method="POST">
 
                 <?php
                 if (isset($data['edit_profile'])) {
@@ -48,9 +48,15 @@ include_once 'header.php';
                     </div>
                     <div class="col-md-6 col-12">
                         <label for="email">Email (*)</label>
-                        <input type="email" name="email" class="form-control" id="email" maxlength="40" value="<?php if (isset($data['info_user'])) {
+                        <input type="text" name="email" class="form-control" id="email" maxlength="40" value="<?php if (isset($data['info_user'])) {
                                                                                                                     echo $data['info_user']['email'];
                                                                                                                 } ?>" />
+                        <div class="valid-feedback">
+                            ¡Es correcto!
+                        </div>
+                        <div class="invalid-feedback">
+                            El email no tiene el formato correcto
+                        </div>
                     </div>
                 </div>
 
@@ -60,7 +66,13 @@ include_once 'header.php';
                     <div class="row form-group">
                         <div class="col-md-6 col-12">
                             <label for="pass">Contraseña (*)</label>
-                            <input type="password" name="pass" class="form-control" maxlength="20" />
+                            <input type="password" id="password" name="pass" class="form-control" id="" maxlength="20" />
+                            <div class="valid-feedback">
+                                ¡Es correcto!
+                            </div>
+                            <div class="invalid-feedback">
+                                La contraseña debe tener minusculas, mayusculas y numeros. La longitud entre 8 y 20 caracteres
+                            </div>
                         </div>
                         <div class="col-md-6 col-12">
                             <label for="confirm-pass">Confirmar contraseña (*)</label>
@@ -85,11 +97,47 @@ include_once 'header.php';
                         <button type="submit" name="action" class="btn btn-primary btn-block"><?php echo isset($data['registry']) ? 'Registro' : 'Editar'; ?></button>
                     </div>
                     <div class="col-6">
-                        <button type="submit" name="back" class="btn btn-primary btn-block">Volver</button>
+                        <button type="button" name="back" class="btn btn-primary btn-block">Volver</button>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <a href="index.php?url=UserController/display_verification/">¿Ya te has registrado y no te ha llegado el correo de activación? Pulsa aquí para reenviar correo.</a>
+                </div>
+
+            </form>
+
+        <?php
+        } else if (isset($data['form_verification'])) {
+        ?>
+
+            <form action="index.php?url=UserController/resend_confirmation/" method="POST">
+
+                <div class="row form-group">
+                    <div class="col-12">
+                        <label for="email">Email (*)</label>
+                        <input type="text" name="email" class="form-control" id="email" maxlength="40" />
+                        <div class="valid-feedback">
+                            ¡Es correcto!
+                        </div>
+                        <div class="invalid-feedback">
+                            El email no tiene el formato correcto
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-primary btn-block">Reenviar correo de activación</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" name="back" class="btn btn-primary btn-block">Volver</button>
                     </div>
                 </div>
 
             </form>
+
 
         <?php
         } else if (isset($data['profile'])) {
@@ -152,7 +200,7 @@ include_once 'header.php';
                             <div class="row">
                                 <div class="col-12 text-right">
                                     <a class="btn btn-success btn-icon" href="index.php?url=UserController/display_topics_user/">
-                                    <i class="fa fa-eye" aria-hidden="true"></i> Participaciones en topics
+                                        <i class="fa fa-eye" aria-hidden="true"></i> Participaciones en topics
                                     </a>
                                     <a class="btn btn-success btn-icon" href="index.php?url=UserController/display_edit_profile/">
                                         <i class="fa fa-pencil" aria-hidden="true"></i> Editar perfil
@@ -196,7 +244,13 @@ include_once 'header.php';
                 <div class="row form-group">
                     <div class="col-12">
                         <label for="pass">Contraseña (*)</label>
-                        <input type="password" name="pass" class="form-control" maxlength="20" />
+                        <input type="password" id="password" name="pass" class="form-control" maxlength="20" />
+                        <div class="valid-feedback">
+                            ¡Es correcto!
+                        </div>
+                        <div class="invalid-feedback">
+                            La contraseña debe tener minusculas, mayusculas y numeros. La longitud entre 8 y 20 caracteres
+                        </div>
                     </div>
 
                 </div>
