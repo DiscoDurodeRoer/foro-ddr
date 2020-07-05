@@ -14,6 +14,7 @@ class Message
 
         $db = new PDODB();
         $data = array();
+        $paramsDB = array();
 
         try {
 
@@ -24,25 +25,41 @@ class Message
             $sql .= "WHERE m.id = mp.id_message and ";
             $sql .= "u.id = m.user_origin and ";
             $sql .= "r.id = u.rol and ";
-            $sql .= "mp.id_topic = " . filter_var($params['id_topic'], FILTER_SANITIZE_NUMBER_INT) . " ";
+            $sql .= "mp.id_topic = ? ";
             $sql .= "order by m.date_creation ";
 
-            $data['num_elems'] = $db->numRows($sql);
+            $paramsDB = array(
+                $params['id_topic']
+            );
+
+            $data['num_elems'] = $db->numRowsPrepared($sql, $paramsDB);
 
             $sql .= "LIMIT " . ($params['page'] - 1) * NUM_ITEMS_PAG . "," . NUM_ITEMS_PAG;
 
+
+            $paramsDB = array(
+                $params['id_topic'],
+                ($params['page'] - 1) * NUM_ITEMS_PAG,
+                NUM_ITEMS_PAG
+            );
+
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Message/get_messages_by_topic", $sql);
+                writeLog(INFO_LOG, "Message/get_messages_by_topic", json_encode($params));
             }
 
-            $data['messages'] = $db->getData($sql);
+            $data['messages'] = $db->getDataPrepared($sql, $paramsDB);
             $data['id_topic'] = $params['id_topic'];
 
             $sql = "SELECT title, open, id_cat ";
             $sql .= "FROM topics ";
-            $sql .= "WHERE id = " . $params['id_topic'];
+            $sql .= "WHERE id = ? ";
 
-            $data_single = $db->getDataSingle($sql);
+            $paramsDB = array(
+                $params['id_topic']
+            );
+
+            $data_single = $db->getDataSinglePrepared($sql, $paramsDB);
 
             if ($data_single) {
                 $data['title_topic'] = $data_single['title'];
@@ -58,23 +75,23 @@ class Message
             $sql = "SELECT DISTINCT c.id, c.name ";
             $sql .= "FROM categories_child cch, categories c ";
             $sql .= "WHERE c.id = cch.id_cat_parent ";
-            $sql .= "and cch.id_cat = " . $id_cat . " ";
+            $sql .= "and cch.id_cat = ? ";
             $sql .= "ORDER BY level";
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Message/get_messages_by_topic", $sql);
+                writeLog(INFO_LOG, "Message/get_messages_by_topic", json_encode($params));
             }
 
-            $parents = $db->getData($sql);
-
-            $numRows = $db->numRows($sql);
+            $numRows = $db->numRowsPrepared($sql, $paramsDB);
 
             if ($numRows > 0) {
+
+                $parents = $db->getDataPrepared($sql, $paramsDB);
 
                 $data['breadcumbs'] = array();
 
                 foreach ($parents as $key => $value) {
-
 
                     if ($key === count($parents) - 1) {
                         $breadcumb = new BreadCumb(
@@ -120,46 +137,56 @@ class Message
 
         $db = new PDODB();
         $data = array();
+        $paramsDB = array();
 
         try {
 
             $id_message = $db->getLastId("id", "messages");
 
-            $sql = "INSERT INTO messages VALUES (";
-            $sql .= $id_message . ", ";
-            $sql .= "'" . $params['text'] . "', ";
-            $sql .= "'" . today() . "' , ";
-            $sql .= $params['id_user'] . ", ";
-            $sql .=  "1 ";
-            $sql .= ")";
+            $sql = "INSERT INTO messages VALUES (?, ?, ?, ?, 1);";
+
+            $paramsDB = array(
+                $id_message,
+                $params['text'],
+                today(),
+                $params['id_user']
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Message/reply_topic", $sql);
+                writeLog(INFO_LOG, "Message/reply_topic", json_encode($paramsDB));
             }
 
-            $db->executeInstruction($sql);
+            $db->executeInstructionPrepared($sql, $paramsDB);
 
             $sql = "SELECT (count(*) + 1) as num_index ";
             $sql .= "FROM messages_public ";
-            $sql .= "WHERE id_topic = " . $params['id_topic'];
+            $sql .= "WHERE id_topic = ? ";
+
+            $paramsDB = array(
+                $params['id_topic']
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Message/reply_topic", $sql);
             }
 
-            $num_index = $db->getDataSingleProp($sql, 'num_index');
+            $num_index = $db->getDataSinglePropPrepared($sql, 'num_index', $paramsDB);
 
-            $sql = "INSERT INTO messages_public VALUES (";
-            $sql .= $id_message . ", ";
-            $sql .= $params['id_topic'] . ", ";
-            $sql .= $num_index;
-            $sql .= ")";
+            $sql = "INSERT INTO messages_public VALUES (?, ?, ?);";
+
+            $paramsDB = array(
+                $id_message,
+                $params['id_topic'],
+                $num_index
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Message/reply_topic", $sql);
+                writeLog(INFO_LOG, "Message/reply_topic", json_encode($paramsDB));
             }
 
-            $db->executeInstruction($sql);
+            $db->executeInstructionPrepared($sql, $paramsDB);
 
             $data['id_message'] = $id_message;
 
@@ -180,14 +207,20 @@ class Message
 
         $db = new PDODB();
         $isOpen = FALSE;
+        $paramsDB = array();
 
         try {
 
             $sql = "SELECT open ";
             $sql .= "FROM topics ";
-            $sql .= "WHERE id = " . $params['id_topic'];
+            $sql .= "WHERE id = ? ";
 
-            $isOpen = $db->getDataSingleProp($sql, 'open');
+            $paramsDB = array(
+                $params['id_topic']
+            );
+
+            $isOpen = $db->getDataSinglePropPrepared($sql, 'open', $paramsDB);
+
         } catch (Exception $e) {
             $data['show_message_info'] = true;
             $data['success'] = false;
@@ -207,23 +240,33 @@ class Message
 
         $data['success'] = true;
 
+        $paramsDB = array();
+
         try {
             $sql = "SELECT DISTINCT m.user_origin ";
             $sql .= "FROM messages m, messages_public mp ";
             $sql .= "WHERE m.id = mp.id_message ";
-            $sql .= "and mp.id_topic = " . $params['id_topic'] . " ";
-            $sql .= "and m.user_origin <> " . $params['id_user'];
+            $sql .= "and mp.id_topic = ? ";
+            $sql .= "and m.user_origin <> ? ";
 
-            $datadb = $db->getData($sql);
+            $paramsDB = array(
+                $params['id_topic'],
+                $params['id_user']
+            );
+
+            $datadb = $db->getDataPrepared($sql, $paramsDB);
 
             foreach ($datadb  as $key => $value) {
 
-                $sql = "INSERT INTO unread_messages_public VALUES( ";
-                $sql .= $value['user_origin'] . ", ";
-                $sql .= $params['id_topic'] . ", ";
-                $sql .= $params['id_message'] . "); ";
+                $sql = "INSERT INTO unread_messages_public VALUES(?, ?, ?);";
+                
+                $paramsDB = array(
+                    $value['user_origin'],
+                    $params['id_topic'],
+                    $params['id_message']
+                );
 
-                $db->executeInstruction($sql);
+                $db->executeInstructionPrepared($sql, $paramsDB);
             }
         } catch (Exception $e) {
             $data['show_message_info'] = true;
@@ -233,7 +276,6 @@ class Message
         }
 
         $db->close();
-
         return $data;
     }
 }

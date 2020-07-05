@@ -12,6 +12,7 @@ class AdminTopic
 
         $db = new PDODB();
         $data = array();
+        $paramsDB = array();
 
         try {
             $sql = "SELECT t.id, t.title, DATE_FORMAT(t.date_creation, '%d/%m/%Y %T') as 'date_creation', ";
@@ -20,15 +21,21 @@ class AdminTopic
             $sql .= "WHERE t.id_cat = c.id ";
             $sql .= "ORDER BY date_creation ";
 
-            $data['num_elems'] = $db->numRows($sql);
+            $data['num_elems'] = $db->numRowsPrepared($sql, $paramsDB);
 
-            $sql .= "LIMIT " . ($params['page'] - 1) * NUM_ITEMS_PAG . "," . NUM_ITEMS_PAG;
+            $sql .= "LIMIT ?, ?";
+
+            $paramsDB = array(
+                ($params['page'] - 1) * NUM_ITEMS_PAG,
+                NUM_ITEMS_PAG
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "AdminTopic/get_topics", $sql);
+                writeLog(INFO_LOG, "AdminTopic/get_topics", json_encode($paramsDB));
             }
 
-            $data['topics'] = $db->getData($sql);
+            $data['topics'] = $db->getDataPrepared($sql, $paramsDB);
 
             // Paginacion
             $data["pag"] = $params['page'];
@@ -44,7 +51,6 @@ class AdminTopic
         }
 
         $db->close();
-
         return $data;
     }
 
@@ -53,19 +59,25 @@ class AdminTopic
 
         $db = new PDODB();
         $data = array();
+        $paramsDB = array();
 
         try {
             $sql = "SELECT t.id, t.title, DATE_FORMAT(t.date_creation, '%d/%m/%Y %T') as 'date_creation', ";
             $sql .= "t.open, t.views, t.id_cat ";
             $sql .= "FROM topics t ";
-            $sql .= "WHERE t.id = " . $id_topic . " ";
+            $sql .= "WHERE t.id = ? ";
             $sql .= "ORDER BY date_creation ";
+
+            $paramsDB = array(
+                $id_topic
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "AdminTopic/get_topic", $sql);
+                writeLog(INFO_LOG, "AdminTopic/get_topic", json_encode($paramsDB));
             }
 
-            $data['topic'] = $db->getDataSingle($sql);
+            $data['topic'] = $db->getDataSinglePrepared($sql, $paramsDB);
 
             $data['success'] = true;
         } catch (Exception $e) {
@@ -76,7 +88,6 @@ class AdminTopic
         }
 
         $db->close();
-
         return $data;
     }
 
@@ -86,18 +97,26 @@ class AdminTopic
         $db = new PDODB();
         $data = array();
         $data['show_message_info'] = true;
+        $paramsDB = array();
 
         try {
             $sql = "UPDATE topics SET ";
-            $sql .= "title = '" . $params['title'] . "', ";
-            $sql .= "id_cat = '" . $params['category'] . "' ";
-            $sql .= "WHERE id = " . $params['id'];
+            $sql .= "title = ?, ";
+            $sql .= "id_cat = ? ";
+            $sql .= "WHERE id = ? ";
+
+            $paramsDB = array(
+                $params['title'],
+                $params['category'],
+                $params['id']
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "AdminTopic/edit_topic", $sql);
+                writeLog(INFO_LOG, "AdminTopic/edit_topic", json_encode($paramsDB));
             }
 
-            $data['success'] = $db->executeInstruction($sql);
+            $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             if ($data['success']) {
                 $data['message'] = "Se ha editado el topic correctamente";
@@ -121,18 +140,25 @@ class AdminTopic
         $db = new PDODB();
         $data = array();
         $data['show_message_info'] = true;
+        $paramsDB = array();
 
         try {
 
             $sql = "UPDATE topics SET ";
-            $sql .= "open = '" . TRUE . "' ";
-            $sql .= "WHERE id = " . $params['id_topic'];
+            $sql .= "open = ? ";
+            $sql .= "WHERE id = ? ";
+
+            $paramsDB = array(
+                TRUE,
+                $params['id_topic']
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "AdminTopic/open_topic", $sql);
+                writeLog(INFO_LOG, "AdminTopic/open_topic", json_encode($paramsDB));
             }
 
-            $data['success'] = $db->executeInstruction($sql);
+            $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             if ($data['success']) {
                 $data['message'] = "Se ha abierto el topic correctamente";
@@ -155,17 +181,24 @@ class AdminTopic
         $db = new PDODB();
         $data = array();
         $data['show_message_info'] = true;
+        $paramsDB = array();
 
         try {
             $sql = "UPDATE topics SET ";
             $sql .= "open = '" . FALSE . "' ";
             $sql .= "WHERE id = " . $params['id_topic'];
 
+            $paramsDB = array(
+                FALSE,
+                $params['id_topic']
+            );
+
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "AdminTopic/close_topic", $sql);
+                writeLog(INFO_LOG, "AdminTopic/close_topic", json_encode($paramsDB));
             }
 
-            $data['success'] = $db->executeInstruction($sql);
+            $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             if ($data['success']) {
                 $data['message'] = "Se ha cerrado el topic correctamente";

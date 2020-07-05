@@ -16,8 +16,8 @@ class MessageController extends Controller
         if (isset($id_topic)) {
 
             $params = array(
-                'id_topic' => filter_var($id_topic, FILTER_SANITIZE_NUMBER_INT),
-                'page' => filter_var($page, FILTER_SANITIZE_NUMBER_INT)
+                'id_topic' => intval(filter_var($id_topic, FILTER_SANITIZE_NUMBER_INT)),
+                'page' => intval(filter_var($page, FILTER_SANITIZE_NUMBER_INT))
             );
 
             $data = $this->model->get_messages_by_topic($params);

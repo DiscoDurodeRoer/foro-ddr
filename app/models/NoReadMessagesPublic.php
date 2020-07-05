@@ -13,6 +13,7 @@ class NoReadMessagesPublic
 
         $db = new PDODB();
         $data = array();
+        $paramsDB = array();
 
         try {
 
@@ -26,17 +27,28 @@ class NoReadMessagesPublic
             $sql .= "WHERE um.id_topic = t.id and ";
             $sql .= "mp.id_topic = t.id and ";
             $sql .= "mp.id_message = um.id_message and ";
-            $sql .= "um.id_user = " . $params['id_user'] . " ";
+            $sql .= "um.id_user = ? ";
             $sql .= "group by t.id, t.title ";
             
-            $data['num_elems'] = $db->numRows($sql);
-            $sql .= "LIMIT " . ($params['page'] - 1) * NUM_ITEMS_PAG . "," . NUM_ITEMS_PAG;
+            $paramsDB = array(
+                $params['id_user']
+            );
+
+            $data['num_elems'] = $db->numRowsPrepared($sql, $paramsDB);
+            $sql .= "LIMIT ?, ?";
+
+            $paramsDB = array(
+                $params['id_user'],
+                ($params['page'] - 1) * NUM_ITEMS_PAG,
+                NUM_ITEMS_PAG
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "NoReadMessagesPublic/get_no_read_messages_public", $sql);
+                writeLog(INFO_LOG, "NoReadMessagesPublic/get_no_read_messages_public", json_encode($paramsDB));
             }
 
-            $data['no_read_messages'] = $db->getData($sql);
+            $data['no_read_messages'] = $db->getDataPrepared($sql, $paramsDB);
 
             // Paginacion
             $data["pag"] = $params['page'];
@@ -63,18 +75,25 @@ class NoReadMessagesPublic
 
         $db = new PDODB();
         $data = array();
+        $paramsDB = array();
 
         try {
 
             $sql = "DELETE FROM unread_messages_public ";
-            $sql .= "WHERE id_topic =  " . $params['id_topic'] . " ";
-            $sql .= "and id_user =  " . $params['id_user'];
+            $sql .= "WHERE id_topic = ? ";
+            $sql .= "and id_user = ? ";
+
+            $paramsDB = array(
+                $params['id_topic'],
+                $params['id_user']
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "NoReadMessagesPublic/delete_no_read_messages", $sql);
+                writeLog(INFO_LOG, "NoReadMessagesPublic/delete_no_read_messages", json_encode($paramsDB));
             }
 
-            $db->executeInstruction($sql);
+            $db->executeInstructionPrepared($sql, $paramsDB);
 
             $data['success'] = true;
         } catch (Exception $e) {

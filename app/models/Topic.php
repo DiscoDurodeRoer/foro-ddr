@@ -15,21 +15,35 @@ class Topic
         $db = new PDODB();
         $data = array();
 
+        $paramsDB = array();
+
         try {
 
             $sql = "SELECT t.id, t.title, u.nickname, t.open, t.views ";
             $sql .= "FROM topics t, users u ";
             $sql .= "WHERE t.creator_user = u.id and ";
-            $sql .= "t.id_cat = " . $params['id_cat'] . " ";
+            $sql .= "t.id_cat = ? ";
 
-            $data['num_elems'] = $db->numRows($sql);
-            $sql .= "LIMIT " . ($params['page'] - 1) * NUM_ITEMS_PAG . "," . NUM_ITEMS_PAG;
+            $paramsDB = array(
+                $params['id_cat'],
+            );
+
+            $data['num_elems'] = $db->numRowsPrepared($sql, $paramsDB);
+
+            $sql .= "LIMIT ?, ?";
+
+            $paramsDB = array(
+                $params['id_cat'],
+                ($params['page'] - 1) * NUM_ITEMS_PAG,
+                NUM_ITEMS_PAG
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Topic/get_topics", $sql);
+                writeLog(INFO_LOG, "Topic/get_topics", json_encode($paramsDB));
             }
 
-            $data['topics'] =  $db->getData($sql);
+            $data['topics'] = $db->getDataPrepared($sql, $paramsDB);
             $data['id_cat'] = $params['id_cat'];
 
             // Paginacion
@@ -39,26 +53,31 @@ class Topic
 
             $sql = "SELECT name ";
             $sql .= "FROM categories ";
-            $sql .= "WHERE id = " . $data['id_cat'];
+            $sql .= "WHERE id = ? ";
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Topic/get_topics", $sql);
             }
 
-            $data['name_category'] = $db->getDataSingleProp($sql, "name");
+            $paramsDB = array(
+                $data['id_cat']
+            );
+
+            $data['name_category'] = $db->getDataSinglePropPrepared($sql, "name", $paramsDB);
 
             $sql = "SELECT c.id, c.name ";
             $sql .= "FROM categories_child cch, categories c ";
-            $sql .= "WHERE c.id = cch.id_cat_parent and cch.id_cat = " . $data['id_cat']  . " ";
+            $sql .= "WHERE c.id = cch.id_cat_parent and cch.id_cat = ? ";
             $sql .= "ORDER BY level";
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Topic/get_topics", $sql);
+                writeLog(INFO_LOG, "Topic/get_topics", json_encode($paramsDB));
             }
 
-            $parents = $db->getData($sql);
+            $parents = $db->getDataPrepared($sql, $paramsDB);
 
-            $numRows = $db->numRows($sql);
+            $numRows = $db->numRowsPrepared($sql, $paramsDB);
 
             if ($numRows > 0) {
 
@@ -97,68 +116,72 @@ class Topic
         $db = new PDODB();
         $data = array();
         $data['show_message_info'] = true;
+        $paramsDB = array();
 
         try {
 
-            
             if (empty($params['title_topic'])) {
                 $data['success'] = false;
                 $data['message'] = "El titulo no puede estar vacio.";
-            }else if (empty($params['text'])) {
+            } else if (empty($params['text'])) {
                 $data['success'] = false;
                 $data['message'] = "El mensaje no puede estar vacio.";
             } else {
 
                 $id_topic = $db->getLastId("id", "topics");
 
-                $sql = "INSERT INTO topics VALUES (";
-                $sql .= $id_topic . ", ";
-                $sql .= "'" . $params['title_topic'] . "', ";
-                $sql .= "'" . today() . "' , ";
-                $sql .= $params['id_user'] . ", ";
-                $sql .=  "1, ";
-                $sql .=  "0, ";
-                $sql .= $params['id_cat'] . " ";
-                $sql .= ");";
+                $sql = "INSERT INTO topics VALUES (?, ?, ?, ?, 1, 0, ?);";
+
+                $paramsDB = array(
+                    $id_topic,
+                    $params['title_topic'],
+                    today(),
+                    $params['id_user'],
+                    $params['id_cat']
+                );
 
                 if (isModeDebug()) {
                     writeLog(INFO_LOG, "Topic/create_topic", $sql);
+                    writeLog(INFO_LOG, "Topic/create_topic", json_encode($params));
                 }
 
-                $success = $db->executeInstruction($sql);
+                $success = $db->executeInstructionPrepared($sql, $paramsDB);
 
                 if ($success) {
                     $data['id_topic'] = $id_topic;
 
                     $id_message = $db->getLastId("id", "messages");
 
-                    $sql = "INSERT INTO messages VALUES (";
-                    $sql .= $id_message . ", "; // id
-                    $sql .= "'" . $params['text'] . "', "; // Texto 
-                    $sql .= "'" . today() . "' , "; // Fecha
-                    $sql .= $params['id_user'] . ", "; // fecha publicacion
-                    $sql .=  "1 "; // abierto
-                    $sql .= ")";
+                    $sql = "INSERT INTO messages VALUES (?, ?, ?, ?, 1);";
+
+                    $paramsDB = array(
+                        $id_message,
+                        $params['text'],
+                        today(),
+                        $params['id_user']
+                    );
 
                     if (isModeDebug()) {
                         writeLog(INFO_LOG, "Topic/create_topic", $sql);
                     }
 
-                    $success = $db->executeInstruction($sql);
+                    $success = $db->executeInstructionPrepared($sql, $paramsDB);
 
                     if ($success) {
 
-                        $sql = "INSERT INTO messages_public VALUES (";
-                        $sql .= $id_message . ", ";
-                        $sql .= $id_topic . ", ";
-                        $sql .= "1 ";
-                        $sql .= ")";
+                        $sql = "INSERT INTO messages_public VALUES (?,?,1);";
+
+                        $paramsDB = array(
+                            $id_message,
+                            $id_topic
+                        );
 
                         if (isModeDebug()) {
                             writeLog(INFO_LOG, "Topic/create_topic", $sql);
+                            writeLog(INFO_LOG, "Topic/create_topic", json_encode($params));
                         }
 
-                        $success = $db->executeInstruction($sql);
+                        $success = $db->executeInstructionPrepared($sql, $paramsDB);
                     }
                 }
 

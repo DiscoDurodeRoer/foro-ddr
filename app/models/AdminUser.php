@@ -12,17 +12,24 @@ class AdminUser
 
         $db = new PDODB();
         $data = array();
+        $paramsDB = array();
 
         try {
             $sql = "SELECT * ";
             $sql .= "FROM users ";
 
-            $data['num_elems'] = $db->numRows($sql);
+            $data['num_elems'] = $db->numRowsPrepared($sql, $paramsDB);
 
-            $sql .= "LIMIT " . ($params['page'] - 1) * NUM_ITEMS_PAG . "," . NUM_ITEMS_PAG;
+            $sql .= "LIMIT ?,?";
+
+            $paramsDB = array(
+                ($params['page'] - 1) * NUM_ITEMS_PAG,
+                NUM_ITEMS_PAG
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "AdminUser/get_all_users", $sql);
+                writeLog(INFO_LOG, "AdminUser/get_all_users", json_encode($paramsDB));
             }
 
             $data['users'] = $db->getData($sql);
@@ -50,18 +57,24 @@ class AdminUser
         $db = new PDODB();
         $data = array();
         $data['show_message_info'] = true;
+        $paramsDB = array();
 
         try {
 
             $sql = "UPDATE users ";
             $sql .= "SET baneado = 1 ";
-            $sql .= "WHERE id = " . $params['id_user'];
+            $sql .= "WHERE id = ? ";
+
+            $paramsDB = array(
+                $params['id_user']
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "AdminUser/ban_user", $sql);
+                writeLog(INFO_LOG, "AdminUser/ban_user", json_encode($paramsDB));
             }
 
-            $data['success'] = $db->executeInstruction($sql);
+            $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             if ($data['success']) {
                 $data['message'] = "Usuario baneado correctamente";
@@ -84,17 +97,23 @@ class AdminUser
         $db = new PDODB();
         $data = array();
         $data['show_message_info'] = true;
+        $paramsDB = array();
 
         try {
             $sql = "UPDATE users ";
             $sql .= "SET baneado = 0 ";
-            $sql .= "WHERE id = " . $params['id_user'];
+            $sql .= "WHERE id = ? ";
+
+            $paramsDB = array(
+                $params['id_user']
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "AdminUser/no_ban_user", $sql);
+                writeLog(INFO_LOG, "AdminUser/no_ban_user", json_encode($paramsDB));
             }
 
-            $data['success'] = $db->executeInstruction($sql);
+            $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             if ($data['success']) {
                 $data['message'] = "Usuario des baneado correctamente";
@@ -117,18 +136,24 @@ class AdminUser
         $db = new PDODB();
         $data = array();
         $data['show_message_info'] = true;
+        $paramsDB = array();
 
         try {
 
             $sql = "UPDATE users ";
             $sql .= "SET borrado = 1 ";
-            $sql .= "WHERE id = " . $params['id_user'];
+            $sql .= "WHERE id = ? ";
+
+            $paramsDB = array(
+                $params['id_user']
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "AdminUser/act_user", $sql);
+                writeLog(INFO_LOG, "AdminUser/act_user", json_encode($paramsDB));
             }
 
-            $data['success'] = $db->executeInstruction($sql);
+            $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             if ($data['success']) {
                 $data['message'] = "Usuario activado correctamente";
@@ -152,18 +177,24 @@ class AdminUser
         $db = new PDODB();
         $data = array();
         $data['show_message_info'] = true;
+        $paramsDB = array();
 
         try {
 
             $sql = "UPDATE users ";
             $sql .= "SET borrado = 0 ";
-            $sql .= "WHERE id = " . $params['id_user'];
+            $sql .= "WHERE id = ? ";
+
+            $paramsDB = array(
+                $params['id_user']
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "AdminUser/no_act_user", $sql);
+                writeLog(INFO_LOG, "AdminUser/no_act_user", json_encode($paramsDB));
             }
 
-            $data['success'] = $db->executeInstruction($sql);
+            $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             if ($data['success']) {
                 $data['message'] = "Usuario desactivado correctamente";

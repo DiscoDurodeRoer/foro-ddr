@@ -11,14 +11,11 @@ class Search
     {
 
         $db = new PDODB();
-
         $data = array();
+        $paramsDB = array();
 
         try {
             $wordsSearched = explode(';', $params['searched']);
-
-            writeLog(INFO_LOG, "Search/wordsearched", json_encode($wordsSearched));
-
 
             $sql = "SELECT * ";
             $sql .= "FROM topics ";
@@ -26,7 +23,8 @@ class Search
 
             for ($i = 0; $i < count($wordsSearched); $i++) {
                 if (!empty($wordsSearched[$i])) {
-                    $sql .= " title LIKE '%" . $wordsSearched[$i] . "%' ";
+                    $sql .= " title LIKE ? ";
+                    array_push($paramsDB, "%" . $wordsSearched[$i] . "%");
                     if ($i !== count($wordsSearched) - 1) {
                         $sql .= " OR ";
                     }
@@ -34,11 +32,12 @@ class Search
             }
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Search/search_topics", $sql);
+                writeLog(INFO_LOG, "Search/search_topics", json_encode($paramsDB));
             }
 
-            $data['topics'] = $db->getData($sql);
+            $data['topics'] = $db->getDataPrepared($sql, $paramsDB);
 
-            $data['has_results'] = $db->numRows($sql);
+            $data['has_results'] = $db->numRowsPrepared($sql, $paramsDB);
         } catch (Exception $e) {
             $data['show_message_info'] = true;
             $data['success'] = false;
@@ -47,7 +46,6 @@ class Search
         }
 
         $db->close();
-
         return $data;
     }
 }

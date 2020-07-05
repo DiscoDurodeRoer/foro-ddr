@@ -13,47 +13,55 @@ class Category
         $db = new PDODB();
         $data = array();
         $data['category'] = array();
+        $paramsDB = array();
 
         try {
 
             $sql = "SELECT * ";
             $sql .= "FROM categories ";
-            if (isset($params[':id_cat_parent'])) {
-                $sql .= "WHERE id = :id_cat_parent or parent_cat = :id_cat_parent ";
+            if (isset($params['id_cat_parent'])) {
+                $sql .= "WHERE id = ? or parent_cat = ? ";
+
+                $paramsDB = array(
+                    $params['id_cat_parent'],
+                    $params['id_cat_parent']
+                );
             }
             $sql .= "ORDER BY name";
 
+
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Category/get_categories", $sql);
-                writeLog(INFO_LOG, "Category/get_categories", json_encode($params));
+                writeLog(INFO_LOG, "Category/get_categories", json_encode($paramsDB));
             }
 
-            $datadb = $db->getDataPrepared($sql, $params);
+            $datadb = $db->getDataPrepared($sql, $paramsDB);
 
-            if (isset($params[':id_cat_parent'])) {
+            if (isset($params['id_cat_parent'])) {
                 foreach ($datadb  as $key => $value) {
-                    if ($value['id'] == $params[':id_cat_parent']) {
+                    if ($value['id'] == $params['id_cat_parent']) {
                         $data['category'] = $value;
                     }
                 }
 
-                
-                writeLog(INFO_LOG, "DATADB Category/get_categories", json_encode($datadb));
-
                 $sql = "SELECT DISTINCT c.id, c.name ";
                 $sql .= "FROM categories_child cch, categories c ";
                 $sql .= "WHERE c.id = cch.id_cat_parent ";
-                $sql .= "AND cch.id_cat = :id_cat_parent ";
+                $sql .= "AND cch.id_cat = ? ";
                 $sql .= "ORDER BY level";
+
+                $paramsDB = array(
+                    $params['id_cat_parent']
+                );
 
                 if (isModeDebug()) {
                     writeLog(INFO_LOG, "Category/get_categories", $sql);
-                    writeLog(INFO_LOG, "Category/get_categories", json_encode($params));
+                    writeLog(INFO_LOG, "Category/get_categories", json_encode($paramsDB));
                 }
 
-                $parents = $db->getDataPrepared($sql, $params);
+                $parents = $db->getDataPrepared($sql, $paramsDB);
 
-                $numRows = $db->numRowsPrepared($sql, $params);
+                $numRows = $db->numRowsPrepared($sql, $paramsDB);
 
                 if ($numRows > 0) {
 

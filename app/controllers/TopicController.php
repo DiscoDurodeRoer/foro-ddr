@@ -17,8 +17,8 @@ class TopicController extends Controller
         if (isset($id_cat)) {
 
             $params = array(
-                'id_cat' => filter_var($id_cat, FILTER_SANITIZE_NUMBER_INT),
-                'page' => filter_var($page, FILTER_VALIDATE_INT)
+                'id_cat' => intval(filter_var($id_cat, FILTER_SANITIZE_NUMBER_INT)),
+                'page' => intval(filter_var($page, FILTER_VALIDATE_INT))
             );
 
             $data = $this->model->get_topics($params);
@@ -64,7 +64,7 @@ class TopicController extends Controller
             $params = array(
                 'id_user' => $session->getAttribute(SESSION_ID_USER),
                 'title_topic' => $_POST['title'],
-                'id_cat' => filter_var($_POST['id_cat'], FILTER_SANITIZE_NUMBER_INT),
+                'id_cat' => intval(filter_var($_POST['id_cat'], FILTER_SANITIZE_NUMBER_INT)),
                 'text' => trim($_POST['text'])
             );
 

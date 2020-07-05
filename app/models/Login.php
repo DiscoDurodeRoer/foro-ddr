@@ -12,6 +12,7 @@ class Login
 
         $db = new PDODB();
         $data = array();
+        $paramsDB = array();
 
         try {
 
@@ -31,18 +32,25 @@ class Login
 
                 $sql = "SELECT id, nickname, rol ";
                 $sql .= "FROM users ";
-                $sql .= "WHERE (nickname = '" . strtolower($params['nick_email']) . "' or ";
-                $sql .= "email = '" . strtolower($params['nick_email']) . "') and ";
-                $sql .= "pass = '" . hash_hmac("sha512", $params['pass'], HASH_PASS_KEY) . "' ";
+                $sql .= "WHERE (nickname = ? OR ";
+                $sql .= "email = ?) AND ";
+                $sql .= "pass = ? ";
                 $sql .= "and borrado <> 1 and verificado = 1";
+
+                $paramsDB = array(
+                    strtolower($params['nick_email']),
+                    strtolower($params['nick_email']),
+                    hash_hmac("sha512", $params['pass'], HASH_PASS_KEY)
+                );
 
                 if (isModeDebug()) {
                     writeLog(INFO_LOG, "Login/checkLogin", $sql);
+                    writeLog(INFO_LOG, "Login/checkLogin", json_encode($paramsDB));
                 }
 
-                $data = $db->getDataSingle($sql);
+                $data = $db->getDataSinglePrepared($sql, $paramsDB);
 
-                if ($db->numRows($sql) > 0) {
+                if ($db->numRowsPrepared($sql, $paramsDB) > 0) {
                     $data['success'] = true;
                     $data['user'] = array('id' => $data['id'], 'nickname' => $data['nickname'], 'rol' => $data['rol']);
                 } else {
@@ -59,7 +67,6 @@ class Login
         }
 
         $db->close();
-
         return $data;
     }
 
@@ -68,32 +75,41 @@ class Login
         $db = new PDODB();
         $data = array();
         $data['show_message_info'] = true;
+        $paramsDB = array();
 
         try {
 
             $sql = "SELECT id, email ";
             $sql .= "FROM users ";
-            $sql .= "WHERE email = '" . $params['email'] . "'";
+            $sql .= "WHERE email = ? ";
+
+            $paramsDB = array(
+                $params['email']
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Login/sendNotificationRememeber", $sql);
+                writeLog(INFO_LOG, "Login/sendNotificationRememeber", json_encode($paramsDB));
             }
 
-            if ($db->numRows($sql) > 0) {
+            if ($db->numRowsPrepared($sql, $paramsDB) > 0) {
 
-                $id = $db->getDataSingleProp($sql, "id");
+                $id = $db->getDataSinglePropPrepared($sql, "id", $paramsDB);
 
                 $key = generateUserKey();
 
-                $sql = "INSERT INTO users_remember VALUES (";
-                $sql .= $id . ", ";
-                $sql .= "'" . $key . "'";
-                $sql .= ")";
+                $sql = "INSERT INTO users_remember VALUES (?,?)";
 
-                $db->executeInstruction($sql);
+                $paramsDB = array(
+                    $id,
+                    $key
+                );
+
+                $db->executeInstructionPrepared($sql, $paramsDB);
 
                 if (isModeDebug()) {
                     writeLog(INFO_LOG, "Login/sendNotificationRememeber", $sql);
+                    writeLog(INFO_LOG, "Login/sendNotificationRememeber", json_encode($paramsDB));
                 }
 
                 sendEmail($params['email'], "Cambio de contraseña Foro DDR", "Se ha solicitado un cambio de contraseña, puedes hacerlo desde <a href='" . PAGE_URL . "index.php?url=UserController/edit_password/" . $key . "'>aqui</a>");

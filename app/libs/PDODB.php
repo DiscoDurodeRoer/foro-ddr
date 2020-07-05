@@ -16,7 +16,7 @@ class PDODB
         $opciones = array(
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
             PDO::MYSQL_ATTR_FOUND_ROWS => true,
-            // PDO::ATTR_EMULATE_PREPARES => false,
+            PDO::ATTR_EMULATE_PREPARES => false,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         );
 
@@ -50,7 +50,7 @@ class PDODB
 
     function getDataPrepared($sql, $params)
     {
-        
+
         $data = array();
         $result = $this->connection->prepare($sql);
 
@@ -131,14 +131,66 @@ class PDODB
         return null;
     }
 
-    function executeInstruction($sql)
+    function getDataSinglePrepared($sql, $params)
+    {
+
+        $result = $this->connection->prepare($sql);
+
+        $error = $this->connection->errorInfo();
+
+        if ($error[0] === "00000") {
+            $result->execute($params);
+            if ($result->rowCount() > 0) {
+                return $result->fetch(PDO::FETCH_ASSOC);
+            }
+        } else {
+            throw new Exception($error[2]);
+        }
+        return null;
+    }
+
+
+    function getDataSinglePropPrepared($sql, $prop, $params)
     {
 
         $result = $this->connection->prepare($sql);
         $error = $this->connection->errorInfo();
 
         if ($error[0] === "00000") {
+            $result->execute($params);
+            if ($result->rowCount() > 0) {
+                $data = $result->fetch(PDO::FETCH_ASSOC);
+                return $data[$prop];
+            }
+        } else {
+            throw new Exception($error[2]);
+        }
+        return null;
+    }
+
+    function executeInstruction($sql)
+    {
+
+        $result = $this->connection->query($sql);
+        $error = $this->connection->errorInfo();
+
+        if ($error[0] === "00000") {
             $result->execute();
+            return $result->rowCount() > 0;
+        } else {
+            throw new Exception($error[2]);
+        }
+    }
+
+
+    function executeInstructionPrepared($sql, $params)
+    {
+
+        $result = $this->connection->prepare($sql);
+        $error = $this->connection->errorInfo();
+
+        if ($error[0] === "00000") {
+            $result->execute($params);
             return $result->rowCount() > 0;
         } else {
             throw new Exception($error[2]);
