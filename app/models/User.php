@@ -190,7 +190,11 @@ class User
             if ($success) {
                 $data['message'] = "Su registro se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
 
-                sendEmail($params['email'], "Validación Cuenta Foro DDR", "Debes validar tu cuenta desde este enlace. <a href='" . PAGE_URL . "index.php?url=UserController/verification/" . $key . "'>Pulsa el link para validar tu cuenta.</a>");
+                $paramsEmail = array(
+                    'key' => $key
+                );
+
+                sendEmail($params['email'], "Validación cuenta Foro DDR", TEMPLATE_NEW_ACCOUNT_NEED_VERIFICATION, $paramsEmail);
             } else {
                 $data['message'] = "Su registro no se ha realizado con éxito. Contacte con discoduroderoer desde este <a href='https://www.discoduroderoer.es/contactanos/'>formulario</a>.";
             }
@@ -446,7 +450,7 @@ class User
 
                     $data['message'] = "¡Has sido verificado! ¡Bienvenido a Foro DDR!";
 
-                    sendEmail($email, "¡Bienvenido al Foro DDR!", "Bienvenido al foro DDR");
+                    sendEmail($email, "¡Bienvenido al Foro DDR!", TEMPLATE_NEW_ACCOUNT_SUCCESS);
 
                     $data['user'] = array(
                         'id' => $id,
@@ -500,7 +504,11 @@ class User
                 $dataUserActivation = $db->getDataSinglePrepared($sql, $paramsDB);
                 $data['success'] = true;
                 $data['message'] = "Se ha reenviado el correo de activación";
-                sendEmail($params['email'], "Validación Cuenta Foro DDR", "Debes validar tu cuenta desde este enlace. <a href='" . PAGE_URL . "index.php?url=UserController/verification/" . $dataUserActivation['user_key'] . "'>Pulsa el link para validar tu cuenta.</a>");
+                $paramsEmail = array(
+                    'key' => $dataUserActivation['user_key']
+                );
+
+                sendEmail($params['email'], "Validación cuenta Foro DDR", TEMPLATE_NEW_ACCOUNT_NEED_VERIFICATION, $paramsEmail);
             } else {
                 $data['success'] = false;
                 $data['message'] = "No existe el correo o ya estas verificado";

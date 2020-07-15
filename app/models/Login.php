@@ -112,7 +112,16 @@ class Login
                     writeLog(INFO_LOG, "Login/sendNotificationRememeber", json_encode($paramsDB));
                 }
 
-                sendEmail($params['email'], "Cambio de contraseña Foro DDR", "Se ha solicitado un cambio de contraseña, puedes hacerlo desde <a href='" . PAGE_URL . "index.php?url=UserController/edit_password/" . $key . "'>aqui</a>");
+                $paramsEmail = array(
+                    'key' => $key
+                );
+
+                sendEmail(
+                    $params['email'],
+                    "Cambio de contraseña Foro DDR",
+                    TEMPLATE_EDIT_PASSWORD,
+                    $paramsEmail
+                );
 
                 $data['success'] = true;
                 $data['message'] = "Se ha enviado un correo para poder cambiar la contraseña";

@@ -42,3 +42,9 @@ define("EMAIL_PASS", "407377b27bbf2c");
 define("EMAIL_SMTPSECURE", "tls");
 define("EMAIL_PORT", 2525);
 define("EMAIL_ADMIN", 'ddr-288a24@inbox.mailtrap.io');
+
+// Plantillas
+
+define("TEMPLATE_NEW_ACCOUNT_NEED_VERIFICATION", __DIR__ . "/../templates_email/create_new_account_need_verification.html");
+define("TEMPLATE_NEW_ACCOUNT_SUCCESS", __DIR__ . "/../templates_email/create_new_account_success.html");
+define("TEMPLATE_EDIT_PASSWORD", __DIR__ . "/../templates_email/edit_password.html");

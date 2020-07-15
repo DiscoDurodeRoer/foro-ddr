@@ -87,7 +87,7 @@ function generateUserKey()
 }
 
 
-function sendEmail($email, $subject, $message)
+function sendEmail($email, $subject, $template, $params = null)
 {
 
     $mail = new PHPMailer();
@@ -100,11 +100,21 @@ function sendEmail($email, $subject, $message)
     $mail->Port = EMAIL_PORT;
     $mail->setFrom(EMAIL_ADMIN);
     $mail->addAddress($email);
-    $mail->Subject  = $subject;
+    $mail->Subject = utf8_decode($subject);
     $mail->isHTML(true);
-    $mail->Body     = $message;
+
+    $content = file_get_contents($template);
+
+    if (isset($params)) {
+        foreach ($params as $key => $value) {
+            $content = str_replace("{{" . $key . "}}", $value, $content);
+        }
+    }
+
+    $mail->Body = utf8_decode($content);
+
     if (!$mail->send()) {
-        writeLog(ERROR_LOG, "functions/sendEmail", "No se envido el mensaje" . $mail->ErrorInfo);
+        writeLog(ERROR_LOG, "functions/sendEmail", "No se enviado el mensaje: " . $mail->ErrorInfo);
         return false;
     } else {
         if (isModeDebug()) {
