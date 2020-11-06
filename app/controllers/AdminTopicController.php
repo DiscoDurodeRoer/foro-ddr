@@ -17,7 +17,7 @@ class AdminTopicController extends Controller
         isLogged();
 
         $params = array(
-            'page' => filter_var($page, FILTER_VALIDATE_INT)
+            'page' => intval(filter_var($page, FILTER_SANITIZE_NUMBER_INT))
         );
 
         $data = $this->model->get_topics($params);

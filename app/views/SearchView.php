@@ -24,7 +24,7 @@ include_once 'header.php';
                 foreach ($data['topics'] as $key => $value) {
                     echo "<tr>";
 
-                    echo "<td><a href='index.php?url=MessageController/display/" . $value['id'] . "'>" . $value['title'] . "</a></td>";
+                    echo "<td><a href='/foro-ddr/reply/" . $value['id'] . "'>" . $value['title'] . "</a></td>";
               
                     echo "</tr>";
                 }

@@ -21,7 +21,7 @@ class SearchController extends Controller
                 writeLog(INFO_LOG, "SearchController/proccess_search", $searchProcess);
             }
 
-            redirect_to_url("index.php?url=SearchController/display/" . $searchProcess);
+            redirect_to_url("/foro-ddr/busqueda/" . $searchProcess);
         }
     }
 

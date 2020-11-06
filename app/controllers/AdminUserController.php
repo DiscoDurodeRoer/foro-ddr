@@ -15,7 +15,7 @@ class AdminUserController extends Controller
         isLogged();
 
         $params = array(
-            'page' => filter_var($page, FILTER_VALIDATE_INT)
+            'page' => intval(filter_var($page, FILTER_SANITIZE_NUMBER_INT))
         );
 
         $data = $this->model->get_all_users($params);
@@ -32,14 +32,22 @@ class AdminUserController extends Controller
         isLogged();
 
         $params = array(
-            'id_user' => filter_var($id_user, FILTER_SANITIZE_NUMBER_INT)
+            'id_user' => intval(filter_var($id_user, FILTER_SANITIZE_NUMBER_INT))
         );
 
         $data = $this->model->ban_user($params);
 
-        $users = $this->model->get_all_users();
+        $params = array(
+            'page' => 1
+        );
+
+        $users = $this->model->get_all_users($params);
 
         $data['users'] = $users['users'];
+        $data['pag'] = $users['pag'];
+        $data['last_page'] = $users['last_page'];
+        $data['num_elems'] = $users['num_elems'];
+        $data['url_base'] = $users['url_base'];
 
         if (isModeDebug()) {
             writeLog(INFO_LOG, "AdminUserController/ban_user", json_encode($data));
@@ -53,14 +61,22 @@ class AdminUserController extends Controller
         isLogged();
 
         $params = array(
-            'id_user' => filter_var($id_user, FILTER_SANITIZE_NUMBER_INT)
+            'id_user' => intval(filter_var($id_user, FILTER_SANITIZE_NUMBER_INT))
         );
 
         $data = $this->model->no_ban_user($params);
 
-        $users = $this->model->get_all_users();
+        $params = array(
+            'page' => 1
+        );
+
+        $users = $this->model->get_all_users($params);
 
         $data['users'] = $users['users'];
+        $data['pag'] = $users['pag'];
+        $data['last_page'] = $users['last_page'];
+        $data['num_elems'] = $users['num_elems'];
+        $data['url_base'] = $users['url_base'];
 
         if (isModeDebug()) {
             writeLog(INFO_LOG, "AdminUserController/no_ban_user", json_encode($data));
@@ -74,14 +90,22 @@ class AdminUserController extends Controller
         isLogged();
 
         $params = array(
-            'id_user' => filter_var($id_user, FILTER_SANITIZE_NUMBER_INT)
+            'id_user' => intval(filter_var($id_user, FILTER_SANITIZE_NUMBER_INT))
         );
 
         $data = $this->model->no_act_user($params);
 
-        $users = $this->model->get_all_users();
+        $params = array(
+            'page' => 1
+        );
+
+        $users = $this->model->get_all_users($params);
 
         $data['users'] = $users['users'];
+        $data['pag'] = $users['pag'];
+        $data['last_page'] = $users['last_page'];
+        $data['num_elems'] = $users['num_elems'];
+        $data['url_base'] = $users['url_base'];
 
         if (isModeDebug()) {
             writeLog(INFO_LOG, "AdminUserController/no_act_user", json_encode($data));
@@ -95,14 +119,22 @@ class AdminUserController extends Controller
         isLogged();
 
         $params = array(
-            'id_user' => filter_var($id_user, FILTER_SANITIZE_NUMBER_INT)
+            'id_user' => intval(filter_var($id_user, FILTER_SANITIZE_NUMBER_INT))
         );
 
         $data = $this->model->act_user($params);
+        
+        $params = array(
+            'page' => 1
+        );
 
-        $users = $this->model->get_all_users();
+        $users = $this->model->get_all_users($params);
 
         $data['users'] = $users['users'];
+        $data['pag'] = $users['pag'];
+        $data['last_page'] = $users['last_page'];
+        $data['num_elems'] = $users['num_elems'];
+        $data['url_base'] = $users['url_base'];
 
         if (isModeDebug()) {
             writeLog(INFO_LOG, "AdminUserController/act_user", json_encode($data));

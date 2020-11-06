@@ -53,7 +53,7 @@ class NoReadMessagesPublic
             // Paginacion
             $data["pag"] = $params['page'];
             $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
-            $data['url_base'] = "NoReadMessagesPublicController/display/" . $data['id_topic'];
+            $data['url_base'] = "/foro-ddr/mensajes-no-leidos/" . $data['id_topic'];
 
             $data['has_messages'] = count($data['no_read_messages']) > 0;
 

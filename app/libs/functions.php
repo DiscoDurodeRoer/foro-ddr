@@ -123,3 +123,19 @@ function sendEmail($email, $subject, $template, $params = null)
         return true;
     }
 }
+
+function stringToPath($pathOrigin)
+{
+
+    $characters = array(
+        " " => "-",
+        "ñ" => "n",
+        "á" => "a",
+        "é" => "e",
+        "í" => "i",
+        "ó" => "o",
+        "ú" => "u"
+    );
+
+    return strtr(strtolower($pathOrigin), $characters);
+}

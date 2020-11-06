@@ -32,19 +32,20 @@ class AdminUser
                 writeLog(INFO_LOG, "AdminUser/get_all_users", json_encode($paramsDB));
             }
 
-            $data['users'] = $db->getData($sql);
+            $data['users'] = $db->getDataPrepared($sql, $paramsDB);
 
             // Paginacion
             $data["pag"] = $params['page'];
             $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
-            $data['url_base'] = "AdminUserController/display";
+            $data['url_base'] = "/foro-ddr/admin/user";
+
 
             $data['success'] = true;
         } catch (Exception $e) {
             $data['show_message_info'] = true;
             $data['success'] = false;
             $data['message'] = ERROR_GENERAL;
-            writeLog(ERROR_LOG, "AdminTopic/get_all_users", $e->getMessage());
+            writeLog(ERROR_LOG, "AdminUser/get_all_users", $e->getMessage());
         }
 
         $db->close();

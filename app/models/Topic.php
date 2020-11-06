@@ -46,10 +46,15 @@ class Topic
             $data['topics'] = $db->getDataPrepared($sql, $paramsDB);
             $data['id_cat'] = $params['id_cat'];
 
+            foreach ($data['topics'] as $key => $value) {
+                $data['topics'][$key]['path'] = $value['id'] . '-' . stringToPath($value['title']);
+            }
+
+
             // Paginacion
             $data["pag"] = $params['page'];
             $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
-            $data['url_base'] = "TopicController/display/" . $data['id_cat'];
+            $data['url_base'] = "/foro-ddr/topic/" . $data['id_cat'];
 
             $sql = "SELECT name ";
             $sql .= "FROM categories ";
@@ -87,7 +92,7 @@ class Topic
 
                     $breadcumb = new BreadCumb(
                         $value['name'],
-                        'index.php?url=CategoryController/display/' . $value['id'],
+                        '/foro-ddr/category/' . $value['id'] . '-' . stringToPath($value['name']),
                         null,
                         $key < ($numRows - 1)
                     );
@@ -188,7 +193,7 @@ class Topic
                 $data['success'] = $success;
 
                 if ($data['success']) {
-                    $data['message'] = "El topic se ha creado correctamente. Pulsa <a href='index.php?url=MessageController/display/" . $data['id_topic'] . "'>aquí</a> para ir al topic.";
+                    $data['message'] = "El topic se ha creado correctamente. Pulsa <a href='/foro-ddr/reply/" . $data['id_topic'] . "'>aquí</a> para ir al topic.";
                 } else {
                     $data['message'] = "El topic no se creo correctamente.";
                 }

@@ -43,7 +43,7 @@ include_once 'header.php';
                         if ($data['login'] && $data['open_topic']) {
                         ?>
                             <div class="col-md-2 col-12 mt-2">
-                                <a class="btn btn-primary btn-block btn-icon" href="index.php?url=MessageController/display_reply_topic/<?php echo $data['id_topic']; ?>">
+                                <a class="btn btn-primary btn-block btn-icon" href="/foro-ddr/responder-mensaje-form/<?php echo $data['id_topic']; ?>">
                                     <i class="fa fa-comment" aria-hidden="true"></i> Responder
                                 </a>
                             </div>
@@ -129,7 +129,7 @@ include_once 'header.php';
                                 <div class="row">
                                     <div class="col-12">
 
-                                        <form class="reply-fast" action="index.php?url=MessageController/reply_topic" method="POST" novalidate>
+                                        <form class="reply-fast" action="/foro-ddr/responder-mensaje" method="POST" novalidate>
 
                                             <input type="hidden" name="id_topic" value="<?php echo $data['id_topic']; ?>">
 
@@ -162,7 +162,7 @@ include_once 'header.php';
         <?php
         } else if (isset($data['reply_message'])) {
         ?>
-            <form action="index.php?url=MessageController/reply_topic" method="POST" novalidate>
+            <form action="/foro-ddr/responder-mensaje" method="POST" novalidate>
 
                 <input type="hidden" name="id_topic" value="<?php echo $data['id_topic']; ?>">
 

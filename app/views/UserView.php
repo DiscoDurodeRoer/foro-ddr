@@ -13,7 +13,7 @@ include_once 'header.php';
 
         ?>
 
-            <form id="formUser" action="index.php?url=UserController/<?php echo isset($data['registry']) ? 'registrer' : 'edit_profile'; ?>/" method="POST">
+            <form id="formUser" action="/foro-ddr/<?php echo isset($data['registry']) ? 'register' : 'editar-perfil'; ?>" method="POST">
 
                 <?php
                 if (isset($data['edit_profile'])) {
@@ -48,7 +48,7 @@ include_once 'header.php';
                     </div>
                     <div class="col-md-6 col-12">
                         <label for="email">Email (*)</label>
-                        <input type="text" name="email" class="form-control" id="email" maxlength="40" value="<?php if (isset($data['info_user'])) {
+                        <input type="text" name="email" readonly="<?php $data['edit_profile'] ?>" class="form-control" id="email" maxlength="40" value="<?php if (isset($data['info_user'])) {
                                                                                                                     echo $data['info_user']['email'];
                                                                                                                 } ?>" />
                         <div class="valid-feedback">
@@ -102,7 +102,7 @@ include_once 'header.php';
                 </div>
 
                 <div class="row form-group">
-                    <a href="index.php?url=UserController/display_verification/">¿Ya te has registrado y no te ha llegado el correo de activación? Pulsa aquí para reenviar correo.</a>
+                    <a href="/foro-ddr/verificacion-form">¿Ya te has registrado y no te ha llegado el correo de activación? Pulsa aquí para reenviar correo.</a>
                 </div>
 
             </form>
@@ -111,7 +111,7 @@ include_once 'header.php';
         } else if (isset($data['form_verification'])) {
         ?>
 
-            <form action="index.php?url=UserController/resend_confirmation/" method="POST">
+            <form action="/foro-ddr/reenviar-confirmacion" method="POST">
 
                 <div class="row form-group">
                     <div class="col-12">
@@ -199,19 +199,19 @@ include_once 'header.php';
 
                             <div class="row">
                                 <div class="col-12 text-right">
-                                    <a class="btn btn-success btn-icon" href="index.php?url=UserController/display_topics_user/">
+                                    <a class="btn btn-success btn-icon" href="/foro-ddr/participaciones-topics">
                                         <i class="fa fa-eye" aria-hidden="true"></i> Participaciones en topics
                                     </a>
-                                    <a class="btn btn-success btn-icon" href="index.php?url=UserController/display_edit_profile/">
+                                    <a class="btn btn-success btn-icon" href="/foro-ddr/editar-perfil-form">
                                         <i class="fa fa-pencil" aria-hidden="true"></i> Editar perfil
                                     </a>
-                                    <a class="btn btn-success btn-icon" href="index.php?url=UserController/edit_password/">
+                                    <a class="btn btn-success btn-icon" href="/foro-ddr/editar-password-form">
                                         <i class="fa fa-key" aria-hidden="true"></i></i> Cambiar contraseña
                                     </a>
                                     <?php
                                     if ($data['info_user']['rol'] != 1) {
                                     ?>
-                                        <a class="btn btn-danger btn-icon" href="index.php?url=UserController/display_unsubscribe/">
+                                        <a class="btn btn-danger btn-icon" href="/foro-ddr/desuscribirse-confirm">
                                             <i class="fa fa-user-times" aria-hidden="true"></i> Darse de baja
                                         </a>
                                     <?php
@@ -231,7 +231,7 @@ include_once 'header.php';
 
         ?>
 
-            <form action="index.php?url=UserController/change_password/" method="POST">
+            <form action="/foro-ddr/change_password" method="POST">
 
                 <?php
                 if (isset($data['user_key'])) {
@@ -287,10 +287,10 @@ include_once 'header.php';
 
                     <div class="row">
                         <div class="col-12">
-                            <a class="btn btn-success btn-icon" href="index.php?url=UserController/unsubscribe/">
+                            <a class="btn btn-success btn-icon" href="/foro-ddr/desuscribirse">
                                 <i class="fa fa-check" aria-hidden="true"></i> Si
                             </a>
-                            <a class="btn btn-danger btn-icon" href="index.php?url=UserController/no_unsubscribe/">
+                            <a class="btn btn-danger btn-icon" href="/foro-ddr/no-desuscribirse">
                                 <i class="fa fa-times" aria-hidden="true"></i> No
                             </a>
                         </div>
@@ -329,7 +329,7 @@ include_once 'header.php';
                     foreach ($data['topics_user'] as $key => $value) {
                         echo "<tr>";
 
-                        echo "<td><a href='index.php?url=MessageController/display/" . $value['id_topic'] . "'>" . $value['title'] . "</a></td>";
+                        echo "<td><a href='/foro-ddr/reply/" . $value['id_topic'] . "'>" . $value['title'] . "</a></td>";
                         echo "<td>" . $value['date_last_message'] . "</td>";
                         echo "<td>" . $value['num_post'] . "</td>";
 

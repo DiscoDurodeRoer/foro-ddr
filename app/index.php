@@ -1,6 +1,8 @@
 <?php
     require_once("libs/Session.php");
-    require_once("libs/Control.php");
+    require_once('libs/RouterLoader.php');
+    require_once('libs/Route.php');
+    require_once('libs/Router.php');
     require_once("libs/Controller.php");
     require_once("libs/PDODB.php");
     require_once("libs/MySQLDB.php");
@@ -14,4 +16,6 @@
     require_once('libs/PHPMailer/Exception.php');
     require_once('libs/PHPMailer/OAuth.php');
     require_once('libs/PHPMailer/PHPMailer.php');
+
+
 ?>

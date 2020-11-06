@@ -90,7 +90,7 @@ class MessageController extends Controller
                 }
 
                 if ($data['success']) {
-                    redirect_to_url("/foro-ddr/index.php?url=MessageController/display/" . $params['id_topic']);
+                    redirect_to_url("/foro-ddr/reply/" . $params['id_topic']);
                 } else {
                     $this->view("MessageView", $data);
                 }

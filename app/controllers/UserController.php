@@ -139,9 +139,8 @@ class UserController extends Controller
         $this->view("UserView", $data);
     }
 
-    function registrer()
+    function register()
     {
-
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
             $data = array();
@@ -156,6 +155,8 @@ class UserController extends Controller
             );
 
             $errors = $this->model->checkErrors($params);
+
+            echo "Hola";
 
             if (count($errors) === 0) {
 
@@ -177,7 +178,7 @@ class UserController extends Controller
             }
 
             if (isModeDebug()) {
-                writeLog(INFO_LOG, "UserController/registrer", json_encode($data));
+                writeLog(INFO_LOG, "UserController/register", json_encode($data));
             }
 
             $this->view("UserView", $data);
@@ -293,24 +294,24 @@ class UserController extends Controller
         $this->view("UserView", $data);
     }
 
-    public function resend_confirmation(){
+    public function resend_confirmation()
+    {
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
             $params = array(
                 'email' => $_POST['email']
             );
-    
-            $data = $this->model->resend_confirmation($params);
-        
-            $this->view("UserView", $data);
 
+            $data = $this->model->resend_confirmation($params);
+
+            $this->view("UserView", $data);
         }
     }
 
     function no_unsubscribe()
     {
-        header("Location: index.php?url=UserController/display_profile/");
+        header("Location: /foro-ddr/profile");
     }
 
     function display_topics_user()

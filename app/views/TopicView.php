@@ -28,7 +28,7 @@ include_once 'header.php';
                         if ($data['login']) {
                         ?>
                             <div class="col-md-3 col-12">
-                                <a class="btn btn-primary btn-block btn-icon" href="index.php?url=TopicController/display_create_topic/<?php echo $data['id_cat']; ?>">
+                                <a class="btn btn-primary btn-block btn-icon" href="/foro-ddr/crear-topic-form/<?php echo $data['id_cat']; ?>">
                                     <i class="fa fa-plus-circle" aria-hidden="true"></i> Crear topic
                                 </a>
                             </div>
@@ -43,7 +43,7 @@ include_once 'header.php';
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">Topic</th>
-                                        <th scope="col">Vistas</th>
+                                        <!-- <th scope="col">Vistas</th> -->
                                         <th scope="col">Usuario creador</th>
                                         <th scope="col"></th>
                                     </tr>
@@ -56,12 +56,12 @@ include_once 'header.php';
                                             echo "<tr>";
                                     ?>
                                             <td>
-                                                <a href="index.php?url=MessageController/display/<?php echo $value['id'] ?>">
+                                                <a href="/foro-ddr/reply/<?php echo $value['path'] ?>">
                                                     <?php echo  $value['title']; ?>
                                                 </a>
                                             </td>
                                     <?php
-                                            echo "<td>" . $value['views'] . "</td>";
+                                            // echo "<td>" . $value['views'] . "</td>";
                                             echo "<td>" . $value['nickname'] . "</td>";
                                             if($value['open'] === FALSE){
                                                 echo "<td><i class='fa fa-lock'></i></td>";
@@ -91,7 +91,7 @@ include_once 'header.php';
                     <div class="row">
                         <div class="col-12">
 
-                            <form action="index.php?url=TopicController/create_topic/" method="POST" novalidate>
+                            <form action="/foro-ddr/crear-topic" method="POST" novalidate>
 
                                 <input type="hidden" name="id_cat" value="<?php echo $data['id_cat'] ?>" />
 

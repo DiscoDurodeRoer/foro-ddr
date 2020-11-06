@@ -40,7 +40,7 @@ class AdminTopic
             // Paginacion
             $data["pag"] = $params['page'];
             $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
-            $data['url_base'] = "AdminTopicController/display";
+            $data['url_base'] = "/foro-ddr/admin/topic";
 
             $data['success'] = true;
         } catch (Exception $e) {

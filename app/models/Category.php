@@ -70,7 +70,7 @@ class Category
                     foreach ($parents as $key => $value) {
                         $breadcumb = new BreadCumb(
                             $value['name'],
-                            'index.php?url=CategoryController/display/' . $value['id'],
+                            '/foro-ddr/category/' . $value['id'] . '-' . stringToPath($value['name']),
                             null,
                             $key < ($numRows - 1)
                         );
@@ -92,6 +92,10 @@ class Category
                 return $element['parent_cat'] === $id_cat_parent_child
                     && $element['id'] != $element['parent_cat'];
             });
+
+            foreach ($child as $key => $value) {
+                $child[$key]['path'] = $value['id'] . '-' . stringToPath($value['name']);
+            }
 
             $data['category']['child'] = $child;
         } catch (Exception $e) {

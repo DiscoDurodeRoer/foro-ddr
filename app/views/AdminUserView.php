@@ -9,7 +9,7 @@ require_once 'AdminView.php'
             <h1>Usuarios</h1>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-12">
             <?php include_once 'show-info-message.php'; ?>
@@ -31,6 +31,7 @@ require_once 'AdminView.php'
                 <?php
 
                 foreach ($data['users'] as $key => $value) {
+                    
                 ?>
                     <tr>
                         <td><?php echo $value['id']; ?></td>
@@ -38,17 +39,17 @@ require_once 'AdminView.php'
                         <td><?php echo $value['email']; ?></td>
 
                         <td><?php
-                            if ($value['rol'] === IS_USER) {
-                                if ($value['baneado'] === TRUE) {
+                            if ($value['rol'] == IS_USER) {
+                                if ($value['baneado'] == TRUE) {
                             ?>
 
-                                    <a class="btn btn-success btn-icon" title="Desbanear usuario" href="index.php?url=AdminUserController/no_ban_user/<?php echo $value['id']; ?>">
+                                    <a class="btn btn-success btn-icon" title="Desbanear usuario" href="/foro-ddr/admin/user/no-banear/<?php echo $value['id']; ?>">
                                         <i class="fa fa-check" aria-hidden="true"></i>
                                     </a>
                                 <?php
                                 } else {
                                 ?>
-                                    <a class="btn btn-danger btn-icon" title="Banear usuario" href="index.php?url=AdminUserController/ban_user/<?php echo $value['id']; ?>">
+                                    <a class="btn btn-danger btn-icon" title="Banear usuario" href="/foro-ddr/admin/user/banear/<?php echo $value['id']; ?>">
                                         <i class="fa fa-ban"></i>
                                     </a>
 
@@ -58,17 +59,17 @@ require_once 'AdminView.php'
 
                             ?></td>
                         <td><?php
-                            if ($value['rol'] === IS_USER) {
-                                if ($value['borrado'] === TRUE) {
+                            if ($value['rol'] == IS_USER) {
+                                if ($value['borrado'] == TRUE) {
                             ?>
 
-                                    <a class="btn btn-success btn-icon" title="Activar usuario" href="index.php?url=AdminUserController/no_act_user/<?php echo $value['id']; ?>">
+                                    <a class="btn btn-success btn-icon" title="Activar usuario" href="/foro-ddr/admin/user/desactivar/<?php echo $value['id']; ?>">
                                         <i class="fa fa-check" aria-hidden="true"></i>
                                     </a>
                                 <?php
                                 } else {
                                 ?>
-                                    <a class="btn btn-danger btn-icon" title="Desactivar usuario" href="index.php?url=AdminUserController/act_user/<?php echo $value['id']; ?>">
+                                    <a class="btn btn-danger btn-icon" title="Desactivar usuario" href="/foro-ddr/admin/user/activar/<?php echo $value['id']; ?>">
                                         <i class="fa fa-ban"></i>
                                     </a>
 
@@ -87,7 +88,7 @@ require_once 'AdminView.php'
     <div class="row">
         <div class="col-12">
             <?php
-                include_once "pagination-controls.php";
+            include_once "pagination-controls.php";
             ?>
         </div>
     </div>

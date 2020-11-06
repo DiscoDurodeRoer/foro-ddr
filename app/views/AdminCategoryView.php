@@ -17,7 +17,7 @@ require_once 'AdminView.php'
         <div class="row">
             <div class="col-12">
 
-                <form action="index.php?url=AdminCategoryController/<?php echo isset($data['category']) ? 'edit_category/' : 'create_category' ?>" method="POST">
+                <form action="/foro-ddr/admin/categorias/<?php echo isset($data['category']) ? 'editar-categoria/' : 'crear-categoria' ?>" method="POST">
 
                     <?php
                     if (isset($data['display_edit'])) {
@@ -103,7 +103,7 @@ require_once 'AdminView.php'
                 <h1>Categorias</h1>
             </div>
             <div class="col-md-3 col-12">
-                <a class="btn btn-primary btn-icon btn-block" href="index.php?url=AdminCategoryController/display_create">
+                <a class="btn btn-primary btn-icon btn-block" href="/foro-ddr/admin/categorias/crear-categoria-form">
                     <i class="fa fa-plus" aria-hidden="true"></i> Crear Categoria
                 </a>
             </div>
@@ -152,7 +152,7 @@ require_once 'AdminView.php'
                                 <td><?php echo $value['icon']; ?></td>
                                 <td><?php echo $value['num_topics']; ?></td>
                                 <td>
-                                    <a class="btn btn-primary btn-icon" href="index.php?url=AdminCategoryController/display_edit/<?php echo $value['id']; ?>">
+                                    <a class="btn btn-primary btn-icon" href="/foro-ddr/admin/categorias/editar-categoria-form/<?php echo $value['id']; ?>">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>
                                 </td>
@@ -160,7 +160,7 @@ require_once 'AdminView.php'
                                     <?php
                                     if ($value['has_child'] == 0 && $value['num_topics'] == 0) {
                                     ?>
-                                        <a class="btn btn-danger btn-icon" href="index.php?url=AdminCategoryController/delete_category/<?php echo $value['id']; ?>">
+                                        <a class="btn btn-danger btn-icon" href="/foro-ddr/admin/categorias/eliminar-categoria/<?php echo $value['id']; ?>">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </a>
                                     <?php

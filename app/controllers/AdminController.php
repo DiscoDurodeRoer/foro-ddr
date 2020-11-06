@@ -14,7 +14,7 @@ class AdminController extends Controller
     {
         isLogged();
 
-        header("Location: index.php?url=AdminCategoryController/display");
+        header("Location: /foro-ddr/admin/categorias");
     }
 
     function back()

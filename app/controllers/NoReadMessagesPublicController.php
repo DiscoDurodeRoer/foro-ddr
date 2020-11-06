@@ -43,7 +43,7 @@ class NoReadMessagesPublicController extends Controller
 
         $this->model->delete_no_read_messages($params);
 
-        $url = "/foro-ddr/index.php?url=MessageController/display/" . $id_topic . "/" . $page . "#" . $message_index;
+        $url = "/foro-ddr/reply/" . $id_topic . "/" . $page . "#" . $message_index;
 
         redirect_to_url($url);
 

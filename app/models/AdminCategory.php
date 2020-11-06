@@ -44,7 +44,7 @@ class AdminCategory
             if ($params['mode'] === ALL_CATEGORIES) {
                 $data["pag"] = $params['page'];
                 $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
-                $data['url_base'] = "AdminCategoryController/display";
+                $data['url_base'] = "/foro-ddr/admin/categorias";
             }
 
             $data['success'] = true;
@@ -93,7 +93,7 @@ class AdminCategory
                     writeLog(INFO_LOG, "AdminCategory/create_category", json_encode($paramsDB));
                 }
 
-                $data['success'] = $db->executeInstructionPrepared($sql, json_encode($paramsDB));
+                $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
                 $sql = "SELECT id_cat_parent, level ";
                 $sql .= "FROM categories_child ";
@@ -305,7 +305,7 @@ class AdminCategory
                         writeLog(INFO_LOG, "AdminCategory/edit_category", json_encode($paramsDB));
                     }
 
-                    $parents = $db->getData($sql);
+                    $parents = $db->getDataPrepared($sql, $paramsDB);
 
                     $last_level = end($level_delete);
 

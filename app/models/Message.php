@@ -34,7 +34,7 @@ class Message
 
             $data['num_elems'] = $db->numRowsPrepared($sql, $paramsDB);
 
-            $sql .= "LIMIT " . ($params['page'] - 1) * NUM_ITEMS_PAG . "," . NUM_ITEMS_PAG;
+            $sql .= "LIMIT  ?, ?";
 
 
             $paramsDB = array(
@@ -59,24 +59,34 @@ class Message
                 $params['id_topic']
             );
 
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "Message/get_messages_by_topic", $sql);
+                writeLog(INFO_LOG, "Message/get_messages_by_topic", json_encode($params));
+            }
+
             $data_single = $db->getDataSinglePrepared($sql, $paramsDB);
 
             if ($data_single) {
                 $data['title_topic'] = $data_single['title'];
                 $data['open_topic'] = $data_single['open'];
                 $id_cat = $data_single['id_cat'];
+                $data['path_topic'] = $params['id_topic'] . '-' . $data['title_topic'];
             }
 
             // Paginacion
             $data["pag"] = $params['page'];
             $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
-            $data['url_base'] = "MessageController/display/" . $data['id_topic'];
+            $data['url_base'] = "/foro-ddr/reply/" . $data['id_topic'];
 
             $sql = "SELECT DISTINCT c.id, c.name ";
             $sql .= "FROM categories_child cch, categories c ";
             $sql .= "WHERE c.id = cch.id_cat_parent ";
             $sql .= "and cch.id_cat = ? ";
             $sql .= "ORDER BY level";
+
+            $paramsDB = array(
+                $id_cat
+            );
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Message/get_messages_by_topic", $sql);
@@ -96,14 +106,14 @@ class Message
                     if ($key === count($parents) - 1) {
                         $breadcumb = new BreadCumb(
                             $value['name'],
-                            'index.php?url=TopicController/display/' . $value['id'],
+                            '/foro-ddr/topic/' . $value['id'] . '-' . stringToPath($value['name']),
                             null,
                             true
                         );
                     } else {
                         $breadcumb = new BreadCumb(
                             $value['name'],
-                            'index.php?url=CategoryController/display/' . $value['id'],
+                            '/foro-ddr/category/' . $value['id'] . '-' . stringToPath($value['name']),
                             null,
                             true
                         );
@@ -220,7 +230,6 @@ class Message
             );
 
             $isOpen = $db->getDataSinglePropPrepared($sql, 'open', $paramsDB);
-
         } catch (Exception $e) {
             $data['show_message_info'] = true;
             $data['success'] = false;
@@ -259,7 +268,7 @@ class Message
             foreach ($datadb  as $key => $value) {
 
                 $sql = "INSERT INTO unread_messages_public VALUES(?, ?, ?);";
-                
+
                 $paramsDB = array(
                     $value['user_origin'],
                     $params['id_topic'],

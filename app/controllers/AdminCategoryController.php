@@ -16,7 +16,7 @@ class AdminCategoryController extends Controller
 
         $params = array(
             'mode' => ALL_CATEGORIES,
-            'page' => filter_var($page, FILTER_VALIDATE_INT)
+            'page' => intval(filter_var($page, FILTER_SANITIZE_NUMBER_INT))
         );
 
         $data = $this->model->get_categories($params);
@@ -58,7 +58,7 @@ class AdminCategoryController extends Controller
             $params = array(
                 'name' => $_POST['name'],
                 'description' => $_POST['description'],
-                'parent_cat' => isset($_POST['parent_cat']) ? filter_var($_POST['parent_cat'], FILTER_SANITIZE_NUMBER_INT) : 1
+                'parent_cat' => isset($_POST['parent_cat']) ? intval(filter_var($_POST['parent_cat'], FILTER_SANITIZE_NUMBER_INT)) : 1
             );
 
             $data = $this->model->create_category($params);

@@ -32,7 +32,7 @@ include_once 'header.php';
                     if ($data['login'] && count($data['category']['child']) === 0) {
                     ?>
                         <div class="col-3">
-                            <a class="btn btn-primary btn-block btn-icon" href="index.php?url=TopicController/display_create_topic/<?php echo $data['category']['id']; ?>">
+                            <a class="btn btn-primary btn-block btn-icon" href="/foro-ddr/crear-topic-form/<?php echo $data['category']['id']; ?>">
                                 <i class="fa fa-plus-circle" aria-hidden="true"></i> Crear topic
                             </a>
                         </div>
@@ -67,13 +67,13 @@ include_once 'header.php';
                                             <?php
                                             if ($child['num_topics'] == 0) {
                                             ?>
-                                                <a href="index.php?url=CategoryController/display/<?php echo $child['id'] ?>">
-                                                    <?php echo $child['name'] ?>
+                                                <a href="/foro-ddr/category/<?php echo $child['path'] ?>">
+                                                <?php echo $child['name'] ?>
                                                 </a>
                                             <?php
                                             } else {
                                             ?>
-                                                <a href="index.php?url=TopicController/display/<?php echo $child['id'] ?>">
+                                                <a href="/foro-ddr/topic/<?php echo $child['path'] ?>">
                                                     <?php echo $child['name'] ?>
                                                 </a>
                                             <?php

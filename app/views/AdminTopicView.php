@@ -29,7 +29,7 @@ require_once 'AdminView.php'
         <div class="row">
             <div class="col-12">
 
-                <form action="index.php?url=AdminTopicController/edit_topic/" method="POST">
+                <form action="/foro-ddr/admin/topic/editar-topic" method="POST">
 
                     <input type="hidden" class="form-control" name="id" value="<?php echo $data['topic']['id']; ?>" />
 
@@ -104,20 +104,20 @@ require_once 'AdminView.php'
                             <td><?php
                                 if ($value['open'] == TRUE) {
                                 ?>
-                                    <a class="btn btn-success btn-icon" href="index.php?url=AdminTopicController/close_topic/<?php echo $value['id']; ?>">
+                                    <a class="btn btn-success btn-icon" href="/foro-ddr/admin/topic/cerrar-topic/<?php echo $value['id']; ?>">
                                         <i class="fa fa-check" aria-hidden="true"></i>
                                     </a>
                                 <?php
                                 } else {
                                 ?>
-                                    <a class="btn btn-danger btn-icon" href="index.php?url=AdminTopicController/open_topic/<?php echo $value['id']; ?>">
+                                    <a class="btn btn-danger btn-icon" href="/foro-ddr/admin/topic/abrir-topic/<?php echo $value['id']; ?>">
                                         <i class="fa fa-times" aria-hidden="true"></i>
                                     </a>
                                 <?php
                                 }
                                 ?></td>
                             <td>
-                                <a class="btn btn-primary btn-icon" href="index.php?url=AdminTopicController/display_edit/<?php echo $value['id']; ?>">
+                                <a class="btn btn-primary btn-icon" href="/foro-ddr/admin/topic/editar-topic-form/<?php echo $value['id']; ?>">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </a>
                             </td>
