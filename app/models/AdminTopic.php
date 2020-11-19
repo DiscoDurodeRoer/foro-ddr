@@ -185,8 +185,8 @@ class AdminTopic
 
         try {
             $sql = "UPDATE topics SET ";
-            $sql .= "open = '" . FALSE . "' ";
-            $sql .= "WHERE id = " . $params['id_topic'];
+            $sql .= "open = ? ";
+            $sql .= "WHERE id = ?";
 
             $paramsDB = array(
                 FALSE,

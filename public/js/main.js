@@ -5,9 +5,11 @@ function init() {
 }
 
 function initEvents() {
-    document.getElementById("icon-search").addEventListener("click", function () {
-        showHideSearch();
-    });
+    if (document.getElementById("icon-search")) {
+        document.getElementById("icon-search").addEventListener("click", function () {
+            showHideSearch();
+        });
+    }
     if (document.getElementById("password")) {
         document.getElementById("password").addEventListener("keyup", function (e) {
             let regex = new RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,20}$/);

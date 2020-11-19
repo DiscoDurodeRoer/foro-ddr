@@ -70,7 +70,7 @@ class TopicController extends Controller
 
             $data = $this->model->create_topic($params);
 
-            if(!$data['success']){
+            if (!$data['success']) {
                 $data['create'] = true;
             }
 

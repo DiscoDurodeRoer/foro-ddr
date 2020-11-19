@@ -18,6 +18,7 @@ $router->register(new Route('/^\/foro-ddr\/crear-topic$/', 'TopicController', 'c
 $router->register(new Route('/^\/foro-ddr\/reply\/(\w[\-\w]*)(\/\w+)?$/', 'MessageController', 'display'));
 $router->register(new Route('/^\/foro-ddr\/responder-mensaje-form\/(\w+)$/', 'MessageController', 'display_reply_topic'));
 $router->register(new Route('/^\/foro-ddr\/responder-mensaje$/', 'MessageController', 'reply_topic'));
+$router->register(new Route('/^\/foro-ddr\/marcar-mensaje-solucion\/(\w+)\/(\w+)$/', 'MessageController', 'mark_message_solution'));
 
 // Login
 $router->register(new Route('/^\/foro-ddr\/login-form$/', 'LoginController', 'display'));
@@ -74,8 +75,8 @@ $router->register(new Route('/^\/foro-ddr\/admin\/user(\/\w+)?$/', 'AdminUserCon
 $router->register(new Route('/^\/foro-ddr\/admin$/', 'AdminCategoryController', 'display'));
 
 // search
-$router->register(new Route('/^\/foro-ddr\/busqueda\/(\w+)$/', 'SearchController', 'display'));
-$router->register(new Route('/^\/foro-ddr\/busqueda\/procesar$/', 'SearchController', 'proccess_search'));
+$router->register(new Route('/^\/foro-ddr\/busqueda\/(.*)$/', 'SearchController', 'display'));
+$router->register(new Route('/^\/foro-ddr\/procesar-busqueda$/', 'SearchController', 'proccess_search'));
 
 // No read
 $router->register(new Route('/^\/foro-ddr\/mensajes-no-leidos\/(\/\w+)?$/', 'NoReadMessagesPublicController', 'display'));

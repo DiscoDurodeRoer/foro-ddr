@@ -145,13 +145,14 @@ class UserController extends Controller
 
             $data = array();
 
+            // 'avatar' => filter_var($_POST['avatar'], FILTER_VALIDATE_URL)
             $params = array(
                 'name' => $_POST['name'],
                 'nickname' => $_POST['nickname'],
                 'email' => $_POST['email'],
                 'pass' => $_POST['pass'],
                 'confirm-pass' => $_POST['confirm-pass'],
-                'avatar' => filter_var($_POST['avatar'], FILTER_VALIDATE_URL)
+                'avatar' => ""
             );
 
             $errors = $this->model->checkErrors($params);
@@ -160,13 +161,14 @@ class UserController extends Controller
 
             if (count($errors) === 0) {
 
+                // 'avatar' => $_POST['avatar']
                 $params = array(
                     'name' => $_POST['name'],
                     'surname' => $_POST['surname'],
                     'nickname' => $_POST['nickname'],
                     'email' => $_POST['email'],
                     'pass' => $_POST['pass'],
-                    'avatar' => $_POST['avatar']
+                    'avatar' => ""
                 );
 
                 $data = $this->model->registry($params);

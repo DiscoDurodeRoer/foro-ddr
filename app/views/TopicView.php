@@ -63,7 +63,7 @@ include_once 'header.php';
                                     <?php
                                             // echo "<td>" . $value['views'] . "</td>";
                                             echo "<td>" . $value['nickname'] . "</td>";
-                                            if($value['open'] === FALSE){
+                                            if($value['open'] == FALSE){
                                                 echo "<td><i class='fa fa-lock'></i></td>";
                                             }else{
                                                 echo "<td></td>";

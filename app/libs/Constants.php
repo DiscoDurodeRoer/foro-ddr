@@ -11,6 +11,7 @@ define("NUM_ITEMS_PAG", 10);
 define("HASH_PASS_KEY", "discoduroderoer");
 
 define("SESSION_ID_USER", "id");
+define("SESSION_IS_ADMIN", "isAdmin");
 
 define("TRUE", "1");
 define("FALSE", "0");
@@ -27,7 +28,7 @@ define("MODE_DEBUG", "1");
 define("ERROR_LOG", "E");
 define("INFO_LOG", "I");
 
-define("DEFAULT_AVATAR", PAGE_URL."img/default-avatar.jpg");
+define("DEFAULT_AVATAR", PAGE_URL . "img/default-avatar.jpg");
 
 define("LENGTH_USER_KEY", 20);
 define("USER_KEY_NUMBER", 0);
@@ -48,3 +49,10 @@ define("EMAIL_ADMIN", 'ddr-288a24@inbox.mailtrap.io');
 define("TEMPLATE_NEW_ACCOUNT_NEED_VERIFICATION", __DIR__ . "/../templates_email/create_new_account_need_verification.html");
 define("TEMPLATE_NEW_ACCOUNT_SUCCESS", __DIR__ . "/../templates_email/create_new_account_success.html");
 define("TEMPLATE_EDIT_PASSWORD", __DIR__ . "/../templates_email/edit_password.html");
+
+// Anuncios
+
+define("SHOW_AD_MONETYZER_EACH", 4);
+define("INDEX_AD_MEGABANNER_TOP", 0);
+define("INDEX_AD_MEGABANNER_BOTTOM", 1);
+define("MIN_HEIGHT_MEGABANNER", 100);

@@ -15,7 +15,7 @@ class Search
         $paramsDB = array();
 
         try {
-            $wordsSearched = explode(';', $params['searched']);
+            $wordsSearched = explode('+', $params['searched']);
 
             $sql = "SELECT * ";
             $sql .= "FROM topics ";
@@ -31,6 +31,7 @@ class Search
                 }
             }
             if (isModeDebug()) {
+                writeLog(INFO_LOG, "Search/search_topics", json_encode($wordsSearched));
                 writeLog(INFO_LOG, "Search/search_topics", $sql);
                 writeLog(INFO_LOG, "Search/search_topics", json_encode($paramsDB));
             }

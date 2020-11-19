@@ -86,7 +86,7 @@ require_once 'AdminView.php'
                         <th>ID</th>
                         <th>Titulo</th>
                         <th>Fecha creación</th>
-                        <th>Vistas</th>
+                        <!-- <th>Vistas</th> -->
                         <th>Categoria</th>
                         <th>Estado</th>
                         <th></th>
@@ -99,7 +99,7 @@ require_once 'AdminView.php'
                             <td><?php echo $value['id']; ?></td>
                             <td><?php echo $value['title']; ?></td>
                             <td><?php echo $value['date_creation']; ?></td>
-                            <td><?php echo $value['views']; ?></td>
+                            <!-- <td><?php echo $value['views']; ?></td> -->
                             <td><?php echo $value['category']; ?></td>
                             <td><?php
                                 if ($value['open'] == TRUE) {

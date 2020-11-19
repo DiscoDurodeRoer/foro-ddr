@@ -58,24 +58,31 @@ class AdminTopicController extends Controller
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
 
-                $params = array(
-                    'title' => $_POST['title'],
-                    'category' => filter_var($_POST['category'], FILTER_SANITIZE_NUMBER_INT),
-                    'id' => filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT)
-                );
+            $params = array(
+                'title' => $_POST['title'],
+                'category' => filter_var($_POST['category'], FILTER_SANITIZE_NUMBER_INT),
+                'id' => filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT)
+            );
 
-                $data = $this->model->edit_topic($params);
+            $data = $this->model->edit_topic($params);
 
-                $topics = $this->model->get_topics();
+            $params = array(
+                'page' => 1
+            );
 
-                $data['topics'] = $topics['topics'];
+            $topics = $this->model->get_topics($params);
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "AdminTopicController/edit_topic", json_encode($data));
-                }
+            $data['topics'] = $topics['topics'];
+            $data['pag'] = $topics['pag'];
+            $data['last_page'] = $topics['last_page'];
+            $data['num_elems'] = $topics['num_elems'];
+            $data['url_base'] = $topics['url_base'];
 
-                $this->view("AdminTopicView", $data);
-            
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "AdminTopicController/edit_topic", json_encode($data));
+            }
+
+            $this->view("AdminTopicView", $data);
         }
     }
 
@@ -85,14 +92,22 @@ class AdminTopicController extends Controller
         isLogged();
 
         $params = array(
-            'id_topic' => filter_var($id_topic, FILTER_SANITIZE_NUMBER_INT)
+            'id_topic' => filter_var($id_topic, FILTER_SANITIZE_NUMBER_INT),
         );
 
         $data = $this->model->open_topic($params);
 
-        $topics = $this->model->get_topics();
+        $params = array(
+            'page' => 1
+        );
+
+        $topics = $this->model->get_topics($params);
 
         $data['topics'] = $topics['topics'];
+        $data['pag'] = $topics['pag'];
+        $data['last_page'] = $topics['last_page'];
+        $data['num_elems'] = $topics['num_elems'];
+        $data['url_base'] = $topics['url_base'];
 
         if (isModeDebug()) {
             writeLog(INFO_LOG, "AdminTopicController/open_topic", json_encode($data));
@@ -112,9 +127,17 @@ class AdminTopicController extends Controller
 
         $data = $this->model->close_topic($params);
 
-        $topics = $this->model->get_topics();
+        $params = array(
+            'page' => 1
+        );
 
+        $topics = $this->model->get_topics($params);
+        
         $data['topics'] = $topics['topics'];
+        $data['pag'] = $topics['pag'];
+        $data['last_page'] = $topics['last_page'];
+        $data['num_elems'] = $topics['num_elems'];
+        $data['url_base'] = $topics['url_base'];
 
         if (isModeDebug()) {
             writeLog(INFO_LOG, "AdminTopicController/close_topic", json_encode($data));

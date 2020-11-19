@@ -18,7 +18,7 @@ class Message
 
         try {
 
-            $sql = "SELECT m.text, DATE_FORMAT(m.date_creation, '%d/%m/%Y %T') as 'date_creation', u.nickname, m.show_message, ";
+            $sql = "SELECT mp.id_message, m.text, DATE_FORMAT(m.date_creation, '%d/%m/%Y %T') as 'date_creation', u.nickname, m.show_message, ";
             $sql .= "u.avatar, DATE_FORMAT(u.last_connection, '%d/%m/%Y %T') as last_connection, ";
             $sql .= "DATE_FORMAT(u.registry_date, '%d/%m/%Y') as registry_date, mp.message_index, r.rol as rol_name ";
             $sql .= "FROM messages m, messages_public mp, users u, roles r ";
@@ -45,10 +45,66 @@ class Message
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Message/get_messages_by_topic", $sql);
-                writeLog(INFO_LOG, "Message/get_messages_by_topic", json_encode($params));
+                writeLog(INFO_LOG, "Message/get_messages_by_topic", json_encode($paramsDB));
             }
 
             $data['messages'] = $db->getDataPrepared($sql, $paramsDB);
+
+            // Miro si hay un mensaje solucion
+
+            $sql = "SELECT mp.id_message, m.text, DATE_FORMAT(m.date_creation, '%d/%m/%Y %T') as 'date_creation', u.nickname, m.show_message, ";
+            $sql .= "u.avatar, DATE_FORMAT(u.last_connection, '%d/%m/%Y %T') as last_connection, ";
+            $sql .= "DATE_FORMAT(u.registry_date, '%d/%m/%Y') as registry_date, mp.message_index, r.rol as rol_name ";
+            $sql .= "FROM messages m, messages_public mp, users u, roles r ";
+            $sql .= "WHERE m.id = mp.id_message and ";
+            $sql .= "u.id = m.user_origin and ";
+            $sql .= "r.id = u.rol and ";
+            $sql .= "mp.id_topic = ? and ";
+            $sql .= "mp.solution = 1 ";
+
+            $paramsDB = array(
+                $params['id_topic']
+            );
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "Message/get_messages_by_topic", $sql);
+                writeLog(INFO_LOG, "Message/get_messages_by_topic", json_encode($paramsDB));
+            }
+
+            if ($db->numRowsPrepared($sql, $paramsDB) > 0) {
+                $data['message_solution'] = $db->getDataSinglePrepared($sql, $paramsDB);
+            }
+
+            // Compruebo que puedo marcar la solucion
+
+
+            if ($params['is_admin'] == TRUE) {
+                $data['can_mark_solution'] = TRUE;
+            } else {
+
+                $sql = "SELECT * ";
+                $sql .= "FROM topics t,users u  ";
+                $sql .= "WHERE u.id = t.creator_user and ";
+                $sql .= "u.id = ? and ";
+                $sql .= "t.id = ? ";
+                
+                $paramsDB = array(
+                    $params['id_user'],
+                    $params['id_topic'],
+                );
+
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "Message/get_messages_by_topic", $sql);
+                    writeLog(INFO_LOG, "Message/get_messages_by_topic", json_encode($paramsDB));
+                }
+
+                if ($db->numRowsPrepared($sql, $paramsDB) > 0) {
+                    $data['can_mark_solution'] = TRUE;
+                }
+            }
+
+
+
             $data['id_topic'] = $params['id_topic'];
 
             $sql = "SELECT title, open, id_cat ";
@@ -61,7 +117,7 @@ class Message
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Message/get_messages_by_topic", $sql);
-                writeLog(INFO_LOG, "Message/get_messages_by_topic", json_encode($params));
+                writeLog(INFO_LOG, "Message/get_messages_by_topic", json_encode($paramsDB));
             }
 
             $data_single = $db->getDataSinglePrepared($sql, $paramsDB);
@@ -229,6 +285,11 @@ class Message
                 $params['id_topic']
             );
 
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "Message/is_open_topic", $sql);
+                writeLog(INFO_LOG, "Message/is_open_topic", json_encode($paramsDB));
+            }
+
             $isOpen = $db->getDataSinglePropPrepared($sql, 'open', $paramsDB);
         } catch (Exception $e) {
             $data['show_message_info'] = true;
@@ -263,6 +324,11 @@ class Message
                 $params['id_user']
             );
 
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "Message/notify_no_read_messages", $sql);
+                writeLog(INFO_LOG, "Message/notify_no_read_messages", json_encode($paramsDB));
+            }
+
             $datadb = $db->getDataPrepared($sql, $paramsDB);
 
             foreach ($datadb  as $key => $value) {
@@ -275,6 +341,11 @@ class Message
                     $params['id_message']
                 );
 
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "Message/notify_no_read_messages", $sql);
+                    writeLog(INFO_LOG, "Message/notify_no_read_messages", json_encode($paramsDB));
+                }
+
                 $db->executeInstructionPrepared($sql, $paramsDB);
             }
         } catch (Exception $e) {
@@ -282,6 +353,101 @@ class Message
             $data['success'] = false;
             $data['message'] = ERROR_GENERAL;
             writeLog(ERROR_LOG, "Message/notify_no_read_messages", $e->getMessage());
+        }
+
+        $db->close();
+        return $data;
+    }
+
+    function mark_message_solution($params)
+    {
+
+        $db = new PDODB();
+        $data = array();
+
+        $paramsDB = array();
+
+        try {
+
+            $sql = "SELECT * ";
+            $sql .= "FROM messages_public mp, messages m ";
+            $sql .= "WHERE mp.id_message = m.id ";
+            $sql .= "AND m.user_origin = ?";
+
+            $paramsDB = array(
+                $params['id_user']
+            );
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "Message/mark_message_solution", $sql);
+                writeLog(INFO_LOG, "Message/mark_message_solution", json_encode($paramsDB));
+            }
+
+            if ($db->numRowsPrepared($sql, $paramsDB)) {
+
+                $sql = "SELECT * ";
+                $sql .= "FROM messages_public mp ";
+                $sql .= "WHERE mp.id_topic = (SELECT id_topic ";
+                $sql .=                         "FROM messages_public ";
+                $sql .=                         "WHERE id_message = ?) ";
+                $sql .= "and mp.solution = 1";
+
+                $paramsDB = array(
+                    $params['id_message']
+                );
+
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "Message/mark_message_solution", $sql);
+                    writeLog(INFO_LOG, "Message/mark_message_solution", json_encode($paramsDB));
+                }
+
+                if ($db->numRowsPrepared($sql, $paramsDB) > 0) {
+
+                    // Actualizar a 0 la antigua solucion
+
+                    $data_single = $db->getDataSinglePrepared($sql, $paramsDB);
+
+                    $sql = "UPDATE messages_public ";
+                    $sql .= "SET solution = 0 ";
+                    $sql .= "WHERE id_message = ?";
+
+                    $paramsDB = array(
+                        $data_single['id_message']
+                    );
+
+                    if (isModeDebug()) {
+                        writeLog(INFO_LOG, "Message/mark_message_solution", $sql);
+                        writeLog(INFO_LOG, "Message/mark_message_solution", json_encode($paramsDB));
+                    }
+
+                    $db->executeInstructionPrepared($sql, $paramsDB);
+                }
+
+                $sql = "UPDATE messages_public ";
+                $sql .= "SET solution = 1 ";
+                $sql .= "WHERE id_message = ?";
+
+
+                $paramsDB = array(
+                    $params['id_message']
+                );
+
+                if (isModeDebug()) {
+                    writeLog(INFO_LOG, "Message/mark_message_solution", $sql);
+                    writeLog(INFO_LOG, "Message/mark_message_solution", json_encode($paramsDB));
+                }
+
+                $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
+            } else {
+                $data['show_message_info'] = true;
+                $data['success'] = false;
+                $data['message'] = 'No puedes cambiar el mensaje solución.';
+            }
+        } catch (Exception $e) {
+            $data['show_message_info'] = true;
+            $data['success'] = false;
+            $data['message'] = ERROR_GENERAL;
+            writeLog(ERROR_LOG, "Message/mark_message_solution", $e->getMessage());
         }
 
         $db->close();

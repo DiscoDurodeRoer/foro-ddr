@@ -113,7 +113,7 @@ a:hover {
     }
     #content {
         margin-top: 110px;
-        margin-bottom: 110px;
+        /* margin-bottom: 110px; */
     }
     .block-logo {
         text-align: left;
@@ -140,6 +140,15 @@ a:hover {
 
 #content div.card.card-message .username {
     font-size: 20px;
+}
+
+#content div.message-solution {
+    padding: 10px;
+    background-color: green;
+}
+
+#content .margin-from-footer {
+    margin-bottom: 80px;
 }
 
 /* Ckeditor */

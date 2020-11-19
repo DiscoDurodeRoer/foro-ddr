@@ -4,6 +4,12 @@
                 </div>
                 <!-- Fin contenido -->
 
+                <?php 
+                    $index_ad = INDEX_AD_MEGABANNER_BOTTOM;
+                    include 'ads-monetyzer.php';
+
+                ?>
+
                 <div class="row-no-gutters" id="footer">
                     <div class="col-12">
                         <div class="container">
@@ -36,6 +42,8 @@
                 <script src="/foro-ddr/public/includes/bootstrap-4.1.3/js/bootstrap.min.js"></script>
                 <script src="/foro-ddr/public/includes/ckeditor5/ckeditor.js"></script>
                 <script src="/foro-ddr/public/js/main.js"></script>
+
+                <?php include 'ads-pepsia.php'; ?>
 
     </body>
 

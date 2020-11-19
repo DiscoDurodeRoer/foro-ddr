@@ -17,7 +17,7 @@ require_once 'AdminView.php'
         <div class="row">
             <div class="col-12">
 
-                <form action="/foro-ddr/admin/categorias/<?php echo isset($data['category']) ? 'editar-categoria/' : 'crear-categoria' ?>" method="POST">
+                <form action="/foro-ddr/admin/categorias/<?php echo isset($data['category']) ? 'editar-categoria' : 'crear-categoria' ?>" method="POST">
 
                     <?php
                     if (isset($data['display_edit'])) {

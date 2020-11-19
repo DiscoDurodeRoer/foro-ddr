@@ -84,13 +84,13 @@ include_once 'header.php';
 
                 ?>
 
-
+                <!-- 
                 <div class="row form-group">
                     <div class="col-12">
                         <label for="avatar">Avatar</label>
                         <input type="text" class="form-control" name="avatar" maxlength="300" />
                     </div>
-                </div>
+                </div> -->
 
                 <div class="row form-group">
                     <div class="col-6">

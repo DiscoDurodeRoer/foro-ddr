@@ -15,7 +15,11 @@ class MessageController extends Controller
 
         if (isset($id_topic)) {
 
+            $session = new Session();
+
             $params = array(
+                'id_user' => $session->getAttribute(SESSION_ID_USER),
+                'is_admin' => $session->getAttribute(SESSION_IS_ADMIN),
                 'id_topic' => intval(filter_var($id_topic, FILTER_SANITIZE_NUMBER_INT)),
                 'page' => intval(filter_var($page, FILTER_SANITIZE_NUMBER_INT))
             );
@@ -94,6 +98,32 @@ class MessageController extends Controller
                 } else {
                     $this->view("MessageView", $data);
                 }
+            } else {
+                $this->view("MessageView", $data);
+            }
+        }
+    }
+
+    function mark_message_solution($id_topic, $id_message)
+    {
+
+        if (isset($id_message)) {
+
+            $session = new Session();
+            
+            $params = array(
+                'id_user' => $session->getAttribute(SESSION_ID_USER),
+                'id_message' => filter_var($id_message)
+            );
+
+            $data = $this->model->mark_message_solution($params);
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "MessageController/mark_message_solution", json_encode($data));
+            }
+
+            if ($data['success']) {
+                $this->display($id_topic);
             } else {
                 $this->view("MessageView", $data);
             }

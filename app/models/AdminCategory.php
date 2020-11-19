@@ -371,6 +371,15 @@ class AdminCategory
 
         try {
 
+            $sql = "DELETE FROM categories_child ";
+            $sql .= "WHERE id_cat = ? ";
+
+            $paramsDB = array(
+                $params['id_category']
+            );
+
+            $db->executeInstructionPrepared($sql, $paramsDB);
+
             $sql = "DELETE FROM categories ";
             $sql .= "WHERE id = ? ";
 
@@ -382,17 +391,8 @@ class AdminCategory
                 writeLog(INFO_LOG, "AdminCategory/delete_category", $sql);
                 writeLog(INFO_LOG, "AdminCategory/delete_category", json_encode($paramsDB));
             }
-
+            
             $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
-
-            $sql = "DELETE FROM categories_child ";
-            $sql .= "WHERE id_cat = ? ";
-
-            $paramsDB = array(
-                $params['id_category']
-            );
-
-            $db->executeInstructionPrepared($sql, $paramsDB);
 
             if ($data['success']) {
                 $data['message'] = "Se ha borrado la categoria correctamente";

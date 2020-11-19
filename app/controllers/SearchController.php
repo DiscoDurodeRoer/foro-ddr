@@ -15,7 +15,7 @@ class SearchController extends Controller
 
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
-            $searchProcess = str_replace(" ", ";", $_POST['search']);
+            $searchProcess = str_replace(" ", "+", $_POST['search']);
     
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "SearchController/proccess_search", $searchProcess);
