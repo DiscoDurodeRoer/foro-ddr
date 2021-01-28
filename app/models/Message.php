@@ -235,6 +235,7 @@ class Message
 
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "Message/reply_topic", $sql);
+                writeLog(INFO_LOG, "Message/reply_topic", json_encode($paramsDB));
             }
 
             $num_index = $db->getDataSinglePropPrepared($sql, 'num_index', $paramsDB);

@@ -168,13 +168,14 @@ class Topic
 
                     if (isModeDebug()) {
                         writeLog(INFO_LOG, "Topic/create_topic", $sql);
+                        writeLog(INFO_LOG, "Topic/create_topic", json_encode($paramsDB));
                     }
 
                     $success = $db->executeInstructionPrepared($sql, $paramsDB);
 
                     if ($success) {
 
-                        $sql = "INSERT INTO messages_public VALUES (?,?,1);";
+                        $sql = "INSERT INTO messages_public VALUES (?,?,1,0);";
 
                         $paramsDB = array(
                             $id_message,
@@ -183,7 +184,7 @@ class Topic
 
                         if (isModeDebug()) {
                             writeLog(INFO_LOG, "Topic/create_topic", $sql);
-                            writeLog(INFO_LOG, "Topic/create_topic", json_encode($params));
+                            writeLog(INFO_LOG, "Topic/create_topic", json_encode($paramsDB));
                         }
 
                         $success = $db->executeInstructionPrepared($sql, $paramsDB);
@@ -201,7 +202,7 @@ class Topic
         } catch (Exception $e) {
             $data['success'] = false;
             $data['message'] = ERROR_GENERAL;
-            writeLog(ERROR_LOG, "Topic/get_topics", $e->getMessage());
+            writeLog(ERROR_LOG, "Topic/create_topic", $e->getMessage());
         }
 
         $db->close();

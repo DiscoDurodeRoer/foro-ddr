@@ -2,6 +2,7 @@
 function init() {
     initCheckEditor();
     initEvents();
+    showModalCookies();
 }
 
 function initEvents() {
@@ -33,6 +34,12 @@ function initEvents() {
     if (document.getElementsByName("back") && document.getElementsByName("back").length > 0) {
         document.getElementsByName("back")[0].addEventListener("click", function () {
             window.history.back();
+        })
+    }
+
+    if (document.getElementById("accept-cookies")) {
+        document.getElementById("accept-cookies").addEventListener("click", function () {
+            closeModalCookies();
         })
     }
 }
@@ -135,5 +142,23 @@ function showHideSearch() {
     }
 
 }
+
+function showModalCookies() {
+
+    const cookies = localStorage.getItem("cookies");
+
+    if (!cookies) {
+        $('#cookies').modal('show');
+    }
+
+}
+
+function closeModalCookies() {
+
+    localStorage.setItem("cookies", "1");
+    $('#cookies').modal('hide');
+}
+
+
 
 window.onload = init;
