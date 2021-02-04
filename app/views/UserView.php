@@ -48,7 +48,7 @@ include_once 'header.php';
                     </div>
                     <div class="col-md-6 col-12">
                         <label for="email">Email (*)</label>
-                        <input type="text" name="email" readonly="<?php $data['edit_profile'] ?>" class="form-control" id="email" maxlength="40" value="<?php if (isset($data['info_user'])) {
+                        <input type="text" name="email" <?php isset($data['edit_profile']) ? 'readonly' : '' ?> class="form-control" id="email" maxlength="40" value="<?php if (isset($data['info_user'])) {
                                                                                                                     echo $data['info_user']['email'];
                                                                                                                 } ?>" />
                         <div class="valid-feedback">

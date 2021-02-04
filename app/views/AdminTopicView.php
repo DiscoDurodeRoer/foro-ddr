@@ -90,6 +90,7 @@ require_once 'AdminView.php'
                         <th>Categoria</th>
                         <th>Estado</th>
                         <th></th>
+                        <th></th>
                     </tr>
                     <?php
 
@@ -119,6 +120,11 @@ require_once 'AdminView.php'
                             <td>
                                 <a class="btn btn-primary btn-icon" href="/foro-ddr/admin/topic/editar-topic-form/<?php echo $value['id']; ?>">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger btn-icon" href="/foro-ddr/admin/topic/eliminar-topic/<?php echo $value['id']; ?>">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
                                 </a>
                             </td>
                         </tr>

@@ -64,7 +64,9 @@ $router->register(new Route('/^\/foro-ddr\/admin\/topic\/editar-topic$/', 'Admin
 $router->register(new Route('/^\/foro-ddr\/admin\/topic\/cerrar-topic\/(\w+)$/', 'AdminTopicController', 'close_topic'));
 $router->register(new Route('/^\/foro-ddr\/admin\/topic\/abrir-topic\/(\w+)$/', 'AdminTopicController', 'open_topic'));
 $router->register(new Route('/^\/foro-ddr\/admin\/topic\/editar-topic-form\/(\w+)$/', 'AdminTopicController', 'display_edit'));
+$router->register(new Route('/^\/foro-ddr\/admin\/topic\/eliminar-topic\/(\w+)?$/', 'AdminTopicController', 'delete_topic'));
 $router->register(new Route('/^\/foro-ddr\/admin\/topic(\/\w+)?$/', 'AdminTopicController', 'display'));
+
 
 $router->register(new Route('/^\/foro-ddr\/admin\/user\/no-banear\/(\w+)$/', 'AdminUserController', 'no_ban_user'));
 $router->register(new Route('/^\/foro-ddr\/admin\/user\/banear\/(\w+)$/', 'AdminUserController', 'ban_user'));

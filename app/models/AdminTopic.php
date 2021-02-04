@@ -214,4 +214,56 @@ class AdminTopic
         $db->close();
         return $data;
     }
+
+    function delete_topic($params)
+    {
+        $db = new PDODB();
+        $data = array();
+        $data['show_message_info'] = true;
+        $paramsDB = array();
+
+        try {
+
+            $sql = "DELETE FROM messages_public ";
+            $sql .= "WHERE id_topic = ?";
+
+            $paramsDB = array(
+                $params['id_topic']
+            );
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "AdminTopic/delete_topic", $sql);
+                writeLog(INFO_LOG, "AdminTopic/delete_topic", json_encode($paramsDB));
+            }
+
+            $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
+
+            $sql = "DELETE FROM topics ";
+            $sql .= "WHERE id = ?";
+
+            $paramsDB = array(
+                $params['id_topic']
+            );
+
+            if (isModeDebug()) {
+                writeLog(INFO_LOG, "AdminTopic/delete_topic", $sql);
+                writeLog(INFO_LOG, "AdminTopic/delete_topic", json_encode($paramsDB));
+            }
+
+            $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
+
+            if ($data['success']) {
+                $data['message'] = "Se ha borrado el topic correctamente";
+            } else {
+                $data['message'] = "No se ha borrado el topic correctamente";
+            }
+        } catch (Exception $e) {
+            $data['success'] = false;
+            $data['message'] = ERROR_GENERAL;
+            writeLog(ERROR_LOG, "AdminTopic/delete_topic", $e->getMessage());
+        }
+
+        $db->close();
+        return $data;
+    }
 }

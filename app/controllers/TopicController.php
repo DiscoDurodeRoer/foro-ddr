@@ -70,13 +70,17 @@ class TopicController extends Controller
 
             $data = $this->model->create_topic($params);
 
-            if (!$data['success']) {
-                $data['create'] = true;
-            }
-
             if (isModeDebug()) {
                 writeLog(INFO_LOG, "TopicController/create_topic", json_encode($data));
             }
+
+            if (!$data['success']) {
+                // redirect_to_url("/foro-ddr/crear-topic-form/" . $_POST['id_cat']);
+                $data['create'] = true;
+                $data['id_cat'] = $_POST['id_cat'];
+                $data['title_topic'] = $_POST['title_topic'];
+                $data['text'] = $_POST['text'];
+            } 
 
             $this->view("TopicView", $data);
         }

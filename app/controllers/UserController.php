@@ -157,8 +157,6 @@ class UserController extends Controller
 
             $errors = $this->model->checkErrors($params);
 
-            echo "Hola";
-
             if (count($errors) === 0) {
 
                 // 'avatar' => $_POST['avatar']
@@ -177,6 +175,9 @@ class UserController extends Controller
                 $data['success'] = false;
                 $data['message'] = $errors;
                 $data['registry'] = true;
+                $data['name'] = $_POST['name'];
+                $data['nickname'] = $_POST['nickname'];
+                $data['email'] = $_POST['email'];
             }
 
             if (isModeDebug()) {

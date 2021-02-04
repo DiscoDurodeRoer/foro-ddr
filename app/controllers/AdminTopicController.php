@@ -145,4 +145,35 @@ class AdminTopicController extends Controller
 
         $this->view("AdminTopicView", $data);
     }
+
+    
+    function delete_topic($id_topic)
+    {
+
+        isLogged();
+
+        $params = array(
+            'id_topic' => filter_var($id_topic, FILTER_SANITIZE_NUMBER_INT)
+        );
+
+        $data = $this->model->delete_topic($params);
+
+        $params = array(
+            'page' => 1
+        );
+
+        $topics = $this->model->get_topics($params);
+        
+        $data['topics'] = $topics['topics'];
+        $data['pag'] = $topics['pag'];
+        $data['last_page'] = $topics['last_page'];
+        $data['num_elems'] = $topics['num_elems'];
+        $data['url_base'] = $topics['url_base'];
+
+        if (isModeDebug()) {
+            writeLog(INFO_LOG, "AdminTopicController/close_topic", json_encode($data));
+        }
+
+        $this->view("AdminTopicView", $data);
+    }
 }
