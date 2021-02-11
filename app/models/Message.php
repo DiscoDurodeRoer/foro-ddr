@@ -240,7 +240,7 @@ class Message
 
             $num_index = $db->getDataSinglePropPrepared($sql, 'num_index', $paramsDB);
 
-            $sql = "INSERT INTO messages_public VALUES (?, ?, ?);";
+            $sql = "INSERT INTO messages_public VALUES (?, ?, ?, 0);";
 
             $paramsDB = array(
                 $id_message,

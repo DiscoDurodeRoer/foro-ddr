@@ -163,7 +163,8 @@
 
                 <script src="/foro-ddr/public/includes/jquery-3.4.1/jquery-3.4.1.min.js"></script>
                 <script src="/foro-ddr/public/includes/bootstrap-4.1.3/js/bootstrap.min.js"></script>
-                <script src="/foro-ddr/public/includes/ckeditor5/ckeditor.js"></script>
+                <script src="/foro-ddr/public/includes/ckeditor4/ckeditor.js"></script>
+                <script src="/foro-ddr/public/includes/ckeditor4/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
                 <script src="/foro-ddr/public/js/main.js"></script>
 
                 <?php include 'ads-pepsia.php'; ?>

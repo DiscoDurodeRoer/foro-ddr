@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/foro-ddr/public/includes/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/foro-ddr/public/css/styles.css">
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <link href="/foro-ddr/public/includes/ckeditor4/plugins/codesnippet/lib/highlight/styles/monokai_sublime.css" rel="stylesheet">
     <title>Foro DDR</title>
 
     <!-- Monetyzer -->
