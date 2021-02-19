@@ -208,3 +208,9 @@ ul.menu-admin li a:hover {
     padding: 15px;
     width: 300px;
 }
+
+/* highligh code */
+
+html body .hljs{
+    display: table-caption;
+}

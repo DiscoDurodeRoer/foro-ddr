@@ -8,7 +8,7 @@ spl_autoload_register();
 $router = new Router();
 
 // $router->register(new Route('/^\/foro-ddr\/category\/\w+[-\w]*$/', 'CategoryController', 'display'));
-$router->register(new Route('/^\/foro-ddr\/category\/(\w[\-\w]*)$/', 'CategoryController', 'display'));
+$router->register(new Route('/^\/foro-ddr\/categoria\/(\w[\-\w]*)$/', 'CategoryController', 'display'));
 
 // Topics
 $router->register(new Route('/^\/foro-ddr\/topic\/(\w[\-\w]*)(\/\w+)?$/', 'TopicController', 'display'));

@@ -42,6 +42,15 @@ function initEvents() {
             closeModalCookies();
         })
     }
+
+    hljs.initHighlightingOnLoad();
+
+    if (document.querySelectorAll('pre code').length > 0) {
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+    }
+
 }
 
 function validateField(id, regex) {
@@ -68,16 +77,7 @@ function initCheckEditor() {
             height: 356
         };
         CKEDITOR.replace('editor', config);
-
-        hljs.initHighlightingOnLoad();
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-            document.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightBlock(block);
-            });
-        });
     }
-
 
 }
 

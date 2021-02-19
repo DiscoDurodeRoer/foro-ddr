@@ -98,7 +98,7 @@ include_once 'header.php';
                                 <div class="row form-group">
                                     <div class="col-12">
                                         <label for="title">Titulo topic</label>
-                                        <input type="text" class="form-control" name="title" required id="title" />
+                                        <input type="text" class="form-control" name="title" maxlength="80" required id="title" />
                                     </div>
                                 </div>
 

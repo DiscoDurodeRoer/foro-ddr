@@ -67,7 +67,7 @@ include_once 'header.php';
                                             <?php
                                             if ($child['num_topics'] == 0) {
                                             ?>
-                                                <a href="/foro-ddr/category/<?php echo $child['path'] ?>">
+                                                <a href="/foro-ddr/categoria/<?php echo $child['path'] ?>">
                                                 <?php echo $child['name'] ?>
                                                 </a>
                                             <?php

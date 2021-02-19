@@ -92,7 +92,7 @@ class Topic
 
                     $breadcumb = new BreadCumb(
                         $value['name'],
-                        '/foro-ddr/category/' . $value['id'] . '-' . stringToPath($value['name']),
+                        '/foro-ddr/categoria/' . $value['id'] . '-' . stringToPath($value['name']),
                         null,
                         $key < ($numRows - 1)
                     );

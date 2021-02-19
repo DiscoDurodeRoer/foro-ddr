@@ -24,7 +24,7 @@ class Search
             for ($i = 0; $i < count($wordsSearched); $i++) {
                 if (!empty($wordsSearched[$i])) {
                     $sql .= " title LIKE ? ";
-                    array_push($paramsDB, "%" . $wordsSearched[$i] . "%");
+                    array_push($paramsDB, "%" . urldecode($wordsSearched[$i]) . "%");
                     if ($i !== count($wordsSearched) - 1) {
                         $sql .= " OR ";
                     }
