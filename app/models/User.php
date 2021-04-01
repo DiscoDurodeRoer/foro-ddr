@@ -326,7 +326,7 @@ class User
 
                 $paramsDB = array(
                     hash_hmac("sha512", $params['pass'], HASH_PASS_KEY),
-                    $params['user_key']
+                    $params['id_user']
                 );
 
                 if (isModeDebug()) {

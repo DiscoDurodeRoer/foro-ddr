@@ -84,14 +84,6 @@ include_once 'header.php';
 
                 ?>
 
-                <!-- 
-                <div class="row form-group">
-                    <div class="col-12">
-                        <label for="avatar">Avatar</label>
-                        <input type="text" class="form-control" name="avatar" maxlength="300" />
-                    </div>
-                </div> -->
-
                 <div class="row form-group">
                     <div class="col-6">
                         <button type="submit" name="action" class="btn btn-primary btn-block"><?php echo isset($data['registry']) ? 'Registro' : 'Editar'; ?></button>
@@ -101,9 +93,15 @@ include_once 'header.php';
                     </div>
                 </div>
 
-                <div class="row form-group">
-                    <a href="/foro-ddr/verificacion-form">¿Ya te has registrado y no te ha llegado el correo de activación? Pulsa aquí para reenviar correo.</a>
-                </div>
+                <?php
+                if (isset($data['registry'])) {
+                ?>
+                    <div class="row form-group">
+                        <a href="/base-mvc-php/verificacion-form">¿Ya te has registrado y no te ha llegado el correo de activación? Pulsa aquí para reenviar correo.</a>
+                    </div>
+                <?php
+                }
+                ?>
 
             </form>
 

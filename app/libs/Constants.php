@@ -28,7 +28,7 @@ define("MODE_DEBUG", "1");
 define("ERROR_LOG", "E");
 define("INFO_LOG", "I");
 
-define("DEFAULT_AVATAR", PAGE_URL . "img/default-avatar.jpg");
+define("DEFAULT_AVATAR", "default-avatar.jpg");
 
 define("LENGTH_USER_KEY", 20);
 define("USER_KEY_NUMBER", 0);
