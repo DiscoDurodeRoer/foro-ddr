@@ -1,8 +1,8 @@
 <?php
 
-define("PAGE_URL", "http://localhost:8080/foro-ddr/public/");
+define("PAGE_URL", "http://localhost:8080/foro-ddr/");
 
-define("BASE_URL", "/foro-ddr/");
+define("BASE_URL", "/");
 
 define("PATH_LOG", "../app/log/");
 define("FILE_LOG", "log.txt");

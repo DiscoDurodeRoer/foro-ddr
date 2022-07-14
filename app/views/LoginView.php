@@ -9,7 +9,7 @@ if (isset($data['display_login'])) {
     <div class="row">
         <div class="col-12">
 
-            <form action="/foro-ddr/login" method="POST">
+            <form action="<?php echo BASE_URL; ?>login" method="POST">
 
                 <div class="row form-group">
                     <div class="col-12">
@@ -27,7 +27,7 @@ if (isset($data['display_login'])) {
 
                 <div class="row form-group">
                     <div class="col-12">
-                        <a href="/foro-ddr/remember-form">¿Has olvidado la contraseña?</a>
+                        <a href="<?php echo BASE_URL; ?>remember-form">¿Has olvidado la contraseña?</a>
                     </div>
                 </div>
 
@@ -53,7 +53,7 @@ if (isset($data['display_login'])) {
     <div class="row">
         <div class="col-12">
 
-            <form action="/foro-ddr/remember" method="POST">
+            <form action="<?php echo BASE_URL; ?>remember" method="POST">
 
                 <div class="row form-group">
                     <div class="col-12">

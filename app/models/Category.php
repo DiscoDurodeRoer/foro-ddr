@@ -29,11 +29,8 @@ class Category
             }
             $sql .= "ORDER BY name";
 
-
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "Category/get_categories", $sql);
-                writeLog(INFO_LOG, "Category/get_categories", json_encode($paramsDB));
-            }
+            writeLog(INFO_LOG, "Category/get_categories", $sql);
+            writeLog(INFO_LOG, "Category/get_categories", json_encode($paramsDB));
 
             $datadb = $db->getDataPrepared($sql, $paramsDB);
 
@@ -54,11 +51,9 @@ class Category
                     $params['id_cat_parent']
                 );
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "Category/get_categories", $sql);
-                    writeLog(INFO_LOG, "Category/get_categories", json_encode($paramsDB));
-                }
-
+                writeLog(INFO_LOG, "Category/get_categories", $sql);
+                writeLog(INFO_LOG, "Category/get_categories", json_encode($paramsDB));
+                
                 $parents = $db->getDataPrepared($sql, $paramsDB);
 
                 $numRows = $db->numRowsPrepared($sql, $paramsDB);
@@ -70,7 +65,7 @@ class Category
                     foreach ($parents as $key => $value) {
                         $breadcumb = new BreadCumb(
                             $value['name'],
-                            '/foro-ddr/categoria/' . $value['id'] . '-' . stringToPath($value['name']),
+                            constant('BASE_URL') . 'categoria/' . $value['id'] . '-' . stringToPath($value['name']),
                             null,
                             $key < ($numRows - 1)
                         );

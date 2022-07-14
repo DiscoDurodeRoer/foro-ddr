@@ -5,12 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/foro-ddr/public/includes/bootstrap-4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/foro-ddr/public/includes/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/foro-ddr/public/css/styles.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL ?>public/includes/bootstrap-4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL ?>public/includes/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL ?>public/css/styles.css">
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-    <link href="/foro-ddr/public/includes/ckeditor4/plugins/codesnippet/lib/highlight/styles/monokai_sublime.css" rel="stylesheet">
+    <link href="<?php echo BASE_URL ?>public/includes/ckeditor4/plugins/codesnippet/lib/highlight/styles/monokai_sublime.css" rel="stylesheet">
     <title>Foro DDR</title>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W8XW2YXKE5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-W8XW2YXKE5');
+    </script>
 
     <!-- Monetyzer -->
     <!-- Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
@@ -181,7 +191,6 @@
 
     <div class="row-no-gutters" id="header">
         <!-- Cabecera -->
-        <!-- <div class="row" id=""> -->
         <div class="col-12">
             <!-- Menu -->
 
@@ -190,69 +199,96 @@
                 <div class="row">
                     <div class="col-lg-4 col-12 block-logo">
                         <a class="navbar-brand" href="index.php">
-                            <img src="/foro-ddr/public/img/logo-foro.png" alt="">
+                            <img src="<?php echo BASE_URL ?>public/img/logo-foro.png" alt="">
                         </a>
                     </div>
                     <div class="col-lg-8 col-12 mt-2 block-buttons">
 
-                        <?php
+                       
 
-                        if (isset($data) && $data['login']) {
+                        <div class="row">
+                            <div class="col-md-4 col-12 text-truncate mb-2 mb-sm-0">
+                                <?php
+                                 if (isset($data) && $data['login']) {
 
-                            $nickname = $data['nickname'];
+                                    $nickname = $data['nickname'];
+                                    ?>
+                                    <span class="greeting mr-3" title="<?php echo 'Hola, ' . $nickname; ?>">Hola, <?php echo $nickname ?></span>
+                                    <?php
+                                }
+                                ?>    
+                            </div>
+                            <div class="col-md-4 col-9">
+                                <form action="<?php echo BASE_URL; ?>procesar-busqueda" method="POST">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="search" placeholder="Buscar en el foro...">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-icon btn-outline-secondary" type="submit">
+                                                <i class="fa fa-search" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-4 col-3">
+                                <nav class="navbar navbar-expand navbar-menu">
 
-                        ?>
+                                <div class="collapse navbar-collapse flex-row-reverse" id="navbarSupportedContent">
+                                    <ul class="navbar-nav">
+                                    
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-bars" id="icon-menu"></i>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <?php
 
-                            <span class="greeting mr-3">Hola, <?php echo $nickname ?></span>
+                                        if (isset($data) && $data['login']) {
 
-                            <?php
+                                            if ($data['isAdmin']) {
+                                                ?>
+                                                    <a class="dropdown-item" href="<?php echo BASE_URL ?>admin">
+                                                        <i class="fa fa-home" aria-hidden="true"></i> Admin
+                                                    </a>
+                                                <?php
+                                            }
 
-                            include "block-search.php";
-                            if ($data['isAdmin']) {
-                            ?>
-                                <a class="btn btn-success btn-icon" href="/foro-ddr/admin">
-                                    <i class="fa fa-home" aria-hidden="true"></i>Admin
-                                </a>
-                            <?php
-                            }
+                                            ?>
+                                            <a class="dropdown-item" href="<?php echo BASE_URL ?>mensajes-no-leidos">
+                                                <i class="fa fa-envelope-o" aria-hidden="true"></i> Mensajes no leidos <span class="badge badge-light"><?php echo $data['msg_no_read'] ?></span>
+                                            </a>
 
-                            ?>
+                                            <a class="dropdown-item" href="<?php echo BASE_URL ?>perfil">
+                                                <i class="fa fa-user" aria-hidden="true"></i> Ver perfil
+                                            </a>
 
+                                            <a class="dropdown-item" href="<?php echo BASE_URL ?>logout">
+                                                <i class="fa fa-power-off" aria-hidden="true"></i> Logout
+                                            </a>
+                                            <?php
+                                       
+                                        } else {
+                                        ?>
+                                        
+                                        <a class="dropdown-item" href="<?php echo BASE_URL ?>register-form">
+                                            <i class="fa fa-sign-in" aria-hidden="true"></i> Registrarse
+                                        </a>
+                                        <a class="dropdown-item" href="<?php echo BASE_URL ?>login-form">
+                                            <i class="fa fa-user" aria-hidden="true"></i> Iniciar sesión
+                                        </a>
+                                        <?php
+                                        }
+                                        ?>
 
-                            <a class="btn btn-info btn-icon btn-xs-block" href="/foro-ddr/mensajes-no-leidos">
-                                <i class="fa fa-envelope-o" aria-hidden="true"></i>Mensajes no leidos <span class="badge badge-light"><?php echo $data['msg_no_read'] ?></span>
-                            </a>
-
-                            <a class="btn btn-info btn-icon btn-xs-block" href="/foro-ddr/perfil">
-                                <i class="fa fa-user" aria-hidden="true"></i>Ver perfil
-                            </a>
-
-                            <a class="btn btn-danger btn-icon btn-xs-block" href="/foro-ddr/logout">
-                                <i class="fa fa-power-off" aria-hidden="true"></i>Logout
-                            </a>
-
-                        <?php
-                        } else {
-
-                            include "block-search.php";
-                        ?>
-
-                            <a class="btn btn-primary btn-icon" href="/foro-ddr/register-form">
-                                <i class="fa fa-sign-in" aria-hidden="true"></i>Registrarse
-                            </a>
-                            <a class="btn btn-success btn-icon" href="/foro-ddr/login-form">
-                                <i class="fa fa-user" aria-hidden="true"></i>Iniciar sesión
-                            </a>
-                        <?php
-                        }
-                        ?>
-
-
-
+                                    </li>
+                                
+                                    </form>
+                                </div>
+                                </nav>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-
 
             </div>
 

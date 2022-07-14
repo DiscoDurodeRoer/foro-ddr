@@ -5,7 +5,7 @@
                 <!-- Fin contenido -->
 
                 <?php
-                $index_ad = INDEX_AD_MEGABANNER_BOTTOM;
+                $index_ad = INDEX_AD_MEGABANNER_TOP;
                 include 'ads-monetyzer.php';
 
                 ?>
@@ -20,8 +20,7 @@
                                             V-1.0.0
                                             | <a href="<?php echo BASE_URL ?>reply/8-reglas-del-foro">Reglas del foro </a>
                                             | <a target="_blank" href="https://www.discoduroderoer.es/contactanos/">Contacto</a>
-                                            | <a href="<?php echo BASE_URL ?>reply/7-politica-de-cookies">Cookies</a>
-                                            | <a href="<?php echo BASE_URL ?>reply/9-recomendaciones-a-la-hora-de-escribir-un-tema">Recomendaciones</a>
+                                            | <a href="<?php echo BASE_URL ?>reply/4-politica-de-cookies">Cookies</a>
                                             | <a target="_blank" href="https://github.com/DiscoDurodeRoer/foro-ddr">Github</a>
                                         </span>
                                     </div>
@@ -161,13 +160,11 @@
 
                 <!-- Scripts -->
 
-                <script src="/foro-ddr/public/includes/jquery-3.4.1/jquery-3.4.1.min.js"></script>
-                <script src="/foro-ddr/public/includes/bootstrap-4.1.3/js/bootstrap.min.js"></script>
-                <script src="/foro-ddr/public/includes/ckeditor4/ckeditor.js"></script>
-                <script src="/foro-ddr/public/includes/ckeditor4/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
-                <script src="/foro-ddr/public/js/main.js"></script>
-
-                <?php include 'ads-pepsia.php'; ?>
+                <script src="<?php echo BASE_URL ?>public/includes/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+                <script src="<?php echo BASE_URL ?>public/includes/bootstrap-4.1.3/js/bootstrap.min.js"></script>
+                <script src="<?php echo BASE_URL ?>public/includes/ckeditor4/ckeditor.js"></script>
+                <script src="<?php echo BASE_URL ?>public/includes/ckeditor4/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
+                <script src="<?php echo BASE_URL ?>public/js/main.js"></script>
 
                 </body>
 

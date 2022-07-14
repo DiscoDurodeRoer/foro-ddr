@@ -27,17 +27,15 @@ class AdminUser
                 NUM_ITEMS_PAG
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminUser/get_all_users", $sql);
-                writeLog(INFO_LOG, "AdminUser/get_all_users", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "AdminUser/get_all_users", $sql);
+            writeLog(INFO_LOG, "AdminUser/get_all_users", json_encode($paramsDB));
+            
             $data['users'] = $db->getDataPrepared($sql, $paramsDB);
 
             // Paginacion
             $data["pag"] = $params['page'];
             $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
-            $data['url_base'] = "/foro-ddr/admin/user";
+            $data['url_base'] = constant('BASE_URL') . "admin/user";
 
 
             $data['success'] = true;
@@ -70,11 +68,9 @@ class AdminUser
                 $params['id_user']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminUser/ban_user", $sql);
-                writeLog(INFO_LOG, "AdminUser/ban_user", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "AdminUser/ban_user", $sql);
+            writeLog(INFO_LOG, "AdminUser/ban_user", json_encode($paramsDB));
+            
             $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             if ($data['success']) {
@@ -109,11 +105,9 @@ class AdminUser
                 $params['id_user']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminUser/no_ban_user", $sql);
-                writeLog(INFO_LOG, "AdminUser/no_ban_user", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "AdminUser/no_ban_user", $sql);
+            writeLog(INFO_LOG, "AdminUser/no_ban_user", json_encode($paramsDB));
+            
             $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             if ($data['success']) {
@@ -149,11 +143,9 @@ class AdminUser
                 $params['id_user']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminUser/act_user", $sql);
-                writeLog(INFO_LOG, "AdminUser/act_user", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "AdminUser/act_user", $sql);
+            writeLog(INFO_LOG, "AdminUser/act_user", json_encode($paramsDB));
+            
             $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             if ($data['success']) {
@@ -190,11 +182,9 @@ class AdminUser
                 $params['id_user']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminUser/no_act_user", $sql);
-                writeLog(INFO_LOG, "AdminUser/no_act_user", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "AdminUser/no_act_user", $sql);
+            writeLog(INFO_LOG, "AdminUser/no_act_user", json_encode($paramsDB));
+            
             $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             if ($data['success']) {

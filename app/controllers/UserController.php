@@ -34,9 +34,7 @@ class UserController extends Controller
 
         $data['profile'] = true;
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "UserController/display_profile", json_encode($data));
-        }
+        writeLog(INFO_LOG, "UserController/display_profile", json_encode($data));
 
         $this->view("UserView", $data);
     }
@@ -58,9 +56,7 @@ class UserController extends Controller
 
         $data['edit_profile'] = true;
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "UserController/display_edit_profile", json_encode($data));
-        }
+        writeLog(INFO_LOG, "UserController/display_edit_profile", json_encode($data));
 
         $this->view("UserView", $data);
     }
@@ -115,9 +111,7 @@ class UserController extends Controller
                 $data['edit_profile'] = true;
             }
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "UserController/edit_profile", json_encode($data));
-            }
+            writeLog(INFO_LOG, "UserController/edit_profile", json_encode($data));
 
             $this->view("UserView", $data);
         }
@@ -180,9 +174,7 @@ class UserController extends Controller
                 $data['email'] = $_POST['email'];
             }
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "UserController/register", json_encode($data));
-            }
+            writeLog(INFO_LOG, "UserController/register", json_encode($data));
 
             $this->view("UserView", $data);
         }
@@ -233,9 +225,7 @@ class UserController extends Controller
                 $data['change_password'] = true;
             }
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "UserController/change_password", json_encode($data));
-            }
+            writeLog(INFO_LOG, "UserController/change_password", json_encode($data));
 
             $this->view("UserView", $data);
         }
@@ -268,10 +258,8 @@ class UserController extends Controller
 
         $data = $this->model->unsubscribe($params);
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "UserController/unsubscribe", json_encode($data));
-        }
-
+        writeLog(INFO_LOG, "UserController/unsubscribe", json_encode($data));
+        
         if ($data['success']) {
             $session->destroySession();
             redirect_to_url(BASE_URL);
@@ -314,7 +302,7 @@ class UserController extends Controller
 
     function no_unsubscribe()
     {
-        header("Location: /foro-ddr/profile");
+        header("Location: " . constant('BASE_URL') . "profile");
     }
 
     function display_topics_user()

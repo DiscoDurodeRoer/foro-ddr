@@ -26,14 +26,14 @@ include_once 'header.php';
                 <div class="row">
                     <div class="col-9">
 
-                        <h2><?php echo $data['category']['description']; ?></h2>
+                        <h5><?php echo $data['category']['description']; ?></h5>
                     </div>
                     <?php
                     if ($data['login'] && count($data['category']['child']) === 0) {
                     ?>
                         <div class="col-3">
-                            <a class="btn btn-primary btn-block btn-icon" href="/foro-ddr/crear-topic-form/<?php echo $data['category']['id']; ?>">
-                                <i class="fa fa-plus-circle" aria-hidden="true"></i> Crear topic
+                            <a class="btn btn-primary btn-block btn-icon" href="<?php echo BASE_URL; ?>crear-topic-form/<?php echo $data['category']['id']; ?>">
+                                <i class="fa fa-plus-circle" aria-hidden="true"></i> <span class="d-none d-sm-inline-block">Crear topic</span>
                             </a>
                         </div>
                     <?php
@@ -53,7 +53,7 @@ include_once 'header.php';
                 } else {
                 ?>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 table-responsive margin-from-footer">
                             <table class="table">
                                 <tbody>
 
@@ -67,13 +67,13 @@ include_once 'header.php';
                                             <?php
                                             if ($child['num_topics'] == 0) {
                                             ?>
-                                                <a href="/foro-ddr/categoria/<?php echo $child['path'] ?>">
+                                                <a href="<?php echo BASE_URL; ?>categoria/<?php echo $child['path'] ?>">
                                                 <?php echo $child['name'] ?>
                                                 </a>
                                             <?php
                                             } else {
                                             ?>
-                                                <a href="/foro-ddr/topic/<?php echo $child['path'] ?>">
+                                                <a href="<?php echo BASE_URL; ?>topic/<?php echo $child['path'] ?>">
                                                     <?php echo $child['name'] ?>
                                                 </a>
                                             <?php

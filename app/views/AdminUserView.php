@@ -19,7 +19,7 @@ require_once 'AdminView.php'
     <div class="row">
         <div class="col-12">
 
-            <table class="table">
+            <table class="table table-responsive">
 
                 <tr>
                     <th>ID</th>
@@ -43,13 +43,13 @@ require_once 'AdminView.php'
                                 if ($value['baneado'] == TRUE) {
                             ?>
 
-                                    <a class="btn btn-success btn-icon" title="Desbanear usuario" href="/foro-ddr/admin/user/no-banear/<?php echo $value['id']; ?>">
+                                    <a class="btn btn-success btn-icon" title="Desbanear usuario" href="<?php echo BASE_URL; ?>admin/user/no-banear/<?php echo $value['id']; ?>">
                                         <i class="fa fa-check" aria-hidden="true"></i>
                                     </a>
                                 <?php
                                 } else {
                                 ?>
-                                    <a class="btn btn-danger btn-icon" title="Banear usuario" href="/foro-ddr/admin/user/banear/<?php echo $value['id']; ?>">
+                                    <a class="btn btn-danger btn-icon" title="Banear usuario" href="<?php echo BASE_URL; ?>admin/user/banear/<?php echo $value['id']; ?>">
                                         <i class="fa fa-ban"></i>
                                     </a>
 
@@ -63,13 +63,13 @@ require_once 'AdminView.php'
                                 if ($value['borrado'] == TRUE) {
                             ?>
 
-                                    <a class="btn btn-success btn-icon" title="Activar usuario" href="/foro-ddr/admin/user/desactivar/<?php echo $value['id']; ?>">
+                                    <a class="btn btn-success btn-icon" title="Activar usuario" href="<?php echo BASE_URL; ?>admin/user/desactivar/<?php echo $value['id']; ?>">
                                         <i class="fa fa-check" aria-hidden="true"></i>
                                     </a>
                                 <?php
                                 } else {
                                 ?>
-                                    <a class="btn btn-danger btn-icon" title="Desactivar usuario" href="/foro-ddr/admin/user/activar/<?php echo $value['id']; ?>">
+                                    <a class="btn btn-danger btn-icon" title="Desactivar usuario" href="<?php echo BASE_URL; ?>admin/user/activar/<?php echo $value['id']; ?>">
                                         <i class="fa fa-ban"></i>
                                     </a>
 

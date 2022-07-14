@@ -20,9 +20,7 @@ class AdminUserController extends Controller
 
         $data = $this->model->get_all_users($params);
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "AdminUserController/display", json_encode($data));
-        }
+        writeLog(INFO_LOG, "AdminUserController/display", json_encode($data));
 
         $this->view("AdminUserView", $data);
     }
@@ -49,9 +47,7 @@ class AdminUserController extends Controller
         $data['num_elems'] = $users['num_elems'];
         $data['url_base'] = $users['url_base'];
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "AdminUserController/ban_user", json_encode($data));
-        }
+        writeLog(INFO_LOG, "AdminUserController/ban_user", json_encode($data));
 
         $this->view("AdminUserView", $data);
     }
@@ -78,9 +74,7 @@ class AdminUserController extends Controller
         $data['num_elems'] = $users['num_elems'];
         $data['url_base'] = $users['url_base'];
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "AdminUserController/no_ban_user", json_encode($data));
-        }
+        writeLog(INFO_LOG, "AdminUserController/no_ban_user", json_encode($data));
 
         $this->view("AdminUserView", $data);
     }
@@ -107,9 +101,7 @@ class AdminUserController extends Controller
         $data['num_elems'] = $users['num_elems'];
         $data['url_base'] = $users['url_base'];
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "AdminUserController/no_act_user", json_encode($data));
-        }
+        writeLog(INFO_LOG, "AdminUserController/no_act_user", json_encode($data));
 
         $this->view("AdminUserView", $data);
     }
@@ -136,9 +128,7 @@ class AdminUserController extends Controller
         $data['num_elems'] = $users['num_elems'];
         $data['url_base'] = $users['url_base'];
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "AdminUserController/act_user", json_encode($data));
-        }
+        writeLog(INFO_LOG, "AdminUserController/act_user", json_encode($data));
 
         $this->view("AdminUserView", $data);
     }

@@ -34,17 +34,15 @@ class AdminCategory
                 );
             }
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminCategory/get_categories", $sql);
-                writeLog(INFO_LOG, "AdminCategory/get_categories", json_encode($paramsDB));
-            }
+            writeLog(INFO_LOG, "AdminCategory/get_categories", $sql);
+            writeLog(INFO_LOG, "AdminCategory/get_categories", json_encode($paramsDB));
 
             $data['categories'] = $db->getDataPrepared($sql, $paramsDB);
 
             if ($params['mode'] === ALL_CATEGORIES) {
                 $data["pag"] = $params['page'];
                 $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
-                $data['url_base'] = "/foro-ddr/admin/categorias";
+                $data['url_base'] = constant('BASE_URL') . "admin/categorias";
             }
 
             $data['success'] = true;
@@ -88,11 +86,9 @@ class AdminCategory
                     $params['parent_cat']
                 );
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
-                    writeLog(INFO_LOG, "AdminCategory/create_category", json_encode($paramsDB));
-                }
-
+                writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
+                writeLog(INFO_LOG, "AdminCategory/create_category", json_encode($paramsDB));
+                
                 $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
                 $sql = "SELECT id_cat_parent, level ";
@@ -104,10 +100,8 @@ class AdminCategory
                     $params['parent_cat']
                 );
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
-                    writeLog(INFO_LOG, "AdminCategory/create_category", json_encode($paramsDB));
-                }
+                writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
+                writeLog(INFO_LOG, "AdminCategory/create_category", json_encode($paramsDB));
 
                 $categories_child = $db->getDataPrepared($sql, $paramsDB);
 
@@ -125,10 +119,8 @@ class AdminCategory
 
                     $last_level = $value['level'];
 
-                    if (isModeDebug()) {
-                        writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
-                        writeLog(INFO_LOG, "AdminCategory/create_category", json_encode($paramsDB));
-                    }
+                    writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
+                    writeLog(INFO_LOG, "AdminCategory/create_category", json_encode($paramsDB));
 
                     $db->executeInstructionPrepared($sql, $paramsDB);
                 }
@@ -141,10 +133,8 @@ class AdminCategory
                     ($last_level + 1)
                 );
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
-                    writeLog(INFO_LOG, "AdminCategory/create_category", json_encode($paramsDB));
-                }
+                writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
+                writeLog(INFO_LOG, "AdminCategory/create_category", json_encode($paramsDB));
 
                 $db->executeInstructionPrepared($sql, $paramsDB);
 
@@ -184,11 +174,9 @@ class AdminCategory
                 $params['id_category']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminCategory/get_category", $sql);
-                writeLog(INFO_LOG, "AdminCategory/get_category", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "AdminCategory/get_category", $sql);
+            writeLog(INFO_LOG, "AdminCategory/get_category", json_encode($paramsDB));
+        
             $data['category'] = $db->getDataSinglePrepared($sql, $paramsDB);
             $data['success'] = true;
         } catch (Exception $e) {
@@ -213,7 +201,7 @@ class AdminCategory
 
         try {
 
-            if (empty($params['name']) || empty($params['description'])) {
+            if (empty($params['name'])) {
 
                 if (empty($params['name'])) {
                     array_push($data['message'], "El nombre de la categoria es obligatoria");
@@ -241,11 +229,9 @@ class AdminCategory
                         $params['id']
                     );
                 }
-
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "AdminCategory/edit_category", $sql);
-                    writeLog(INFO_LOG, "AdminCategory/edit_category", json_encode($paramsDB));
-                }
+               
+                writeLog(INFO_LOG, "AdminCategory/edit_category", $sql);
+                writeLog(INFO_LOG, "AdminCategory/edit_category", json_encode($paramsDB));
 
                 $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
@@ -265,11 +251,9 @@ class AdminCategory
 
                     $level_delete = $db->getDataPrepared($sql, $paramsDB);
                     $level_delete = array_column($level_delete, "level");
-
-                    if (isModeDebug()) {
-                        writeLog(INFO_LOG, "AdminCategory/edit_category", $sql);
-                        writeLog(INFO_LOG, "AdminCategory/edit_category", json_encode($paramsDB));
-                    }
+                   
+                    writeLog(INFO_LOG, "AdminCategory/edit_category", $sql);
+                    writeLog(INFO_LOG, "AdminCategory/edit_category", json_encode($paramsDB));
 
                     $sql = "DELETE FROM categories_child ";
                     $sql .= "WHERE id_cat = ? ";
@@ -280,11 +264,9 @@ class AdminCategory
                         implode(",", $level_delete)
                     );
 
-                    if (isModeDebug()) {
-                        writeLog(INFO_LOG, "AdminCategory/edit_category", $sql);
-                        writeLog(INFO_LOG, "AdminCategory/edit_category", json_encode($paramsDB));
-                    }
-
+                    writeLog(INFO_LOG, "AdminCategory/edit_category", $sql);
+                    writeLog(INFO_LOG, "AdminCategory/edit_category", json_encode($paramsDB));
+                    
                     $db->executeInstruction($sql);
 
                     $sql = "SELECT id_cat_parent, level ";
@@ -300,11 +282,9 @@ class AdminCategory
                         $params['id']
                     );
 
-                    if (isModeDebug()) {
-                        writeLog(INFO_LOG, "AdminCategory/edit_category", $sql);
-                        writeLog(INFO_LOG, "AdminCategory/edit_category", json_encode($paramsDB));
-                    }
-
+                    writeLog(INFO_LOG, "AdminCategory/edit_category", $sql);
+                    writeLog(INFO_LOG, "AdminCategory/edit_category", json_encode($paramsDB));
+                 
                     $parents = $db->getDataPrepared($sql, $paramsDB);
 
                     $last_level = end($level_delete);
@@ -321,11 +301,9 @@ class AdminCategory
 
                         $last_level = $value['level'];
 
-                        if (isModeDebug()) {
-                            writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
-                            writeLog(INFO_LOG, "AdminCategory/create_category", json_encode($paramsDB));
-                        }
-
+                        writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
+                        writeLog(INFO_LOG, "AdminCategory/create_category", json_encode($paramsDB));
+                      
                         $db->executeInstructionPrepared($sql, $paramsDB);
                     }
 
@@ -337,11 +315,9 @@ class AdminCategory
                         ($last_level + 1)
                     );
 
-                    if (isModeDebug()) {
-                        writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
-                        writeLog(INFO_LOG, "AdminCategory/create_category", json_encode($paramsDB));
-                    }
-
+                    writeLog(INFO_LOG, "AdminCategory/create_category", $sql);
+                    writeLog(INFO_LOG, "AdminCategory/create_category", json_encode($paramsDB));
+                    
                     $db->executeInstructionPrepared($sql, $paramsDB);
                 }
 
@@ -387,10 +363,8 @@ class AdminCategory
                 $params['id_category']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminCategory/delete_category", $sql);
-                writeLog(INFO_LOG, "AdminCategory/delete_category", json_encode($paramsDB));
-            }
+            writeLog(INFO_LOG, "AdminCategory/delete_category", $sql);
+            writeLog(INFO_LOG, "AdminCategory/delete_category", json_encode($paramsDB));
             
             $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 

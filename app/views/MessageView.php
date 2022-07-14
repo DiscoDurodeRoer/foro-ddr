@@ -69,11 +69,11 @@ include_once 'header.php';
                                                 <span class="registry-user">Registrado: <?php echo $data['message_solution']['registry_date'] ?></span>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <!--<div class="row">
                                             <div class="col-12">
                                                 <span class="last-connection-user">Última conexion: <?php echo $data['message_solution']['last_connection'] ?></span>
                                             </div>
-                                        </div>
+                                        </div>-->
 
                                     </div>
                                     <div class="col-md-9">
@@ -99,7 +99,7 @@ include_once 'header.php';
                         if ($data['login'] && $data['open_topic']) {
                         ?>
                             <div class="col-md-2 col-12 mt-2">
-                                <a class="btn btn-primary btn-block btn-icon" href="/foro-ddr/responder-mensaje-form/<?php echo $data['id_topic']; ?>">
+                                <a class="btn btn-primary btn-block btn-icon" href="<?php echo BASE_URL; ?>responder-mensaje-form/<?php echo $data['id_topic']; ?>">
                                     <i class="fa fa-comment" aria-hidden="true"></i> Responder
                                 </a>
                             </div>
@@ -126,7 +126,7 @@ include_once 'header.php';
                                             ?>
 
                                             <div class="col-3 offset-6 text-right" >
-                                                <a href="/foro-ddr/marcar-mensaje-solucion/<?php echo $data['id_topic']; ?>/<?php echo $value['id_message'] ?>">Marcar como solución</a>
+                                                <a href="<?php echo BASE_URL; ?>marcar-mensaje-solucion/<?php echo $data['id_topic']; ?>/<?php echo $value['id_message'] ?>">Marcar como solución</a>
                                             </div>
                                             <?php
                                             }
@@ -152,14 +152,14 @@ include_once 'header.php';
                                             </div>
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <span class="registry-user">Registrado: <?php echo $value['registry_date'] ?></span>
+                                                    <span class="registry-user">Fecha de registro: <?php echo $value['registry_date'] ?></span>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <!--<div class="row">
                                                 <div class="col-12">
                                                     <span class="last-connection-user">Última conexion: <?php echo $value['last_connection'] ?></span>
                                                 </div>
-                                            </div>
+                                            </div>-->
 
                                         </div>
                                         <div class="col-md-9">
@@ -207,7 +207,7 @@ include_once 'header.php';
                                 <div class="row">
                                     <div class="col-12">
 
-                                        <form class="reply-fast" action="/foro-ddr/responder-mensaje" method="POST" novalidate>
+                                        <form class="reply-fast" action="<?php echo BASE_URL; ?>responder-mensaje" method="POST" novalidate>
 
                                             <input type="hidden" name="id_topic" value="<?php echo $data['id_topic']; ?>">
 
@@ -252,28 +252,32 @@ include_once 'header.php';
         <?php
         } else if (isset($data['reply_message'])) {
         ?>
-            <form action="/foro-ddr/responder-mensaje" method="POST" novalidate>
+            <div class="row">
+                <div class="col-12 margin-from-footer">
 
-                <input type="hidden" name="id_topic" value="<?php echo $data['id_topic']; ?>">
+                    <form action="<?php echo BASE_URL; ?>responder-mensaje" method="POST" novalidate>
 
-                <div class="row form-group">
-                    <div class="col-12">
-                        <label for="editor">Mensaje</label>
-                        <textarea required class="form-control" name="text" id="editor" cols="30" rows="10"></textarea>
-                    </div>
+                        <input type="hidden" name="id_topic" value="<?php echo $data['id_topic']; ?>">
+
+                        <div class="row form-group">
+                            <div class="col-12">
+                                <label for="editor">Mensaje</label>
+                                <textarea required class="form-control" name="text" id="editor" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-6">
+                                <button type="submit" name="action" class="btn btn-primary btn-block">Responder</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" name="back" class="btn btn-primary btn-block">Volver</button>
+                            </div>
+                        </div>
+
+                    </form>
                 </div>
-
-                <div class="row form-group">
-                    <div class="col-6">
-                        <button type="submit" name="action" class="btn btn-primary btn-block">Responder</button>
-                    </div>
-                    <div class="col-6">
-                        <button type="button" name="back" class="btn btn-primary btn-block">Volver</button>
-                    </div>
-                </div>
-
-
-            </form>
+            </div>
         <?php
         }
         ?>

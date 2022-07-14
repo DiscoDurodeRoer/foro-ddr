@@ -24,6 +24,8 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+-- --------------------------------------------------------
+
 --
 -- Estructura de tabla para la tabla `categories`
 --
@@ -42,14 +44,7 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `description`, `parent_cat`, `icon`, `num_topics`) VALUES
-(1, 'Inicio', '', 1, '', 0),
-(2, 'Programación', '', 1, '', 0),
-(3, 'Java', '', 2, '', 0),
-(4, 'Python', '', 2, '', 0),
-(5, 'Javascript', '', 2, '', 0),
-(6, 'Sobre el foro', 'Información útil sobre el foro', 1, '', 0),
-(7, 'General', 'Topics sobre Java', 3, '', 0),
-(8, 'Ficheros', 'Topics sobre ficheros Java', 3, '', 0);
+(1, 'Inicio', '', 1, '', 0);
 
 -- --------------------------------------------------------
 
@@ -68,28 +63,7 @@ CREATE TABLE `categories_child` (
 --
 
 INSERT INTO `categories_child` (`id_cat`, `id_cat_parent`, `level`) VALUES
-(1, 1, 1),
-(2, 1, 1),
-(2, 2, 2),
-(3, 1, 1),
-(3, 2, 2),
-(3, 3, 3),
-(4, 1, 1),
-(4, 2, 2),
-(4, 4, 3),
-(5, 1, 1),
-(5, 2, 2),
-(5, 5, 3),
-(6, 1, 1),
-(6, 6, 2),
-(7, 1, 1),
-(7, 2, 2),
-(7, 3, 3),
-(7, 7, 4),
-(8, 1, 1),
-(8, 2, 2),
-(8, 3, 3),
-(8, 8, 4);
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -125,7 +99,8 @@ CREATE TABLE `messages_private` (
 CREATE TABLE `messages_public` (
   `id_message` int(11) NOT NULL,
   `id_topic` int(11) NOT NULL,
-  `message_index` int(11) DEFAULT '1'
+  `message_index` int(11) DEFAULT 1,
+  `solution` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -170,10 +145,10 @@ DELIMITER $$
 CREATE TRIGGER `update_num_topics_delete` AFTER DELETE ON `topics` FOR EACH ROW BEGIN
     
     declare num_topics_update int(11);
-    	
+      
     SELECT count(*) into num_topics_update FROM topics WHERE id_cat = OLD.id_cat;
     
-   	UPDATE categories SET num_topics = num_topics_update where id = OLD.id_cat;
+    UPDATE categories SET num_topics = num_topics_update where id = OLD.id_cat;
     
 END
 $$
@@ -182,10 +157,10 @@ DELIMITER $$
 CREATE TRIGGER `update_num_topics_insert` AFTER INSERT ON `topics` FOR EACH ROW BEGIN
     
     declare num_topics_update int(11);
-    	
+      
     SELECT count(*) into num_topics_update FROM topics WHERE id_cat = NEW.id_cat;
     
-   	UPDATE categories SET num_topics = num_topics_update where id = NEW.id_cat;
+    UPDATE categories SET num_topics = num_topics_update where id = NEW.id_cat;
    
 END
 $$
@@ -253,24 +228,6 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `users`
---
-
-INSERT INTO `users` (`id`, `name`, `surname`, `nickname`, `email`, `pass`, `registry_date`, `avatar`, `rol`, `last_connection`, `baneado`, `borrado`, `verificado`) VALUES
-(1, 'disco', 'duro de roer', 'discoduroderoer', 'administrador@discoduroderoer.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2019-10-22', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 1, '2019-10-22 00:00:00', 0, 0, 1),
-(6, 'fer', 'fer', 'ddr', 'email@email.com', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2019-10-31', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2, '2019-10-31 20:09:00', 0, 1, 1),
-(7, 'ddr3', 'ddr3', 'ddr3', 'ddr3@ddr3.com', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2019-11-05', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2, '2019-11-05 19:22:00', 1, 1, 1),
-(8, 'ddr4', 'ddr4', 'ddr4', 'ddr4@ddr4.com', 'e10adc3949ba59abbe56e057f20f883e', '2019-11-05', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2, '2019-11-05 19:37:00', 0, 1, 1),
-(9, 'ddr5', 'ddr5', 'ddr5', 'ddr5@ddr5.com', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2019-11-05', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2, '2019-11-05 19:39:00', 0, 1, 1),
-(10, 'Pepito2', 'Perez2', 'ddr6', 'ddr7@ddr7.com', '68c6932d39d733b092c9b998d0e0571ed2ac008f1ac8b7bc0ef65dd497bc89448d9bd755721dd61468dd151259a6d5ac3b87cef97223b341a48aa72ad4e77d1c', '2019-11-05', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 1, '2019-11-05 20:25:00', 0, 0, 1),
-(11, 'ddr7', 'ddr7', 'ddr7', 'ddr7@ddr7.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-03-05', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 1, '2020-03-05 18:52:00', 0, 0, 1),
-(12, 'ddr8', 'ddr8', 'ddr8', 'ddr8@ddr8.com', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-04-01', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2, '2020-04-01 20:11:00', 0, 0, 1),
-(13, 'fer', 'er', 'fer', 'fer@fer.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2, '2020-05-14 19:19:00', 0, 0, 1),
-(14, 'fer2', 'fer2', 'fer2', 'fer@fer2.es', '6df1a9f518a73b3d978b1b753eba66b8e7c46cd117879faf585f4debe54ddd04467a9ad3a4ddc13dc04e32c852248807b6ac5aea136c11734cfda301411b4084', '2020-05-14', 'http://localhost:8080/foro-ddr/public/img/default-avatar.jpg', 2, '2020-05-14 20:37:00', 0, 0, 1);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `users_activation`
 --
 
@@ -289,13 +246,6 @@ CREATE TABLE `users_remember` (
   `id_user` int(11) NOT NULL,
   `user_key` varchar(20) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `users_remember`
---
-
-INSERT INTO `users_remember` (`id_user`, `user_key`) VALUES
-(14, 'aWfn01PD68pkuQ322vFY');
 
 --
 -- Índices para tablas volcadas
@@ -391,19 +341,19 @@ ALTER TABLE `users_remember`
 -- AUTO_INCREMENT de la tabla `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `users`

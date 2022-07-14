@@ -22,9 +22,7 @@ class AdminTopicController extends Controller
 
         $data = $this->model->get_topics($params);
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "AdminTopicController/display", json_encode($data));
-        }
+        writeLog(INFO_LOG, "AdminTopicController/display", json_encode($data));
 
         $this->view("AdminTopicView", $data);
     }
@@ -43,9 +41,7 @@ class AdminTopicController extends Controller
 
         $data['categories'] = $this->modelCategory->get_categories($params)['categories'];
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "AdminTopicController/display_edit", json_encode($data));
-        }
+        writeLog(INFO_LOG, "AdminTopicController/display_edit", json_encode($data));
 
         $this->view("AdminTopicView", $data);
     }
@@ -78,9 +74,7 @@ class AdminTopicController extends Controller
             $data['num_elems'] = $topics['num_elems'];
             $data['url_base'] = $topics['url_base'];
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminTopicController/edit_topic", json_encode($data));
-            }
+            writeLog(INFO_LOG, "AdminTopicController/edit_topic", json_encode($data));
 
             $this->view("AdminTopicView", $data);
         }
@@ -109,9 +103,7 @@ class AdminTopicController extends Controller
         $data['num_elems'] = $topics['num_elems'];
         $data['url_base'] = $topics['url_base'];
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "AdminTopicController/open_topic", json_encode($data));
-        }
+        writeLog(INFO_LOG, "AdminTopicController/open_topic", json_encode($data));
 
         $this->view("AdminTopicView", $data);
     }
@@ -139,9 +131,7 @@ class AdminTopicController extends Controller
         $data['num_elems'] = $topics['num_elems'];
         $data['url_base'] = $topics['url_base'];
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "AdminTopicController/close_topic", json_encode($data));
-        }
+        writeLog(INFO_LOG, "AdminTopicController/close_topic", json_encode($data));
 
         $this->view("AdminTopicView", $data);
     }
@@ -170,9 +160,7 @@ class AdminTopicController extends Controller
         $data['num_elems'] = $topics['num_elems'];
         $data['url_base'] = $topics['url_base'];
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "AdminTopicController/close_topic", json_encode($data));
-        }
+        writeLog(INFO_LOG, "AdminTopicController/close_topic", json_encode($data));
 
         $this->view("AdminTopicView", $data);
     }

@@ -81,7 +81,7 @@ $router->register(new Route('/^\/foro-ddr\/busqueda\/(.*)$/', 'SearchController'
 $router->register(new Route('/^\/foro-ddr\/procesar-busqueda$/', 'SearchController', 'proccess_search'));
 
 // No read
-$router->register(new Route('/^\/foro-ddr\/mensajes-no-leidos\/(\/\w+)?$/', 'NoReadMessagesPublicController', 'display'));
+$router->register(new Route('/^\/foro-ddr\/mensajes-no-leidos(\/\/\w+)?$/', 'NoReadMessagesPublicController', 'display'));
 $router->register(new Route('/^\/foro-ddr\/redireccionar-mensaje\/(\w+)\/(\w+)\/(\w+)$/', 'NoReadMessagesPublicController', 'display'));
 
 $router->register(new Route('/^\/foro-ddr/', 'CategoryController', 'display'));

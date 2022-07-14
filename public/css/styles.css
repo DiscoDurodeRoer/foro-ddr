@@ -5,7 +5,7 @@ html, body {
 }
 
 html body {
-    overflow-x: auto;
+    overflow-x: hidden;
 }
 
 a:hover {
@@ -50,7 +50,8 @@ a:hover {
 
 /* Movil */
 
-/* @media (max-width: 576px) {
+ @media (max-width: 576px) {
+/*
     #header, #footer {
         width: 100%;
     }
@@ -61,7 +62,19 @@ a:hover {
         width: 100%;
         margin-bottom: 10px;
     }
-} */
+*/
+    #footer {
+        height: 120px;
+        position: fixed;
+        z-index: 999;
+    }
+    #content {
+        margin-top: 20px;
+    }
+    #content .margin-from-footer {
+        margin-bottom: 120px;
+    }
+}
 
 /* Movil landscape */
 
@@ -107,13 +120,16 @@ a:hover {
 
 @media (min-width: 992px) {
     #header, #footer {
-        height: 80px;
+        height: 70px;
         position: fixed;
         z-index: 999;
     }
     #content {
         margin-top: 110px;
         /* margin-bottom: 110px; */
+    }
+    #content .margin-from-footer {
+        margin-bottom: 70px;
     }
     .block-logo {
         text-align: left;
@@ -147,9 +163,11 @@ a:hover {
     background-color: green;
 }
 
-#content .margin-from-footer {
-    margin-bottom: 80px;
+#icon-menu{
+    font-size: 42px;
+    color: #000;
 }
+
 
 /* Ckeditor */
 
@@ -213,4 +231,20 @@ ul.menu-admin li a:hover {
 
 html body .hljs{
     display: table-caption;
+}
+
+/* Bootstrap */
+
+html body .dropdown-toggle::after{
+    display: none;
+}
+
+html body .dropdown-menu{
+    right: 0;
+    left: auto;
+    border: 1px solid rgba(0,0,0,.15);
+}
+
+html body .navbar, html body .navbar-menu .nav-link {
+    padding: 0px;
 }

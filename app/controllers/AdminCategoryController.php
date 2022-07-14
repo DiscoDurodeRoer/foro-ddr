@@ -21,10 +21,8 @@ class AdminCategoryController extends Controller
 
         $data = $this->model->get_categories($params);
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "AdminCategoryController/display", json_encode($data));
-        }
-
+        writeLog(INFO_LOG, "AdminCategoryController/display", json_encode($data));
+        
         $this->view("AdminCategoryView", $data);
     }
 
@@ -42,9 +40,7 @@ class AdminCategoryController extends Controller
 
         $data['display_create'] = true;
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "AdminCategoryController/display_create", json_encode($data));
-        }
+        writeLog(INFO_LOG, "AdminCategoryController/display_create", json_encode($data));
 
         $this->view("AdminCategoryView", $data);
     }
@@ -76,9 +72,7 @@ class AdminCategoryController extends Controller
             $data["num_elems"] = $data_categories['num_elems'];
             $data['url_base'] = $data_categories['url_base'];
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminCategoryController/create_category", json_encode($data));
-            }
+            writeLog(INFO_LOG, "AdminCategoryController/create_category", json_encode($data));
 
             $this->view("AdminCategoryView", $data);
         }
@@ -102,10 +96,8 @@ class AdminCategoryController extends Controller
 
         $data['display_edit'] = true;
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "AdminCategoryController/display_edit", json_encode($data));
-        }
-
+        writeLog(INFO_LOG, "AdminCategoryController/display_edit", json_encode($data));
+        
         $this->view("AdminCategoryView", $data);
     }
 
@@ -141,9 +133,7 @@ class AdminCategoryController extends Controller
             $data["num_elems"] = $data_categories['num_elems'];
             $data['url_base'] = $data_categories['url_base'];
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminCategoryController/edit_category", json_encode($data));
-            }
+            writeLog(INFO_LOG, "AdminCategoryController/edit_category", json_encode($data));
 
             $this->view("AdminCategoryView", $data);
         }
@@ -167,19 +157,15 @@ class AdminCategoryController extends Controller
 
         $data_categories = $this->model->get_categories($params);
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "AdminCategoryController/delete_category", json_encode($data_categories));
-        }
-
+        writeLog(INFO_LOG, "AdminCategoryController/delete_category", json_encode($data_categories));
+        
         $data['categories'] = $data_categories['categories'];
         $data["pag"] = $data_categories['pag'];
         $data['last_page'] = ceil($data_categories['num_elems'] / NUM_ITEMS_PAG);
         $data["num_elems"] = $data_categories['num_elems'];
         $data['url_base'] = $data_categories['url_base'];
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "AdminCategoryController/delete_category", json_encode($data));
-        }
+        writeLog(INFO_LOG, "AdminCategoryController/delete_category", json_encode($data));
 
         $this->view("AdminCategoryView", $data);
     }

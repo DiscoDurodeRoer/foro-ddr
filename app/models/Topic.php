@@ -38,32 +38,39 @@ class Topic
                 NUM_ITEMS_PAG
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "Topic/get_topics", $sql);
-                writeLog(INFO_LOG, "Topic/get_topics", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "Topic/get_topics", $sql);
+            writeLog(INFO_LOG, "Topic/get_topics", json_encode($paramsDB));
+            
             $data['topics'] = $db->getDataPrepared($sql, $paramsDB);
             $data['id_cat'] = $params['id_cat'];
 
             foreach ($data['topics'] as $key => $value) {
                 $data['topics'][$key]['path'] = $value['id'] . '-' . stringToPath($value['title']);
+
+                $sql = "SELECT (count(*) - 1) as replies ";
+                $sql .= "FROM topics t, messages m, messages_public mp ";
+                $sql .= "WHERE mp.id_message = m.id and t.id = mp.id_topic and t.id = ? ";
+    
+                $paramsDB = array(
+                    $data['topics'][$key]['id'],
+                );
+    
+                $data['topics'][$key]['replies'] = $db->getDataSinglePropPrepared($sql, "replies", $paramsDB);
+
             }
 
 
             // Paginacion
             $data["pag"] = $params['page'];
             $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
-            $data['url_base'] = "/foro-ddr/topic/" . $data['id_cat'];
+            $data['url_base'] = constant('BASE_URL') . "topic/" . $data['id_cat'];
 
             $sql = "SELECT name ";
             $sql .= "FROM categories ";
             $sql .= "WHERE id = ? ";
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "Topic/get_topics", $sql);
-            }
-
+            writeLog(INFO_LOG, "Topic/get_topics", $sql);
+            
             $paramsDB = array(
                 $data['id_cat']
             );
@@ -75,11 +82,9 @@ class Topic
             $sql .= "WHERE c.id = cch.id_cat_parent and cch.id_cat = ? ";
             $sql .= "ORDER BY level";
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "Topic/get_topics", $sql);
-                writeLog(INFO_LOG, "Topic/get_topics", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "Topic/get_topics", $sql);
+            writeLog(INFO_LOG, "Topic/get_topics", json_encode($paramsDB));
+            
             $parents = $db->getDataPrepared($sql, $paramsDB);
 
             $numRows = $db->numRowsPrepared($sql, $paramsDB);
@@ -92,7 +97,7 @@ class Topic
 
                     $breadcumb = new BreadCumb(
                         $value['name'],
-                        '/foro-ddr/categoria/' . $value['id'] . '-' . stringToPath($value['name']),
+                        constant('BASE_URL') . 'categoria/' . $value['id'] . '-' . stringToPath($value['name']),
                         null,
                         $key < ($numRows - 1)
                     );
@@ -145,11 +150,9 @@ class Topic
                     $params['id_cat']
                 );
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "Topic/create_topic", $sql);
-                    writeLog(INFO_LOG, "Topic/create_topic", json_encode($params));
-                }
-
+                writeLog(INFO_LOG, "Topic/create_topic", $sql);
+                writeLog(INFO_LOG, "Topic/create_topic", json_encode($params));
+                
                 $success = $db->executeInstructionPrepared($sql, $paramsDB);
 
                 if ($success) {
@@ -166,11 +169,9 @@ class Topic
                         $params['id_user']
                     );
 
-                    if (isModeDebug()) {
-                        writeLog(INFO_LOG, "Topic/create_topic", $sql);
-                        writeLog(INFO_LOG, "Topic/create_topic", json_encode($paramsDB));
-                    }
-
+                    writeLog(INFO_LOG, "Topic/create_topic", $sql);
+                    writeLog(INFO_LOG, "Topic/create_topic", json_encode($paramsDB));
+                    
                     $success = $db->executeInstructionPrepared($sql, $paramsDB);
 
                     if ($success) {
@@ -182,11 +183,9 @@ class Topic
                             $id_topic
                         );
 
-                        if (isModeDebug()) {
-                            writeLog(INFO_LOG, "Topic/create_topic", $sql);
-                            writeLog(INFO_LOG, "Topic/create_topic", json_encode($paramsDB));
-                        }
-
+                        writeLog(INFO_LOG, "Topic/create_topic", $sql);
+                        writeLog(INFO_LOG, "Topic/create_topic", json_encode($paramsDB));
+                        
                         $success = $db->executeInstructionPrepared($sql, $paramsDB);
                     }
                 }
@@ -194,7 +193,7 @@ class Topic
                 $data['success'] = $success;
 
                 if ($data['success']) {
-                    $data['message'] = "El topic se ha creado correctamente. Pulsa <a href='/foro-ddr/reply/" . $data['id_topic'] . "'>aquí</a> para ir al topic.";
+                    $data['message'] = "El topic se ha creado correctamente. Pulsa <a href='". constant('PAGE_URL') . "reply/" . $data['id_topic'] . '-' . stringToPath($params['title_topic']). "'>aquí</a> para ir al topic.";
                 } else {
                     $data['message'] = "El topic no se creo correctamente.";
                 }

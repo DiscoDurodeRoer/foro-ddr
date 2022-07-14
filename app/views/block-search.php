@@ -3,7 +3,7 @@
     <i class="fa fa-search" aria-hidden="true" id="icon-search"></i>
 
     <div id="form-search" class="d-none">
-        <form action="/foro-ddr/procesar-busqueda" method="POST">
+        <form action="<?php echo BASE_URL; ?>procesar-busqueda" method="POST">
             <div class="input-group mb-3">
                 <input type="text" class="form-control" name="search">
                 <div class="input-group-append">

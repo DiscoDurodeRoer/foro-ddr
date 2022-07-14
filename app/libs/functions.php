@@ -19,21 +19,23 @@ function today()
 
 function isModeDebug()
 {
-    return MODE_DEBUG === TRUE;
+    return MODE_DEBUG == TRUE;
 }
 
 function writeLog($type, $origin, $message)
 {
-    $log = new Log();
-    $log->writeLine($type, $origin, $message);
-    $log->close();
+    if(isModeDebug()){
+        $log = new Log();
+        $log->writeLine($type, $origin, $message);
+        $log->close();
+    }
 }
 
 function isLogged()
 {
     $session = new Session();
     if (!$session->getAttribute('login')) {
-        header('Location: /foro-ddr');
+        header("Location: " . constant('BASE_URL'));
     }
 }
 
@@ -54,9 +56,7 @@ function msgNoRead()
     $sql .= "WHERE mp.id_message = um.id_message and ";
     $sql .= "um.id_user = " . $session->getAttribute(SESSION_ID_USER);
 
-    if (isModeDebug()) {
-        writeLog(INFO_LOG, "functions/msgNoRead", $sql);
-    }
+    writeLog(INFO_LOG, "functions/msgNoRead", $sql);
 
     $numMessages = $db->getDataSingleProp($sql, "num_messages");
 
@@ -117,9 +117,7 @@ function sendEmail($email, $subject, $template, $params = null)
         writeLog(ERROR_LOG, "functions/sendEmail", "No se enviado el mensaje: " . $mail->ErrorInfo);
         return false;
     } else {
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "functions/sendEmail", "Se ha enviado el correo correctamente");
-        }
+        writeLog(INFO_LOG, "functions/sendEmail", "Se ha enviado el correo correctamente");
         return true;
     }
 }

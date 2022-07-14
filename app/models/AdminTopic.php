@@ -30,17 +30,15 @@ class AdminTopic
                 NUM_ITEMS_PAG
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminTopic/get_topics", $sql);
-                writeLog(INFO_LOG, "AdminTopic/get_topics", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "AdminTopic/get_topics", $sql);
+            writeLog(INFO_LOG, "AdminTopic/get_topics", json_encode($paramsDB));
+            
             $data['topics'] = $db->getDataPrepared($sql, $paramsDB);
 
             // Paginacion
             $data["pag"] = $params['page'];
             $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
-            $data['url_base'] = "/foro-ddr/admin/topic";
+            $data['url_base'] = constant('BASE_URL') . "admin/topic";
 
             $data['success'] = true;
         } catch (Exception $e) {
@@ -72,11 +70,9 @@ class AdminTopic
                 $id_topic
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminTopic/get_topic", $sql);
-                writeLog(INFO_LOG, "AdminTopic/get_topic", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "AdminTopic/get_topic", $sql);
+            writeLog(INFO_LOG, "AdminTopic/get_topic", json_encode($paramsDB));
+            
             $data['topic'] = $db->getDataSinglePrepared($sql, $paramsDB);
 
             $data['success'] = true;
@@ -111,11 +107,9 @@ class AdminTopic
                 $params['id']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminTopic/edit_topic", $sql);
-                writeLog(INFO_LOG, "AdminTopic/edit_topic", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "AdminTopic/edit_topic", $sql);
+            writeLog(INFO_LOG, "AdminTopic/edit_topic", json_encode($paramsDB));
+            
             $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             if ($data['success']) {
@@ -153,11 +147,9 @@ class AdminTopic
                 $params['id_topic']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminTopic/open_topic", $sql);
-                writeLog(INFO_LOG, "AdminTopic/open_topic", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "AdminTopic/open_topic", $sql);
+            writeLog(INFO_LOG, "AdminTopic/open_topic", json_encode($paramsDB));
+            
             $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             if ($data['success']) {
@@ -193,11 +185,9 @@ class AdminTopic
                 $params['id_topic']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminTopic/close_topic", $sql);
-                writeLog(INFO_LOG, "AdminTopic/close_topic", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "AdminTopic/close_topic", $sql);
+            writeLog(INFO_LOG, "AdminTopic/close_topic", json_encode($paramsDB));
+            
             $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             if ($data['success']) {
@@ -231,11 +221,9 @@ class AdminTopic
                 $params['id_topic']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminTopic/delete_topic", $sql);
-                writeLog(INFO_LOG, "AdminTopic/delete_topic", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "AdminTopic/delete_topic", $sql);
+            writeLog(INFO_LOG, "AdminTopic/delete_topic", json_encode($paramsDB));
+            
             $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             $sql = "DELETE FROM topics ";
@@ -245,11 +233,9 @@ class AdminTopic
                 $params['id_topic']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "AdminTopic/delete_topic", $sql);
-                writeLog(INFO_LOG, "AdminTopic/delete_topic", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "AdminTopic/delete_topic", $sql);
+            writeLog(INFO_LOG, "AdminTopic/delete_topic", json_encode($paramsDB));
+            
             $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             if ($data['success']) {

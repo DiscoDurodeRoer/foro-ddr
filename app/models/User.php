@@ -50,11 +50,9 @@ class User
             );
         }
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "User/checkErrors", $sql);
-            writeLog(INFO_LOG, "User/checkErrors", json_encode($paramsDB));
-        }
-
+        writeLog(INFO_LOG, "User/checkErrors", $sql);
+        writeLog(INFO_LOG, "User/checkErrors", json_encode($paramsDB));
+        
         $num_usuarios = $db->getDataSinglePropPrepared($sql, "num_usuarios", $paramsDB);
 
         if ($num_usuarios > 0) {
@@ -76,11 +74,9 @@ class User
             );
         }
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "User/checkErrors", $sql);
-            writeLog(INFO_LOG, "User/checkErrors", json_encode($paramsDB));
-        }
-
+        writeLog(INFO_LOG, "User/checkErrors", $sql);
+        writeLog(INFO_LOG, "User/checkErrors", json_encode($paramsDB));
+        
         $num_usuarios = $db->getDataSinglePropPrepared($sql, "num_usuarios", $paramsDB);
 
         if ($num_usuarios > 0) {
@@ -116,11 +112,9 @@ class User
                 $params['id_user']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "User/get_all_info_user", $sql);
-                writeLog(INFO_LOG, "User/get_all_info_user", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "User/get_all_info_user", $sql);
+            writeLog(INFO_LOG, "User/get_all_info_user", json_encode($paramsDB));
+            
             $data['info_user'] = $db->getDataSinglePrepared($sql, $paramsDB);
         } catch (Exception $e) {
             $data['show_message_info'] = true;
@@ -151,7 +145,7 @@ class User
             if (!empty($params['avatar'])) {
                 $avatar = $params['avatar'];
             } else {
-                $avatar = PAGE_URL . "img/default-avatar.jpg";
+                $avatar = PAGE_URL . "/public/img/default-avatar.jpg";
             }
 
             $paramsDB = array(
@@ -166,11 +160,9 @@ class User
                 today()
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "User/registry", $sql);
-                writeLog(INFO_LOG, "User/registry", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "User/registry", $sql);
+            writeLog(INFO_LOG, "User/registry", json_encode($paramsDB));
+            
             $success = $db->executeInstructionPrepared($sql, $paramsDB);
 
             $key = generateUserKey();
@@ -188,7 +180,7 @@ class User
             $data['text-center'] = true;
 
             if ($success) {
-                $data['message'] = "Su registro se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
+                $data['message'] = "Su registro se ha completado con éxito, recibirás un correo para validar tu cuenta. Pulsa <a href='". constant('BASE_URL') ."'>aquí</a> para volver al inicio.";
 
                 $paramsEmail = array(
                     'key' => $key
@@ -242,16 +234,14 @@ class User
                 $params['id_user']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "User/edit_profile", $sql);
-                writeLog(INFO_LOG, "User/edit_profile", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "User/edit_profile", $sql);
+            writeLog(INFO_LOG, "User/edit_profile", json_encode($paramsDB));
+            
             $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
             $data['text-center'] = true;
             if ($data['success']) {
-                $data['message'] = "La edición se ha completado con éxito. Pulsa <a href='/foro-ddr/'>aquí</a> para volver al inicio.";
+                $data['message'] = "La edición se ha completado con éxito. Pulsa <a href='" . constant('BASE_URL') ."'>aquí</a> para volver al inicio.";
 
                 $data['user'] = array(
                     'id' => $params['id_user'],
@@ -298,11 +288,9 @@ class User
                     $params['user_key']
                 );
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "User/change_password", $sql);
-                    writeLog(INFO_LOG, "User/change_password", json_encode($paramsDB));
-                }
-
+                writeLog(INFO_LOG, "User/change_password", $sql);
+                writeLog(INFO_LOG, "User/change_password", json_encode($paramsDB));
+                
                 $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
                 $sql = "DELETE FROM users_remember ";
@@ -312,11 +300,9 @@ class User
                     $params['user_key']
                 );
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "User/change_password", $sql);
-                    writeLog(INFO_LOG, "User/change_password", json_encode($paramsDB));
-                }
-
+                writeLog(INFO_LOG, "User/change_password", $sql);
+                writeLog(INFO_LOG, "User/change_password", json_encode($paramsDB));
+                
                 $db->executeInstructionPrepared($sql, $paramsDB);
             } else {
 
@@ -329,11 +315,9 @@ class User
                     $params['id_user']
                 );
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "User/change_password", $sql);
-                    writeLog(INFO_LOG, "User/change_password", json_encode($paramsDB));
-                }
-
+                writeLog(INFO_LOG, "User/change_password", $sql);
+                writeLog(INFO_LOG, "User/change_password", json_encode($paramsDB));
+                
                 $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
             }
 
@@ -370,11 +354,9 @@ class User
                 $params['id_user']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "User/unsubscribe", $sql);
-                writeLog(INFO_LOG, "User/unsubscribe", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "User/unsubscribe", $sql);
+            writeLog(INFO_LOG, "User/unsubscribe", json_encode($paramsDB));
+            
             $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
         } catch (Exception $e) {
             $data['show_message_info'] = true;
@@ -406,11 +388,9 @@ class User
                 $params['key']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "User/verification", $sql);
-                writeLog(INFO_LOG, "User/verification", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "User/verification", $sql);
+            writeLog(INFO_LOG, "User/verification", json_encode($paramsDB));
+            
             $nRows = $db->numRowsPrepared($sql, $paramsDB);
 
             if ($nRows === 1) {
@@ -428,21 +408,17 @@ class User
                     $id
                 );
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "User/verification", $sql);
-                    writeLog(INFO_LOG, "User/verification", json_encode($paramsDB));
-                }
-
+                writeLog(INFO_LOG, "User/verification", $sql);
+                writeLog(INFO_LOG, "User/verification", json_encode($paramsDB));
+                
                 $db->executeInstructionPrepared($sql, $paramsDB);
 
                 $sql = "DELETE FROM users_activation ";
                 $sql .= "WHERE id_user = ? ";
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "User/verification", $sql);
-                    writeLog(INFO_LOG, "User/verification", json_encode($paramsDB));
-                }
-
+                writeLog(INFO_LOG, "User/verification", $sql);
+                writeLog(INFO_LOG, "User/verification", json_encode($paramsDB));
+                
                 $data['success'] = $db->executeInstructionPrepared($sql, $paramsDB);
 
                 $data['text-center'] = true;
@@ -493,11 +469,9 @@ class User
                 FALSE
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "User/resend_confirmation", $sql);
-                writeLog(INFO_LOG, "User/resend_confirmation", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "User/resend_confirmation", $sql);
+            writeLog(INFO_LOG, "User/resend_confirmation", json_encode($paramsDB));
+            
             $nRows = $db->numRowsPrepared($sql, $paramsDB);
 
             if ($nRows === 1) {
@@ -546,11 +520,9 @@ class User
                 $params['id_user']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "User/search_topics_user", $sql);
-                writeLog(INFO_LOG, "User/search_topics_user", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "User/search_topics_user", $sql);
+            writeLog(INFO_LOG, "User/search_topics_user", json_encode($paramsDB));
+            
             $data['topics_user'] = $db->getDataPrepared($sql, $paramsDB);
 
             $data['has_results'] = $db->numRowsPrepared($sql, $paramsDB) > 0;

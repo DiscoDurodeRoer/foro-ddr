@@ -11,20 +11,20 @@ include_once 'header.php';
 </div>
 
 <div class="row">
-    <div class="col-12">
+    <div class="col-12 table-responsive">
 
         <?php
 
         if ($data['has_results']) {
         ?>
 
-            <table class="table">
+            <table class="table ">
                 <?php
 
                 foreach ($data['topics'] as $key => $value) {
                     echo "<tr>";
 
-                    echo "<td><a href='/foro-ddr/reply/" . $value['id'] . "'>" . $value['title'] . "</a></td>";
+                    echo "<td><a href='" . constant('BASE_URL') . "reply/" . $value['id'] . "'>" . $value['title'] . "</a></td>";
               
                     echo "</tr>";
                 }

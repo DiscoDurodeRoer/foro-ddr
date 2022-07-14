@@ -2,22 +2,22 @@
 <div class="col-md-2 border-right block-sidebar">
     <ul class="menu-admin nav flex-column">
         <li class="nav-item">
-            <a class="nav-link active" href="/foro-ddr/admin/user">Usuarios</a>
+            <a class="nav-link active" href="<?php echo constant('BASE_URL'); ?>admin/user">Usuarios</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/foro-ddr/admin/categorias">Categorias</a>
+            <a class="nav-link" href="<?php echo constant('BASE_URL'); ?>admin/categorias">Categorias</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/foro-ddr/admin/topic">Topics</a>
+            <a class="nav-link" href="<?php echo constant('BASE_URL'); ?>admin/topic">Topics</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/foro-ddr/admin/log">Log</a>
+            <a class="nav-link" href="<?php echo constant('BASE_URL'); ?>admin/log">Log</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/foro-ddr/admin/back">Volver al foro</a>
+            <a class="nav-link" href="<?php echo constant('BASE_URL'); ?>admin/back">Volver al foro</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/foro-ddr/logout">Logout</a>
+            <a class="nav-link" href="<?php echo constant('BASE_URL'); ?>logout">Logout</a>
         </li>
     </ul>
 </div>

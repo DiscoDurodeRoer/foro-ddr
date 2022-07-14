@@ -43,11 +43,9 @@ class Login
                     hash_hmac("sha512", $params['pass'], HASH_PASS_KEY)
                 );
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "Login/checkLogin", $sql);
-                    writeLog(INFO_LOG, "Login/checkLogin", json_encode($paramsDB));
-                }
-
+                writeLog(INFO_LOG, "Login/checkLogin", $sql);
+                writeLog(INFO_LOG, "Login/checkLogin", json_encode($paramsDB));
+                
                 $data = $db->getDataSinglePrepared($sql, $paramsDB);
 
                 if ($db->numRowsPrepared($sql, $paramsDB) > 0) {
@@ -87,11 +85,9 @@ class Login
                 $params['email']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "Login/sendNotificationRememeber", $sql);
-                writeLog(INFO_LOG, "Login/sendNotificationRememeber", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "Login/sendNotificationRememeber", $sql);
+            writeLog(INFO_LOG, "Login/sendNotificationRememeber", json_encode($paramsDB));
+            
             if ($db->numRowsPrepared($sql, $paramsDB) > 0) {
 
                 $id = $db->getDataSinglePropPrepared($sql, "id", $paramsDB);
@@ -107,11 +103,9 @@ class Login
 
                 $db->executeInstructionPrepared($sql, $paramsDB);
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "Login/sendNotificationRememeber", $sql);
-                    writeLog(INFO_LOG, "Login/sendNotificationRememeber", json_encode($paramsDB));
-                }
-
+                writeLog(INFO_LOG, "Login/sendNotificationRememeber", $sql);
+                writeLog(INFO_LOG, "Login/sendNotificationRememeber", json_encode($paramsDB));
+                
                 $paramsEmail = array(
                     'key' => $key
                 );

@@ -20,9 +20,7 @@ class CategoryController extends Controller
 
         $data = $this->model->get_categories($params);
 
-        if(isModeDebug()){
-            writeLog(INFO_LOG, "CategoryController/display", json_encode($data));
-        }
+        writeLog(INFO_LOG, "CategoryController/display", json_encode($data));
 
         $this->view("CategoryView", $data);
     }

@@ -36,7 +36,7 @@ include_once 'header.php';
                 foreach ($data['no_read_messages'] as $key => $value) {
                     echo "<tr>";
 
-                    echo "<td><a href='/foro-ddr/redireccionar-mensaje/".$value['id']."/".$value['page']."/".$value['message_index']."' >" . $value['title'] . "</a></td>";
+                    echo "<td><a href=". constant('BASE_URL') . "'redireccionar-mensaje/".$value['id']."/".$value['page']."/".$value['message_index']."' >" . $value['title'] . "</a></td>";
                     echo "<td>" . $value['num_messages'] . "</td>";
 
                     echo "</tr>";

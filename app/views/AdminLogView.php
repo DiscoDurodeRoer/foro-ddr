@@ -11,16 +11,16 @@ require_once 'AdminView.php';
             <h1>Gestión Log</h1>
         </div>
         <div class="col-md-3 col-12">
-            <a class="btn btn-danger btn-icon btn-block" href="/foro-ddr/admin/log/delete-log">
+            <a class="btn btn-danger btn-icon btn-block" href="<?php echo BASE_URL; ?>admin/log/delete-log">
                 <i class="fa fa-trash" aria-hidden="true"></i> Borrar contenido Log
             </a>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 table-responsive">
 
-            <table class="table">
+            <table class="table ">
                 <tr>
                     <th>Tipo</th>
                     <th>Fecha</th>

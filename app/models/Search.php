@@ -15,30 +15,32 @@ class Search
         $paramsDB = array();
 
         try {
-            $wordsSearched = explode('+', $params['searched']);
+            if(isset($params['searched']) && $params['searched'] !== ""){
 
-            $sql = "SELECT * ";
-            $sql .= "FROM topics ";
-            $sql .= "WHERE ";
+                $wordsSearched = explode('+', $params['searched']);
 
-            for ($i = 0; $i < count($wordsSearched); $i++) {
-                if (!empty($wordsSearched[$i])) {
-                    $sql .= " title LIKE ? ";
-                    array_push($paramsDB, "%" . urldecode($wordsSearched[$i]) . "%");
-                    if ($i !== count($wordsSearched) - 1) {
-                        $sql .= " OR ";
+                $sql = "SELECT * ";
+                $sql .= "FROM topics ";
+                $sql .= "WHERE ";
+    
+                for ($i = 0; $i < count($wordsSearched); $i++) {
+                    if (!empty($wordsSearched[$i])) {
+                        $sql .= " title LIKE ? ";
+                        array_push($paramsDB, "%" . urldecode($wordsSearched[$i]) . "%");
+                        if ($i !== count($wordsSearched) - 1) {
+                            $sql .= " OR ";
+                        }
                     }
                 }
-            }
-            if (isModeDebug()) {
                 writeLog(INFO_LOG, "Search/search_topics", json_encode($wordsSearched));
                 writeLog(INFO_LOG, "Search/search_topics", $sql);
                 writeLog(INFO_LOG, "Search/search_topics", json_encode($paramsDB));
+                
+                $data['topics'] = $db->getDataPrepared($sql, $paramsDB);
+    
+                $data['has_results'] = $db->numRowsPrepared($sql, $paramsDB);
             }
 
-            $data['topics'] = $db->getDataPrepared($sql, $paramsDB);
-
-            $data['has_results'] = $db->numRowsPrepared($sql, $paramsDB);
         } catch (Exception $e) {
             $data['show_message_info'] = true;
             $data['success'] = false;

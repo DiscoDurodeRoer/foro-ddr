@@ -13,7 +13,7 @@ include_once 'header.php';
 
         ?>
 
-            <form id="formUser" action="/foro-ddr/<?php echo isset($data['registry']) ? 'register' : 'editar-perfil'; ?>" method="POST">
+            <form id="formUser" action="<?php echo BASE_URL; ?><?php echo isset($data['registry']) ? 'register' : 'editar-perfil'; ?>" method="POST">
 
                 <?php
                 if (isset($data['edit_profile'])) {
@@ -97,7 +97,7 @@ include_once 'header.php';
                 if (isset($data['registry'])) {
                 ?>
                     <div class="row form-group">
-                        <a href="/base-mvc-php/verificacion-form">¿Ya te has registrado y no te ha llegado el correo de activación? Pulsa aquí para reenviar correo.</a>
+                        <a href="<?php echo BASE_URL; ?>verificacion-form">¿Ya te has registrado y no te ha llegado el correo de activación? Pulsa aquí para reenviar correo.</a>
                     </div>
                 <?php
                 }
@@ -109,7 +109,7 @@ include_once 'header.php';
         } else if (isset($data['form_verification'])) {
         ?>
 
-            <form action="/foro-ddr/reenviar-confirmacion" method="POST">
+            <form action="<?php echo BASE_URL; ?>reenviar-confirmacion" method="POST">
 
                 <div class="row form-group">
                     <div class="col-12">
@@ -126,10 +126,10 @@ include_once 'header.php';
                 </div>
 
                 <div class="row form-group">
-                    <div class="col-6">
+                    <div class="col-md-6 col-12 mt-2">
                         <button type="submit" class="btn btn-primary btn-block">Reenviar correo de activación</button>
                     </div>
-                    <div class="col-6">
+                    <div class="col-md-6 col-12 mt-2">
                         <button type="button" name="back" class="btn btn-primary btn-block">Volver</button>
                     </div>
                 </div>
@@ -142,7 +142,7 @@ include_once 'header.php';
         ?>
 
 
-            <div class="card card-message mb-3">
+            <div class="card card-message margin-from-footer">
                 <h2 class="card-header">Perfil de usuario</h2>
                 <div class="row no-gutters">
                     <div class="user-data-message text-center p-3 col-md-3">
@@ -163,7 +163,7 @@ include_once 'header.php';
                         <div class="card-body">
 
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 table-responsive">
                                     <table class="table">
                                         <tbody>
                                             <tr>
@@ -182,11 +182,11 @@ include_once 'header.php';
                                                 <td>Registrado</td>
                                                 <td><?php echo $data['info_user']['registry_date'] ?></td>
                                             </tr>
-                                            <tr>
+                                            <!-- <tr>
                                                 <td>Última conexion</td>
                                                 <td><?php echo $data['info_user']['last_connection'] ?></td>
                                             </tr>
-                                            <!-- <tr>
+                                            <tr>
                                                 <td>Total posts</td>
                                                 <td>0</td>
                                             </tr> -->
@@ -196,20 +196,20 @@ include_once 'header.php';
                             </div>
 
                             <div class="row">
-                                <div class="col-12 text-right">
-                                    <a class="btn btn-success btn-icon" href="/foro-ddr/participaciones-topics">
+                                <div class="col-12 text-center">
+                                    <a class="btn btn-success btn-icon mb-1" href="<?php echo BASE_URL; ?>participaciones-topics">
                                         <i class="fa fa-eye" aria-hidden="true"></i> Participaciones en topics
                                     </a>
-                                    <a class="btn btn-success btn-icon" href="/foro-ddr/editar-perfil-form">
+                                    <a class="btn btn-success btn-icon mb-1" href="<?php echo BASE_URL; ?>editar-perfil-form">
                                         <i class="fa fa-pencil" aria-hidden="true"></i> Editar perfil
                                     </a>
-                                    <a class="btn btn-success btn-icon" href="/foro-ddr/editar-password-form">
+                                    <a class="btn btn-success btn-icon mb-1" href="<?php echo BASE_URL; ?>editar-password-form">
                                         <i class="fa fa-key" aria-hidden="true"></i></i> Cambiar contraseña
                                     </a>
                                     <?php
                                     if ($data['info_user']['rol'] != 1) {
                                     ?>
-                                        <a class="btn btn-danger btn-icon" href="/foro-ddr/desuscribirse-confirm">
+                                        <a class="btn btn-danger btn-icon mb-1" href="<?php echo BASE_URL; ?>desuscribirse-confirm">
                                             <i class="fa fa-user-times" aria-hidden="true"></i> Darse de baja
                                         </a>
                                     <?php
@@ -229,7 +229,7 @@ include_once 'header.php';
 
         ?>
 
-            <form action="/foro-ddr/change_password" method="POST">
+            <form action="<?php echo BASE_URL; ?>change_password" method="POST">
 
                 <?php
                 if (isset($data['user_key'])) {
@@ -285,10 +285,10 @@ include_once 'header.php';
 
                     <div class="row">
                         <div class="col-12">
-                            <a class="btn btn-success btn-icon" href="/foro-ddr/desuscribirse">
+                            <a class="btn btn-success btn-icon" href="<?php echo BASE_URL; ?>desuscribirse">
                                 <i class="fa fa-check" aria-hidden="true"></i> Si
                             </a>
-                            <a class="btn btn-danger btn-icon" href="/foro-ddr/no-desuscribirse">
+                            <a class="btn btn-danger btn-icon" href="<?php echo BASE_URL; ?>no-desuscribirse">
                                 <i class="fa fa-times" aria-hidden="true"></i> No
                             </a>
                         </div>
@@ -314,31 +314,40 @@ include_once 'header.php';
             if ($data['has_results']) {
             ?>
 
-                <table class="table">
+            <div class="row">
+                <div class="col-12 table-responsive">
+                    
+                   <table class="table ">
 
-                    <tr>
-                        <th>Topic</th>
-                        <th>Ultimo mensaje</th>
-                        <th>Número de posts</th>
-                    </tr>
+                        <tr>
+                            <th>Topic</th>
+                            <th>Ultimo mensaje</th>
+                            <th>Número de posts</th>
+                        </tr>
 
-                    <?php
+                        <?php
 
-                    foreach ($data['topics_user'] as $key => $value) {
-                        echo "<tr>";
+                        foreach ($data['topics_user'] as $key => $value) {
+                            echo "<tr>";
 
-                        echo "<td><a href='/foro-ddr/reply/" . $value['id_topic'] . "'>" . $value['title'] . "</a></td>";
-                        echo "<td>" . $value['date_last_message'] . "</td>";
-                        echo "<td>" . $value['num_post'] . "</td>";
+                            echo "<td><a href='<?php echo BASE_URL; ?>reply/" . $value['id_topic'] . "'>" . $value['title'] . "</a></td>";
+                            echo "<td>" . $value['date_last_message'] . "</td>";
+                            echo "<td>" . $value['num_post'] . "</td>";
 
-                        echo "</tr>";
-                    }
-                    ?>
-                </table>
+                            echo "</tr>";
+                        }
+                        ?>
+                    </table>
+                </div>
+            </div>
             <?php
             } else {
             ?>
-                <p>No has participado en ningún topic.</p>
+            <div class="row">
+                <div class="col-12">
+                    <p>No has participado en ningún topic.</p>
+                </div>
+            </div>
             <?php
             }
             ?>

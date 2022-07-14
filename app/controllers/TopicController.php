@@ -26,9 +26,7 @@ class TopicController extends Controller
             // Indico que es para mostrar
             $data['display'] = true;
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "TopicController/display", json_encode($data));
-            }
+            writeLog(INFO_LOG, "TopicController/display", json_encode($data));
 
             $this->view("TopicView", $data);
         }
@@ -45,9 +43,7 @@ class TopicController extends Controller
             $data['id_cat'] = $id_cat;
         }
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "TopicController/display_create_topic", json_encode($data));
-        }
+        writeLog(INFO_LOG, "TopicController/display_create_topic", json_encode($data));
 
         $this->view("TopicView", $data);
     }
@@ -70,9 +66,7 @@ class TopicController extends Controller
 
             $data = $this->model->create_topic($params);
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "TopicController/create_topic", json_encode($data));
-            }
+            writeLog(INFO_LOG, "TopicController/create_topic", json_encode($data));
 
             if (!$data['success']) {
                 // redirect_to_url("/foro-ddr/crear-topic-form/" . $_POST['id_cat']);

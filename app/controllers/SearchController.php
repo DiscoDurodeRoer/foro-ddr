@@ -16,12 +16,10 @@ class SearchController extends Controller
         if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
 
             $searchProcess = str_replace(" ", "+", $_POST['search']);
-    
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "SearchController/proccess_search", $searchProcess);
-            }
 
-            redirect_to_url("/foro-ddr/busqueda/" . $searchProcess);
+            writeLog(INFO_LOG, "SearchController/proccess_search", $searchProcess);
+
+            redirect_to_url(constant('BASE_URL') . "busqueda/" . $searchProcess);
         }
     }
 
@@ -33,9 +31,7 @@ class SearchController extends Controller
 
         $data = $this->model->search_topics($params);
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "SearchController/display", json_encode($data));
-        }
+        writeLog(INFO_LOG, "SearchController/display", json_encode($data));
 
         $this->view("SearchView", $data);
     }

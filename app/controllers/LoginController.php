@@ -33,9 +33,7 @@ class LoginController extends Controller
 
             $data = $this->model->checkLogin($params);
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "Login/login", json_encode($data));
-            }
+            writeLog(INFO_LOG, "Login/login", json_encode($data));
 
             if ($data['success']) {
                 if ($data['user']) {
@@ -73,9 +71,7 @@ class LoginController extends Controller
 
             $data = $this->model->sendNotificationRememeber($params);
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "Login/remember", json_encode($data));
-            }
+            writeLog(INFO_LOG, "Login/remember", json_encode($data));
 
             $this->view("LoginView", $data);
         }

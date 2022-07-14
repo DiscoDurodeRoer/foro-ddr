@@ -43,17 +43,15 @@ class NoReadMessagesPublic
                 NUM_ITEMS_PAG
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "NoReadMessagesPublic/get_no_read_messages_public", $sql);
-                writeLog(INFO_LOG, "NoReadMessagesPublic/get_no_read_messages_public", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "NoReadMessagesPublic/get_no_read_messages_public", $sql);
+            writeLog(INFO_LOG, "NoReadMessagesPublic/get_no_read_messages_public", json_encode($paramsDB));
+            
             $data['no_read_messages'] = $db->getDataPrepared($sql, $paramsDB);
 
             // Paginacion
             $data["pag"] = $params['page'];
             $data['last_page'] = ceil($data['num_elems'] / NUM_ITEMS_PAG);
-            $data['url_base'] = "/foro-ddr/mensajes-no-leidos/" . $data['id_topic'];
+            $data['url_base'] = constant('BASE_URL') . "mensajes-no-leidos/" . $data['id_topic'];
 
             $data['has_messages'] = count($data['no_read_messages']) > 0;
 
@@ -88,11 +86,9 @@ class NoReadMessagesPublic
                 $params['id_user']
             );
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "NoReadMessagesPublic/delete_no_read_messages", $sql);
-                writeLog(INFO_LOG, "NoReadMessagesPublic/delete_no_read_messages", json_encode($paramsDB));
-            }
-
+            writeLog(INFO_LOG, "NoReadMessagesPublic/delete_no_read_messages", $sql);
+            writeLog(INFO_LOG, "NoReadMessagesPublic/delete_no_read_messages", json_encode($paramsDB));
+            
             $db->executeInstructionPrepared($sql, $paramsDB);
 
             $data['success'] = true;

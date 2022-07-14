@@ -16,22 +16,28 @@ class MessageController extends Controller
         if (isset($id_topic)) {
 
             $session = new Session();
-
+            
             $params = array(
                 'id_user' => $session->getAttribute(SESSION_ID_USER),
                 'is_admin' => $session->getAttribute(SESSION_IS_ADMIN),
                 'id_topic' => intval(filter_var($id_topic, FILTER_SANITIZE_NUMBER_INT)),
+                'url_topic' => $id_topic,
                 'page' => intval(filter_var($page, FILTER_SANITIZE_NUMBER_INT))
             );
 
             $data = $this->model->get_messages_by_topic($params);
-            $data["display"] = true;
+            
+            if(!$data["exists"]){
+                header("Location: " . constant('BASE_URL'));
+            }else{
 
-            if (isModeDebug()) {
+                $data["display"] = true;
+
                 writeLog(INFO_LOG, "MessageController/display", json_encode($data));
+    
+                $this->view("MessageView", $data);
             }
-
-            $this->view("MessageView", $data);
+            
         }
     }
 
@@ -50,13 +56,11 @@ class MessageController extends Controller
 
                 $data['id_topic'] = $id_topic;
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "MessageController/display_reply_topic", json_encode($data));
-                }
+                writeLog(INFO_LOG, "MessageController/display_reply_topic", json_encode($data));
 
                 $this->view("MessageView", $data);
             } else {
-                header("Location: /foro-ddr");
+                header("Location: " . constant('BASE_URL'));
             }
         }
     }
@@ -76,9 +80,7 @@ class MessageController extends Controller
 
             $data = $this->model->reply_topic($params);
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "MessageController/reply_topic", json_encode($data));
-            }
+            writeLog(INFO_LOG, "MessageController/reply_topic", json_encode($data));
 
             if ($data['success']) {
                 $params = array(
@@ -89,12 +91,10 @@ class MessageController extends Controller
 
                 $data = $this->model->notify_no_read_messages($params);
 
-                if (isModeDebug()) {
-                    writeLog(INFO_LOG, "MessageController/reply_topic", json_encode($data));
-                }
+                writeLog(INFO_LOG, "MessageController/reply_topic", json_encode($data));
 
                 if ($data['success']) {
-                    redirect_to_url("/foro-ddr/reply/" . $params['id_topic']);
+                    redirect_to_url(constant('BASE_URL') . "reply/" . $params['id_topic']);
                 } else {
                     $this->view("MessageView", $data);
                 }
@@ -118,9 +118,7 @@ class MessageController extends Controller
 
             $data = $this->model->mark_message_solution($params);
 
-            if (isModeDebug()) {
-                writeLog(INFO_LOG, "MessageController/mark_message_solution", json_encode($data));
-            }
+            writeLog(INFO_LOG, "MessageController/mark_message_solution", json_encode($data));
 
             if ($data['success']) {
                 $this->display($id_topic);

@@ -14,11 +14,11 @@ class AdminController extends Controller
     {
         isLogged();
 
-        header("Location: /foro-ddr/admin/categorias");
+        header("Location: " . constant('BASE_URL') . "admin/categorias");
     }
 
     function back()
     {
-        header("Location: /foro-ddr");
+        header("Location: " . constant('BASE_URL'));
     }
 }

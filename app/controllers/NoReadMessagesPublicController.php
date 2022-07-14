@@ -24,10 +24,8 @@ class NoReadMessagesPublicController extends Controller
 
         $data["display"] = true;
 
-        if (isModeDebug()) {
-            writeLog(INFO_LOG, "NoReadMessagesPublicController/display", json_encode($data));
-        }
-
+        writeLog(INFO_LOG, "NoReadMessagesPublicController/display", json_encode($data));
+    
         $this->view("NoReadMessagesPublicView", $data);
     }
 
@@ -43,7 +41,7 @@ class NoReadMessagesPublicController extends Controller
 
         $this->model->delete_no_read_messages($params);
 
-        $url = "/foro-ddr/reply/" . $id_topic . "/" . $page . "#" . $message_index;
+        $url = constant('BASE_URL') . "reply/" . $id_topic . "/" . $page . "#" . $message_index;
 
         redirect_to_url($url);
 
